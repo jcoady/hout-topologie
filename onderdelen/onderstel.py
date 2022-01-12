@@ -28,8 +28,6 @@ def onderstel():
     fractie_planken=d/b
     hele_planken=int(floor(fractie_planken))
     over=fractie_planken-hele_planken
-
-    print(d,b,fractie_planken,hele_planken,over)
     
     if ((over > 0.0) and (hele_planken > 1)):
         hele_planken=hele_planken-1
@@ -56,5 +54,4 @@ def onderstel():
         balk=plank.balk()
         Balken.append(balk)
         
-        print(planken)
     return Balken

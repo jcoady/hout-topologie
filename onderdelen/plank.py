@@ -82,15 +82,6 @@ class plank:
         self.vorm4_matrix()
         
     def plank_zagen(self, lengte, breedte, dikte):
-        if breedte > self.breedte:
-            print('test1')
-            exit()
-        if lengte > self.lengte:
-            exit()
-            print('test2')
-        if dikte > self.dikte:
-            exit()
-            print('test3')
         #p0=[0.,0.,0.] #xyz
         p1=[ lengte/2., breedte/2., dikte/2.]
         p2=[ lengte/2.,-breedte/2., dikte/2.]
