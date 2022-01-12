@@ -9,28 +9,33 @@ Created on Tue Jan 11 22:42:49 2022
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-def multiplot(breedte,hoogte,diepte,amax,Balken,Voeten):
+def multiplot(breedte,hoogte,diepte,amax,*args):
     
     fig = plt.figure(dpi=100)
     ax = fig.add_subplot(111, projection='3d')
     
-    for voet in range(len(Voeten)):
-        vlakken = Voeten[voet]
-        #print('balk: '+str(balk+1))
-        #print(vlakken[balk])
-        faces = Poly3DCollection(vlakken, linewidths=.1, edgecolors='k')
-        faces.set_facecolor((0.45,0.1,0,1))
-        ax.add_collection3d(faces)
-        #print('')
-    
-    for balk in range(len(Balken)):
-        vlakken = Balken[balk]
-        #print('balk: '+str(balk+1))
-        #print(vlakken[balk])
-        faces = Poly3DCollection(vlakken, linewidths=.1, edgecolors='k')
-        faces.set_facecolor((0.45,0.1,0,1))
-        ax.add_collection3d(faces)
-        #print('')
+    print(args)
+    for arg in args:
+        print(arg)
+        '''
+        for voet in range(len(Voeten)):
+            vlakken = Voeten[voet]
+            #print('balk: '+str(balk+1))
+            #print(vlakken[balk])
+            faces = Poly3DCollection(vlakken, linewidths=.1, edgecolors='k')
+            faces.set_facecolor((0.45,0.1,0,1))
+            ax.add_collection3d(faces)
+            #print('')
+        
+        '''
+        for balk in range(len(arg)):
+            vlakken = arg[balk]
+            #print('balk: '+str(balk+1))
+            #print(vlakken[balk])
+            faces = Poly3DCollection(vlakken, linewidths=.1, edgecolors='k')
+            faces.set_facecolor((0.45,0.1,0,1))
+            ax.add_collection3d(faces)
+            #print('')
     
     plt.title('Kast assembly')
     ax.autoscale(True)

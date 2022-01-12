@@ -18,6 +18,6 @@ def main():
     
     #plotten
     amax=max(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast)
-
-    plotter.multiplot(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast,amax,Onderstel,Voeten)
+    
+    plotter.multiplot(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast,amax,Voeten,Onderstel)
 main()
