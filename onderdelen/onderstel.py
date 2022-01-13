@@ -22,7 +22,7 @@ def onderstel():
     breedte_kast=cfg.breedte_kast
     hoogte_voet=cfg.hoogte_voet
     
-    d=float(diepte_kast)
+    d=float(diepte_kast-2*dikte_plank)
     b=float(breedte_plank)
     
     fractie_planken=d/b
@@ -40,10 +40,10 @@ def onderstel():
         for planken in range(hele_planken):
             Breedtes.append(b)
     
-    uy=diepte_kast/2.-Breedtes[planken]/2.    
+    uy=diepte_kast/2.-Breedtes[planken]/2.-dikte_plank   
     for planken in range(len(Breedtes)):
         plank=p.plank(lengte_plank,breedte_plank,dikte_plank)
-        plank.plank_zagen(breedte_kast,Breedtes[planken],dikte_plank)
+        plank.plank_zagen(breedte_kast-2*dikte_plank,Breedtes[planken],dikte_plank)
         rx,ry,rz=0,0,0
         ux=0
         if planken >= 1:

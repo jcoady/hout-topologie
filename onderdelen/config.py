@@ -13,6 +13,6 @@ breedte_plank=0
 lengte_plank=0
 dikte_plank=0
 niveaus=0
-tussenschot=0
+#tussenschot=0
 plankhoogte=0
 hoogte_voet=0
