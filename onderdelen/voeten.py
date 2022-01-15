@@ -9,7 +9,7 @@ Created on Tue Jan 11 22:42:49 2022
 import plank as p
 import config as cfg
 
-def voeten():
+def maak():
     breedte_kast=cfg.breedte_kast
     hoogte_voet=cfg.hoogte_voet
     diepte_kast=cfg.diepte_kast

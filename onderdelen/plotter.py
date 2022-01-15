@@ -27,7 +27,7 @@ def multiplot(breedte,hoogte,diepte,amax,*args):
     plt.title('Kast assembly')
     ax.autoscale(True)
     ax.set_aspect('auto')
-    ax.view_init(45, 45)
+    ax.view_init(45,45)
     #ax.view_init(0, 0)
     ax.set_xlabel('x-as - %s cm' % int(breedte))
     ax.set_ylabel('y-as - %s cm' % int(diepte))

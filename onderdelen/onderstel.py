@@ -11,7 +11,7 @@ import config as cfg
 
 from math import floor
 
-def onderstel():
+def maak():
     Breedtes=[]
     Balken=[]
     
@@ -33,20 +33,34 @@ def onderstel():
         hele_planken=hele_planken-1
         for planken in range(hele_planken):
             Breedtes.append(b)
-        over=(b*(over+1.)/2.)
-        Breedtes.append(over)
-        Breedtes.append(over)
+        if hele_planken > 0:
+            over=(b*(over+1.)/2.)
+            Breedtes.append(over)
+            Breedtes.append(over)
+        else:
+            over=(b*(over+1.)/2.)
+            Breedtes.append(over)
+            
+    elif over > 0.0:
+            over=(b*(over+1.)/2.)
+            Breedtes.append(over)
+            Breedtes.append(over)
     else:
         for planken in range(hele_planken):
             Breedtes.append(b)
     
-    uy=diepte_kast/2.-Breedtes[planken]/2.-dikte_plank   
+    uy=diepte_kast/2.- dikte_plank
+    #TODO:fixen!
+    Breedtes.reverse()
     for planken in range(len(Breedtes)):
         plank=p.plank(lengte_plank,breedte_plank,dikte_plank)
         plank.plank_zagen(breedte_kast-2*dikte_plank,Breedtes[planken],dikte_plank)
         rx,ry,rz=0,0,0
-        ux=0
-        if planken >= 1:
+        ux=0.
+        print(planken, len(Breedtes))
+        if planken == 0:
+            uy = uy - Breedtes[planken]/2.
+        else:
             uy = uy - Breedtes[planken]/2. - Breedtes[planken-1]/2.
         uz=hoogte_voet+dikte_plank/2.
         sx,sy,sz=1,1,1
