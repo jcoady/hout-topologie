@@ -6,8 +6,8 @@ Created on Tue Jan 11 22:42:49 2022
 @author: windhoos
 """
 
-import plank as p
-import config as cfg
+from onderdelen import plank as p
+from onderdelen import config as cfg
 
 def maak():
     breedte_kast=cfg.breedte_kast
