@@ -18,9 +18,8 @@ def main():
     Ribben=ribben.maak()
     
     #plotten
-    print(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast)
     amax=max(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast)
-    print(amax)
     
-    plotter.multiplot(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast,amax,'iso',Voeten,Onderstel,Ribben[0])
+    plotter.multiplot(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast,amax,'iso',Voeten,Onderstel,Ribben)
+    plotter.mayaviplot(cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast,amax,'iso',Voeten,Onderstel,Ribben)
 main()

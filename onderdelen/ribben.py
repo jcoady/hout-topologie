@@ -6,8 +6,8 @@ Created on Sat Jan 15 18:14:51 2022
 @author: windhoos
 """
 
-import plank as p
-import config as cfg
+from onderdelen import plank as p
+from onderdelen import config as cfg
 
 def maak():
     breedte_kast=cfg.breedte_kast
@@ -38,10 +38,13 @@ def maak():
                 
     riblist.append(rib(-(breedte_kast/2.-dikte_plank-dikte_rib/2.)))
     
-    return riblist
+    combined_riblist=[]
+    for i in range(len(riblist)):
+        combined_riblist=combined_riblist+riblist[i]
+    
+    return combined_riblist
     
 def rib(ux):
-    
     hoogte_kast=cfg.hoogte_kast
     breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -134,82 +137,5 @@ def rib(ux):
         r5.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         rib5=r5.balk()
         Ribben.append(rib5)
-        
-    
-    '''
-    #voet2
-    v2=p.plank(v,v,v)
-    rx,ry,rz=0,0,0
-    ux,uy,uz=breedte_kast/2.-v/2.-dikte_plank,-diepte_kast/2.+v/2.+dikte_plank,v/2.
-    sx,sy,sz=1,1,1
-    v2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-    voet2=v2.balk()
-    Voeten.append(voet2)
-    
-    if voet_extra > 0:
-        for voet in range(voet_extra):
-            ve1=p.plank(v,v,v)
-            rx,ry,rz=0,0,0
-            if voet_extra == 1:
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=0.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-            elif voet_extra == 2:
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=breedte_kast/6.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=-breedte_kast/6.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-            elif voet_extra >= 3:
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=0
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=breedte_kast/4.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=-breedte_kast/4.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-    '''
+
     return Ribben
