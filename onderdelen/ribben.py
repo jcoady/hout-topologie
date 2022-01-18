@@ -15,26 +15,26 @@ def maak():
     dikte_rib=cfg.dikte_rib
     
     riblist=[]
-    riblist.append(rib(  breedte_kast/2.-dikte_plank-dikte_rib/2.))
+    riblist.append(rib(breedte_kast/2.-dikte_plank-dikte_rib/2.))
 
     rib_extra=0
     if breedte_kast >= 170:
-        for i in range(int(breedte_kast/170)):
+        for i in range(int(breedte_kast/150)):
             rib_extra=rib_extra+1
     
     if rib_extra > 0:
-        for r in range(rib_extra):
-            if rib_extra == 1:
-                riblist.append(rib(0))
+        #for r in range(rib_extra):
+        if rib_extra == 1:
+            riblist.append(rib(0))
 
-            elif rib_extra == 2:
-                riblist.append(rib( breedte_kast/6.))
-                riblist.append(rib(-breedte_kast/6.))
-                
-            elif rib_extra >= 3:
-                riblist.append(rib(0))
-                riblist.append(rib( breedte_kast/4.))
-                riblist.append(rib(-breedte_kast/4.))
+        elif rib_extra == 2:
+            riblist.append(rib( breedte_kast/6.))
+            riblist.append(rib(-breedte_kast/6.))
+            
+        elif rib_extra == 3:
+            riblist.append(rib(0))
+            riblist.append(rib( breedte_kast/4.))
+            riblist.append(rib(-breedte_kast/4.))
                 
     riblist.append(rib(-(breedte_kast/2.-dikte_plank-dikte_rib/2.)))
     
@@ -60,17 +60,12 @@ def rib(ux):
     plank_hoogte=cfg.plankhoogte
     
     Ribben=[]
-    #bereken hoeveelheid voeten
-    rib_extra=0
-    if breedte_kast >= 170:
-        for i in range(int(breedte_kast/170)):
-            rib_extra=rib_extra+1
 
     #rib1
     r1=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r1.plank_zagen(diepte_kast-2*dikte_plank-2*dikte_rib,breedte_rib,dikte_rib)
-    r1.aantal=2+rib_extra
+    r1.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
+    r1.aantal=r1.aantal+1
     rx,ry,rz=0,0,90
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
     uy=0
@@ -83,7 +78,7 @@ def rib(ux):
     #rib2
     r2=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r2.plank_zagen(hoogte_kast-dikte_plank-hoogte_voet,breedte_rib,dikte_rib)
+    r2.plank_zagen(hoogte_kast-dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
     r1.aantal=r1.aantal+1
     rx,ry,rz=0,90,0
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
@@ -97,7 +92,7 @@ def rib(ux):
     #rib3
     r3=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r3.plank_zagen(hoogte_kast-dikte_plank-hoogte_voet,breedte_rib,dikte_rib)
+    r3.plank_zagen(hoogte_kast-dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
     r1.aantal=r1.aantal+1
     rx,ry,rz=0,90,0
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
@@ -111,7 +106,7 @@ def rib(ux):
     #rib4
     r4=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r4.plank_zagen(diepte_kast-2*dikte_plank-2*dikte_rib,breedte_rib,dikte_rib)
+    r4.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
     r1.aantal=r1.aantal+1
     rx,ry,rz=0,0,90
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
