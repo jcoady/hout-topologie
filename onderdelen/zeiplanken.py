@@ -11,30 +11,31 @@ from onderdelen import config as cfg
 from math import floor
 
 def maak():
-    
-    hoogte_kast=cfg.hoogte_kast
-    #diepte_kast=cfg.diepte_kast
-    #breedte_plank=cfg.breedte_plank
-    #lengte_plank=cfg.lengte_plank
+    breedte_kast=cfg.breedte_kast
     dikte_plank=cfg.dikte_plank
-    #breedte_kast=cfg.breedte_kast
-    hoogte_voet=cfg.hoogte_voet
     
-    onderstel=stel(hoogte_voet+dikte_plank/2.)
-    bovenkant=stel(hoogte_kast-dikte_plank/2.)
+    zeilist=[]
     
-    return onderstel+bovenkant
+    zeilist.append(zeide(breedte_kast/2.-dikte_plank/2.))
+    zeilist.append(zeide(-(breedte_kast/2.-dikte_plank/2.)))
+    
+    combined_zeilist=[]
+    for zei in range(len(zeilist)):
+        combined_zeilist=combined_zeilist+zeilist[zei]
+    
+    return combined_zeilist
 
-def stel(uz):
+def zeide(ux):
     Breedtes=[]
     Balken=[]
     
+    hoogte_kast=cfg.hoogte_kast
     diepte_kast=cfg.diepte_kast
     breedte_plank=cfg.breedte_plank
     lengte_plank=cfg.lengte_plank
     dikte_plank=cfg.dikte_plank
-    breedte_kast=cfg.breedte_kast
-    #hoogte_voet=cfg.hoogte_voet
+    #breedte_kast=cfg.breedte_kast
+    hoogte_voet=cfg.hoogte_voet
     
     d=float(diepte_kast-2*dikte_plank)
     b=float(breedte_plank)
@@ -68,15 +69,14 @@ def stel(uz):
     Breedtes.reverse()
     for planken in range(len(Breedtes)):
         plank=p.plank(lengte_plank,breedte_plank,dikte_plank)
-        plank.plank_zagen(breedte_kast-2*dikte_plank,Breedtes[planken],dikte_plank)
-        rx,ry,rz=0,0,0
-        ux=0.
+        plank.plank_zagen(hoogte_kast-hoogte_voet,Breedtes[planken],dikte_plank)
+        rx,ry,rz=0,90,0
 
         if planken == 0:
             uy = uy - Breedtes[planken]/2.
         else:
             uy = uy - Breedtes[planken]/2. - Breedtes[planken-1]/2.
-        
+        uz=hoogte_voet+(hoogte_kast-hoogte_voet)/2.
         sx,sy,sz=1,1,1
         plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()

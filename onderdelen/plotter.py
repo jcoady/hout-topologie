@@ -6,6 +6,8 @@ Created on Tue Jan 11 22:42:49 2022
 @author: windhoos
 """
 
+from onderdelen import config as cfg
+
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import mayavi.mlab
@@ -14,16 +16,16 @@ def multiplot(breedte,hoogte,diepte,amax,aanzicht,*args):
     
     fig = plt.figure(dpi=100)
     ax = fig.add_subplot(111, projection='3d')
-    #teller=0
+    teller=0
     for arg in args:
         for balk in range(len(arg)):
-            #teller=teller+1
+            teller=teller+6
             vlakken = arg[balk]
             faces = Poly3DCollection(vlakken, linewidths=.1, edgecolors='k')
             faces.set_facecolor((0.45,0.1,0,1))
             ax.add_collection3d(faces)
-            #print('')
-            #print(teller)
+
+    cfg.procent=teller
     plt.title('Kast assembly')
     ax.autoscale(True)
     ax.set_aspect('auto')
@@ -67,7 +69,7 @@ def mayaviplot(breedte,hoogte,diepte,amax,aanzicht,*args):
                 z4=vlakken[i][2][2]
                 z3=vlakken[i][3][2]
                 teller=teller+1
-                print('Mesh vlak af '+str(teller))
+                print('Voortgang: '+str(int((1000.*teller/cfg.procent))/10.)+'% - Mesh vlak: '+str(teller))
                 
                 mayavi.mlab.mesh([[x1, x2],
                               [x3, x4]],  # | => x coordinate

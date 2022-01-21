@@ -46,7 +46,7 @@ def maak():
     
 def rib(ux):
     hoogte_kast=cfg.hoogte_kast
-    breedte_kast=cfg.breedte_kast
+    #breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
     dikte_plank=cfg.dikte_plank
     
@@ -61,7 +61,7 @@ def rib(ux):
     
     Ribben=[]
 
-    #rib1
+    #rib1 - onder
     r1=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
     r1.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
@@ -75,35 +75,35 @@ def rib(ux):
     rib1=r1.balk()
     Ribben.append(rib1)
     
-    #rib2
+    #rib2 - ene zeide
     r2=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r2.plank_zagen(hoogte_kast-dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
+    r2.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
     r1.aantal=r1.aantal+1
     rx,ry,rz=0,90,0
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
     uy=diepte_kast/2.-dikte_plank-dikte_rib/2.
-    uz=hoogte_voet+dikte_plank+(hoogte_kast-dikte_plank-hoogte_voet)/2.
+    uz=hoogte_voet+dikte_plank+(hoogte_kast-dikte_plank*2-hoogte_voet)/2.
     sx,sy,sz=1,1,1
     r2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
     rib2=r2.balk()
     Ribben.append(rib2)
     
-    #rib3
+    #rib3 - andere zeide
     r3=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r3.plank_zagen(hoogte_kast-dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
+    r3.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
     r1.aantal=r1.aantal+1
     rx,ry,rz=0,90,0
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
     uy=-(diepte_kast/2.-dikte_plank-dikte_rib/2.)
-    uz=hoogte_voet+dikte_plank+(hoogte_kast-dikte_plank-hoogte_voet)/2.
+    uz=hoogte_voet+dikte_plank+(hoogte_kast-dikte_plank*2-hoogte_voet)/2.
     sx,sy,sz=1,1,1
     r3.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
     rib3=r3.balk()
     Ribben.append(rib3)
     
-    #rib4
+    #rib4 - bovenkant
     r4=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
     r4.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
@@ -111,7 +111,7 @@ def rib(ux):
     rx,ry,rz=0,0,90
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
     uy=0
-    uz=hoogte_kast-dikte_rib/2.
+    uz=hoogte_kast-dikte_rib/2.-dikte_plank
     sx,sy,sz=1,1,1
     r4.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
     rib4=r4.balk()

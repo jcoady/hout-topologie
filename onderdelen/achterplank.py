@@ -11,32 +11,18 @@ from onderdelen import config as cfg
 from math import floor
 
 def maak():
-    
-    hoogte_kast=cfg.hoogte_kast
-    #diepte_kast=cfg.diepte_kast
-    #breedte_plank=cfg.breedte_plank
-    #lengte_plank=cfg.lengte_plank
-    dikte_plank=cfg.dikte_plank
-    #breedte_kast=cfg.breedte_kast
-    hoogte_voet=cfg.hoogte_voet
-    
-    onderstel=stel(hoogte_voet+dikte_plank/2.)
-    bovenkant=stel(hoogte_kast-dikte_plank/2.)
-    
-    return onderstel+bovenkant
-
-def stel(uz):
     Breedtes=[]
     Balken=[]
     
+    hoogte_kast=cfg.hoogte_kast
     diepte_kast=cfg.diepte_kast
     breedte_plank=cfg.breedte_plank
     lengte_plank=cfg.lengte_plank
     dikte_plank=cfg.dikte_plank
     breedte_kast=cfg.breedte_kast
-    #hoogte_voet=cfg.hoogte_voet
+    hoogte_voet=cfg.hoogte_voet
     
-    d=float(diepte_kast-2*dikte_plank)
+    d=float(breedte_kast)
     b=float(breedte_plank)
     
     fractie_planken=d/b
@@ -63,20 +49,21 @@ def stel(uz):
         for planken in range(hele_planken):
             Breedtes.append(b)
     
-    uy=diepte_kast/2.- dikte_plank
+    ux=breedte_kast/2.
 
     Breedtes.reverse()
     for planken in range(len(Breedtes)):
         plank=p.plank(lengte_plank,breedte_plank,dikte_plank)
-        plank.plank_zagen(breedte_kast-2*dikte_plank,Breedtes[planken],dikte_plank)
-        rx,ry,rz=0,0,0
-        ux=0.
+        plank.plank_zagen(hoogte_kast-hoogte_voet,Breedtes[planken],dikte_plank)
+        rx,ry,rz=0,90,90
+        
+        uy=-diepte_kast/2. + dikte_plank/2.
 
         if planken == 0:
-            uy = uy - Breedtes[planken]/2.
+            ux = ux - Breedtes[planken]/2.
         else:
-            uy = uy - Breedtes[planken]/2. - Breedtes[planken-1]/2.
-        
+            ux = ux - Breedtes[planken]/2. - Breedtes[planken-1]/2.
+        uz=hoogte_voet+(hoogte_kast-hoogte_voet)/2.
         sx,sy,sz=1,1,1
         plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()

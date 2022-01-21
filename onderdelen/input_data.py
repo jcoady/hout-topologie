@@ -12,19 +12,19 @@ def input_data():
     #global breedte_kast,hoogte_kast,diepte_kast,breedte_plank,lengte_plank,dikte_plank,niveaus,tussenschot,plankhoogte,hoogte_voet
     indeling_correct = False
     while indeling_correct == False:
-        cfg.breedte_kast=400 #float(input('Wat is de breedte van de kast in cm? '))
-        voetjes=str('ja') #raw_input('heeft de kast pootjes? [y/n] '))
+        cfg.breedte_kast=300#float(input('Wat is de breedte van de kast in cm? '))
+        cfg.hoogte_kast=300#float(input('Wat is de hoogte van de kast in cm? '))
+        cfg.diepte_kast=80#float(input('Wat is de diepte van de kast in cm? '))
+        voetjes=str('ja')#str(input('heeft de kast pootjes? [y/n] '))
         if voetjes == ('ja' or 'JA') or ('Ja' or 'YES') or ('yes' or 'Yes') or ('j' or 'y'):
-            cfg.hoogte_voet=10 #float(input('Hoe hoog zijn de pootjes in cm? '))
+            cfg.hoogte_voet=10#float(input('Hoe hoog zijn de pootjes in cm? '))
         else:
             cfg.hoogte_voet = 0.
-        cfg.hoogte_kast=266 #float(input('Wat is de hoogte van de kast in cm? '))
-        cfg.hoogte_kast=cfg.hoogte_kast
-        cfg.diepte_kast=80 #float(input('Wat is de diepte van de kast in cm? '))
-        cfg.breedte_plank= 40 #float(input('Wat is de breedte van de plank in cm? '))
-        cfg.lengte_plank=400 #float(input('Wat is de lengte van de plank in cm? '))
-        cfg.dikte_plank=3.2 #float(input('Wat is de dikte van de plank in cm? '))
-        cfg.niveaus=5 #int(input('Hoeveel niveaus wil je ? '))
+        #cfg.hoogte_kast=cfg.hoogte_kast
+        cfg.breedte_plank=30.#float(input('Wat is de breedte van de plank in cm? '))
+        cfg.lengte_plank=400.#float(input('Wat is de lengte van de plank in cm? '))
+        cfg.dikte_plank=3.2#float(input('Wat is de dikte van de plank in cm? '))
+        cfg.niveaus=3#int(input('Hoeveel niveaus wil je ? '))
         #cfg.tussenschot =int(input('Hoeveel tussenschotten wil je ? '))
         if cfg.hoogte_kast > cfg.lengte_plank:
             print('De kast is hoger dan de hoogte van de plank dat is niet mogelijk!')
@@ -41,12 +41,12 @@ def input_data():
         for niveau in range(cfg.niveaus):
             #print('Er zijn %d niveaus ' % (niveaus))
             if niveau == 0:
-                afstand=20 #int(input('Wat is de afstand van onderplank tot plank %d in cm? ' % (niveau+1)))
+                afstand=20#int(input('Wat is de afstand van onderplank tot plank %d in cm? ' % (niveau+1)))
                 cfg.plankhoogte.append(afstand+cfg.dikte_plank+cfg.hoogte_voet)
                 htot=htot+cfg.plankhoogte[niveau]
                 print('Er is nu afstand %.1f cm van onder en nog %.1f cm vrije ruimte er boven' % (htot, cfg.hoogte_kast-htot-cfg.dikte_plank))
             else:
-                cfg.afstand=30 #float(input('Wat is de afstand tussen plank %d en plank %d in cm? ' % (niveau,niveau+1)))
+                cfg.afstand=20#float(input('Wat is de afstand tussen plank %d en plank %d in cm? ' % (niveau,niveau+1)))
                 if afstand != 0:  
                     cfg.plankhoogte.append(afstand+cfg.dikte_plank)
                     htot=htot+cfg.plankhoogte[niveau]
@@ -60,7 +60,7 @@ def input_data():
                 print('De afstand van plank %s tot plank %s is %.1f cm' % (niveau,niveau+1,cfg.plankhoogte[niveau]))
                 if niveau == cfg.niveaus-1:
                     print('De afstand van de bovenkant van de bovenste plank tot de onderkant van de bovenplank van de kast is %.1f cm' % (cfg.hoogte_kast-cfg.dikte_plank-htot))
-        check=str('ja')   #raw_input('Ben je tevreden met deze waarden ? [Ja/Nee] '))
+        check=str('ja')#str(input('Ben je tevreden met deze waarden ? [Ja/Nee] '))
         if check == ('ja' or 'JA') or ('Ja' or 'YES') or ('yes' or 'Yes') or ('j' or 'y'):
             indeling_correct = True
         print('')
