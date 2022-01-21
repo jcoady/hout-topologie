@@ -31,7 +31,7 @@ def maak():
             riblist.append(rib( breedte_kast/6.))
             riblist.append(rib(-breedte_kast/6.))
             
-        elif rib_extra == 3:
+        elif rib_extra >= 3:
             riblist.append(rib(0))
             riblist.append(rib( breedte_kast/4.))
             riblist.append(rib(-breedte_kast/4.))
