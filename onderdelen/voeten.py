@@ -6,8 +6,8 @@ Created on Tue Jan 11 22:42:49 2022
 @author: windhoos
 """
 
-import plank as p
-import config as cfg
+from onderdelen import plank as p
+from onderdelen import config as cfg
 
 def maak():
     breedte_kast=cfg.breedte_kast
@@ -19,14 +19,13 @@ def maak():
     #bereken hoeveelheid voeten
     voet_extra=0
     if breedte_kast >= 170:
-        for i in range(int(breedte_kast/170)):
+        for i in range(int(breedte_kast/150)):
             voet_extra=voet_extra+1
-            
+
     v=hoogte_voet
 
     #voet1
     v1=p.plank(v,v,v)
-    v1.aantal=4+voet_extra
     rx,ry,rz=0,0,0
     ux,uy,uz=breedte_kast/2.-v/2.-dikte_plank,diepte_kast/2.-v/2.-dikte_plank,v/2.
     sx,sy,sz=1,1,1
@@ -62,133 +61,134 @@ def maak():
     Voeten.append(voet4)
     
     if voet_extra > 0:
-        for voet in range(voet_extra):
+        ve1=p.plank(v,v,v)
+        rx,ry,rz=0,0,0
+        if voet_extra == 1:
             ve1=p.plank(v,v,v)
             rx,ry,rz=0,0,0
-            if voet_extra == 1:
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=0.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-            elif voet_extra == 2:
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=breedte_kast/6.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=-breedte_kast/6.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-            elif voet_extra >= 3:
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=0
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=breedte_kast/4.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
-                
-                ve1=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=-breedte_kast/4.
-                uy=diepte_kast/2.-v/2.-dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete1=ve1.balk()
-                Voeten.append(voete1)
+            ux=0.
+            uy=diepte_kast/2.-v/2.-dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1=ve1.balk()
+            Voeten.append(voete1)
+        elif voet_extra == 2:
+            ve1=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+
+            ux=(breedte_kast-2*dikte_plank)/6.
+            uy=diepte_kast/2.-v/2.-dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1=ve1.balk()
+            Voeten.append(voete1)
+            
+            ve1=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=-(breedte_kast-2*dikte_plank)/6.
+            uy=diepte_kast/2.-v/2.-dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1=ve1.balk()
+            Voeten.append(voete1)
+            
+        elif voet_extra >= 3:
+            ve1=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=0
+            uy=diepte_kast/2.-v/2.-dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1=ve1.balk()
+            Voeten.append(voete1)
+            
+            ve1=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+
+            ux=(breedte_kast-2*dikte_plank)/4.
+            uy=diepte_kast/2.-v/2.-dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1=ve1.balk()
+            Voeten.append(voete1)
+            
+            ve1=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=-(breedte_kast-2*dikte_plank)/4.
+            uy=diepte_kast/2.-v/2.-dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1=ve1.balk()
+            Voeten.append(voete1)
+        
+        ve2=p.plank(v,v,v)
+        rx,ry,rz=0,0,0
+        if voet_extra == 1:
+            ve2=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=0.
+            uy=-diepte_kast/2.+v/2.+dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2=ve2.balk()
+            Voeten.append(voete2)
+        elif voet_extra == 2:
+            ve2=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=(breedte_kast-2*dikte_plank)/6.
+            uy=-diepte_kast/2.+v/2.+dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2=ve2.balk()
+            Voeten.append(voete2)
             
             ve2=p.plank(v,v,v)
             rx,ry,rz=0,0,0
-            if voet_extra == 1:
-                ve2=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=0.
-                uy=-diepte_kast/2.+v/2.+dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete2=ve2.balk()
-                Voeten.append(voete2)
-            elif voet_extra == 2:
-                ve2=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=breedte_kast/6.
-                uy=-diepte_kast/2.+v/2.+dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete2=ve2.balk()
-                Voeten.append(voete2)
-                
-                ve2=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=-breedte_kast/6.
-                uy=-diepte_kast/2.+v/2.+dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete2=ve2.balk()
-                Voeten.append(voete2)
-                
-            elif voet_extra >= 3:
-                ve2=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=0.
-                uy=-diepte_kast/2.+v/2.+dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete2=ve2.balk()
-                Voeten.append(voete2)
-                
-                ve2=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=breedte_kast/4.
-                uy=-diepte_kast/2.+v/2.+dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete2=ve2.balk()
-                Voeten.append(voete2)
-                
-                ve2=p.plank(v,v,v)
-                rx,ry,rz=0,0,0
-                ux=-breedte_kast/4.
-                uy=-diepte_kast/2.+v/2.+dikte_plank
-                uz=v/2.
-                sx,sy,sz=1,1,1
-                ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-                voete2=ve2.balk()
-                Voeten.append(voete2)
-    
+            ux=-(breedte_kast-2*dikte_plank)/6.
+            uy=-diepte_kast/2.+v/2.+dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2=ve2.balk()
+            Voeten.append(voete2)
+            
+        elif voet_extra >= 3:
+            ve2=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=0.
+            uy=-diepte_kast/2.+v/2.+dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2=ve2.balk()
+            Voeten.append(voete2)
+            
+            ve2=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=(breedte_kast-2*dikte_plank)/4.
+            uy=-diepte_kast/2.+v/2.+dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2=ve2.balk()
+            Voeten.append(voete2)
+            
+            ve2=p.plank(v,v,v)
+            rx,ry,rz=0,0,0
+            ux=-(breedte_kast-2*dikte_plank)/4.
+            uy=-diepte_kast/2.+v/2.+dikte_plank
+            uz=v/2.
+            sx,sy,sz=1,1,1
+            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2=ve2.balk()
+            Voeten.append(voete2)
+
     return Voeten

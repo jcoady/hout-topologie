@@ -22,3 +22,5 @@ hoogte_voet=0
 breedte_rib=5
 lengte_rib=240
 dikte_rib=breedte_rib
+
+procent=0

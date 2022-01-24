@@ -16,7 +16,7 @@ class plank:
         self.breedte=breedte
         self.lengte=lengte
         self.dikte=dikte
-        self.aantal=0.
+        #self.aantal=0.
     
         self.matrix_base=0.
         self.vlakken_base=0.
