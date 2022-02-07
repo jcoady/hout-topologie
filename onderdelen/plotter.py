@@ -247,4 +247,4 @@ def vpythonplot(breedte,hoogte,diepte,amax,aanzicht,Scharnier,*args):
                 rod = cylinder(pos=vector(x3,y3,z3),axis=vector(x4-x3,y4-y3,z4-z3), radius=.3, color=color.black)
                 rod = cylinder(pos=vector(x4,y4,z4),axis=vector(x1-x4,y1-y4,z1-z4), radius=.3, color=color.black)
     
-    scene.capture('kast-vpython2.png')
+    scene.capture('kast-vpython.png')
