@@ -28,12 +28,8 @@ voorplank_breedte=0
 procent=0
 
 start=0
-<<<<<<< Updated upstream
-end=0
-=======
 end=0
 
 graphics=0
 sliders=[]
 sliders_update=[]
->>>>>>> Stashed changes

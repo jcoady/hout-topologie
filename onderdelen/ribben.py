@@ -124,10 +124,6 @@ def rib(ux):
     ph=0
     for niveau in range(niveaus):
         #ph=ph+plank_hoogte[niveau]
-<<<<<<< Updated upstream
-=======
-        #print('test',cfg.sliders,cfg.plankhoogte,cfg.niveaus)
->>>>>>> Stashed changes
         ph=plank_hoogte[niveau]
         r5=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
