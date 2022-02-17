@@ -12,7 +12,11 @@ def input_data():
     #global breedte_kast,hoogte_kast,diepte_kast,breedte_plank,lengte_plank,dikte_plank,niveaus,tussenschot,plankhoogte,hoogte_voet
     indeling_correct = False
     while indeling_correct == False:
+<<<<<<< Updated upstream
         cfg.breedte_kast=600#float(input('Wat is de breedte van de kast in cm? '))
+=======
+        cfg.breedte_kast=200#float(input('Wat is de breedte van de kast in cm? '))
+>>>>>>> Stashed changes
         cfg.hoogte_kast=300#float(input('Wat is de hoogte van de kast in cm? '))
         cfg.diepte_kast=80#float(input('Wat is de diepte van de kast in cm? '))
         voetjes=str('ja')#str(input('heeft de kast pootjes? [y/n] '))
@@ -47,7 +51,11 @@ def input_data():
         max_planken = False
         while max_planken == False:
             print('Er is nog %.1f cm ruimte boven de plank' % (cfg.hoogte_kast - cfg.dikte_plank - cfg.plankhoogte[niveau]))
+<<<<<<< Updated upstream
             cfg.plankhoogte.append(100.)#float(input('Wat is de afstand tot de onderkant van de volgende plank in cm ? '))+cfg.dikte_plank+cfg.plankhoogte[niveau])
+=======
+            cfg.plankhoogte.append(100)#float(input('Wat is de afstand tot de onderkant van de volgende plank in cm ? '))+cfg.dikte_plank+cfg.plankhoogte[niveau])
+>>>>>>> Stashed changes
             print('Er is nog %.1f cm ruimte boven de plank' % (cfg.hoogte_kast - cfg.dikte_plank - cfg.plankhoogte[-1]))
             check='N'#input('Moet er nog een plank worden toegevoegd ? Y/N '))
             if check == 'N':
