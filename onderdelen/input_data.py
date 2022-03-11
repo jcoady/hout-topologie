@@ -12,9 +12,9 @@ def input_data():
     #global breedte_kast,hoogte_kast,diepte_kast,breedte_plank,lengte_plank,dikte_plank,niveaus,tussenschot,plankhoogte,hoogte_voet
     indeling_correct = False
     while indeling_correct == False:
-        cfg.breedte_kast=200#float(input('Wat is de breedte van de kast in cm? '))
-        cfg.hoogte_kast=300#float(input('Wat is de hoogte van de kast in cm? '))
-        cfg.diepte_kast=80#float(input('Wat is de diepte van de kast in cm? '))
+        #cfg.breedte_kast=200#float(input('Wat is de breedte van de kast in cm? '))
+        #cfg.hoogte_kast=300#float(input('Wat is de hoogte van de kast in cm? '))
+        #cfg.diepte_kast=80#float(input('Wat is de diepte van de kast in cm? '))
         voetjes=str('ja')#str(input('heeft de kast pootjes? [y/n] '))
         if voetjes == ('ja' or 'JA') or ('Ja' or 'YES') or ('yes' or 'Yes') or ('j' or 'y'):
             cfg.hoogte_voet=10#float(input('Hoe hoog zijn de pootjes in cm? '))
@@ -59,35 +59,3 @@ def input_data():
             
     del cfg.plankhoogte[0]
     cfg.niveaus = len(cfg.plankhoogte)
-        
-    '''
-    indeling_correct = False
-    while indeling_correct == False:
-        for niveau in range(cfg.niveaus):
-            #print('Er zijn %d niveaus ' % (niveaus))
-            if niveau == 0:
-                #TODO plankhoogtes bepalen.
-                afstand=20#int(input('Hoe groot is de ruimte tussen de onderplank en plank %d in cm? ' % (niveau+1)))
-                cfg.plankhoogte.append(afstand+cfg.dikte_plank+cfg.hoogte_voet)
-                htot=htot+cfg.plankhoogte[niveau]
-                print('Er is nu afstand %.1f cm van onder en nog %.1f cm vrije ruimte er boven' % (htot, cfg.hoogte_kast-htot-cfg.dikte_plank))
-            else:
-                cfg.afstand=20#float(input('Hoe groot is de afrant tussen plank %d en plank %d in cm? ' % (niveau,niveau+1)))
-                if afstand != 0:  
-                    cfg.plankhoogte.append(afstand)
-                    htot=htot+cfg.plankhoogte[niveau]
-                print('Er is nu afstand %.1f cm van onder en nog %.1f cm vrije ruimte tot boven' % (htot, cfg.hoogte_kast-htot-cfg.dikte_plank))
-        print('Het volgende is nu bekend van de indeling van de kast')
-        print('Er zijn %d niveaus in de kast' % (cfg.niveaus+1))
-        for niveau in range(cfg.niveaus):
-            if niveau == 0:
-                print('De afstand tot de grond tot de bovenkant van plank 1 is: %.1f cm' % (cfg.plankhoogte[niveau]))
-            else:
-                print('De afstand van plank %s tot plank %s is %.1f cm' % (niveau,niveau+1,cfg.plankhoogte[niveau]))
-                if niveau == cfg.niveaus-1:
-                    print('De afstand van de bovenkant van de bovenste plank tot de onderkant van de bovenplank van de kast is %.1f cm' % (cfg.hoogte_kast-cfg.dikte_plank-htot))
-        check=str('ja')#str(input('Ben je tevreden met deze waarden ? [Ja/Nee] '))
-        if check == ('ja' or 'JA') or ('Ja' or 'YES') or ('yes' or 'Yes') or ('j' or 'y'):
-            indeling_correct = True
-        print('')
-        '''

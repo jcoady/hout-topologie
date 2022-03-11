@@ -33,3 +33,12 @@ end=0
 graphics=0
 sliders=[]
 sliders_update=[]
+update_graph=False
+
+reset=False
+reset_loop=True
+
+knoppen=[]
+build_state=False
+
+finish_drawing = False
