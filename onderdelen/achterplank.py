@@ -69,31 +69,32 @@ def maak():
         plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
-        
-        if planken == 0:
-            df_plank = pd.DataFrame({
-                "naam":         ['achterplank'],
-                "subnaam":      [''],
-                "type":         ['plank'],
-                "nummer":       [0],
-                "lengte":       [hoogte_kast-hoogte_voet],
-                "breedte":      [Breedtes[planken]],
-                "dikte":        [dikte_plank],
-                "xloc":         [ux],
-                "yloc":         [uy],
-                "zloc":         [uz],
-                "rx":           [rx],
-                "ry":           [ry],
-                "rz":           [rz],
-                "opmerking":    [''],
-                })
+        try:
+            if cfg.df_achterplank == []:
+                df_achterplank = pd.DataFrame({
+                    "naam":         ['achterplank'],
+                    "subnaam":      [''],
+                    "type":         ['plank'],
+                    "nummer":       [0],
+                    "lengte":       [hoogte_kast-hoogte_voet],
+                    "breedte":      [Breedtes[planken]],
+                    "dikte":        [dikte_plank],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+                cfg.df_achterplank=df_achterplank
             
-        else:
-            df_plank_append = pd.DataFrame({
+        except ValueError:
+            df_achterplank_append = pd.DataFrame({
                 "naam":         ['achterplank'],
                 "subnaam":      [''],
                 "type":         ['plank'],
-                "nummer":       [df_plank.shape[0]],
+                "nummer":       [cfg.df_achterplank.shape[0]],
                 "lengte":       [hoogte_kast-hoogte_voet],
                 "breedte":      [Breedtes[planken]],
                 "dikte":        [dikte_plank],
@@ -106,9 +107,6 @@ def maak():
                 "opmerking":    [''],
                 })
         
-            df_plank=pd.concat([df_plank,df_plank_append],ignore_index=True)
-        
-    cfg.df_achterplank=df_plank
-    print(cfg.df_achterplank)
+            cfg.df_achterplank=pd.concat([cfg.df_achterplank,df_achterplank_append],ignore_index=True)
         
     return Balken

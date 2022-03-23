@@ -331,6 +331,5 @@ def maak():
         df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
         
     cfg.df_voet=df_voet
-    print(cfg.df_voet)
 
     return Voeten

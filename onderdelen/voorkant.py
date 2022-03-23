@@ -15,9 +15,6 @@ import pandas as pd
 
 def maak(theta):
     
-    df_plank=[]
-    df_plank_append=[]
-    
     #hoogte_kast=cfg.hoogte_kast
     breedte_kast=cfg.breedte_kast
     #diepte_kast=cfg.diepte_kast

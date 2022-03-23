@@ -83,8 +83,9 @@ def zeide(ux,sub):
         balk=plank.balk()
         Balken.append(balk)
         
-        if planken == 0:
-            df_plank = pd.DataFrame({
+        try:
+            if cfg.df_zeiplank == []:
+                df_zeiplank = pd.DataFrame({
                 "naam":         ['zeiplanken'],
                 "subnaam":      [sub],
                 "type":         ['plank'],
@@ -100,13 +101,14 @@ def zeide(ux,sub):
                 "rz":           [rz],
                 "opmerking":    [''],
                 })
-            
-        else:
-            df_plank_append = pd.DataFrame({
+                cfg.df_zeiplank=df_zeiplank
+                    
+        except ValueError:
+            df_zeiplank_append = pd.DataFrame({
                 "naam":         ['zeiplanken'],
                 "subnaam":      [sub],
                 "type":         ['plank'],
-                "nummer":       [df_plank.shape[0]],
+                "nummer":       [cfg.df_zeiplank.shape[0]],
                 "lengte":       [hoogte_kast-hoogte_voet],
                 "breedte":      [Breedtes[planken]],
                 "dikte":        [dikte_plank],
@@ -118,10 +120,7 @@ def zeide(ux,sub):
                 "rz":           [rz],
                 "opmerking":    [''],
                 })
-        
-            df_plank=pd.concat([df_plank,df_plank_append],ignore_index=True)
-        
-    cfg.df_zeiplank=df_plank
-    print(cfg.df_zeiplank)
+            
+            cfg.df_zeiplank=pd.concat([cfg.df_zeiplank,df_zeiplank_append],ignore_index=True)
         
     return Balken

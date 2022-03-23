@@ -48,8 +48,10 @@ def main():
         finish = False
         while finish != True:
             print('wait2')
+            cfg.df_ribben=[]
             Ribben=ribben.maak()
             Achterrib=achterrib.maak()
+            cfg.df_vlonders=[]
             Vlonders=vlonders.maak()
                 
             plotter.plotniveau(Ribben,Vlonders,Achterrib)

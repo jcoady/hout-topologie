@@ -82,31 +82,32 @@ def stel(uz,sub):
         plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
-        
-        if planken == 0:
-            df_onderstel = pd.DataFrame({
-                "naam":         ['onderstel'],
-                "subnaam":      [sub],
-                "type":         ['plank'],
-                "nummer":       [0],
-                "lengte":       [breedte_kast-2*dikte_plank],
-                "breedte":      [Breedtes[planken]],
-                "dikte":        [dikte_plank],
-                "xloc":         [ux],
-                "yloc":         [uy],
-                "zloc":         [uz],
-                "rx":           [rx],
-                "ry":           [ry],
-                "rz":           [rz],
-                "opmerking":    [''],
-                })
+        try:
+            if cfg.df_onderstel == []:
+                df_onderstel = pd.DataFrame({
+                    "naam":         ['onderstel'],
+                    "subnaam":      [sub],
+                    "type":         ['plank'],
+                    "nummer":       [0],
+                    "lengte":       [breedte_kast-2*dikte_plank],
+                    "breedte":      [Breedtes[planken]],
+                    "dikte":        [dikte_plank],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+                cfg.df_onderstel=df_onderstel
             
-        else:
+        except ValueError:
             df_onderstel_append = pd.DataFrame({
                 "naam":         ['onderstel'],
                 "subnaam":      [sub],
                 "type":         ['plank'],
-                "nummer":       [df_onderstel.shape[0]],
+                "nummer":       [cfg.df_onderstel.shape[0]],
                 "lengte":       [breedte_kast-2*dikte_plank],
                 "breedte":      [Breedtes[planken]],
                 "dikte":        [dikte_plank],
@@ -119,9 +120,6 @@ def stel(uz,sub):
                 "opmerking":    [''],
                 })
         
-            df_onderstel=pd.concat([df_onderstel,df_onderstel_append],ignore_index=True)
-        
-    cfg.df_onderstel=df_onderstel
-    print(cfg.df_onderstel)
+            cfg.df_onderstel=pd.concat([cfg.df_onderstel,df_onderstel_append],ignore_index=True)
         
     return Balken
