@@ -11,7 +11,12 @@ from onderdelen import config as cfg
 
 from math import floor,radians,degrees,cos,sin
 
+import pandas as pd
+
 def maak(theta):
+    
+    df_plank=[]
+    df_plank_append=[]
     
     #hoogte_kast=cfg.hoogte_kast
     breedte_kast=cfg.breedte_kast
@@ -41,8 +46,8 @@ def maak(theta):
     u0=-breedte_kast/2.+voorplank_breedte
     ui=(breedte_kast-voorplank_breedte)/(rib_extra+1)
 
-    plank_list.append(voorplank(u0-voorplank_breedte))
-    plank_list.append(voorplank(-u0))
+    plank_list.append(voorplank(u0-voorplank_breedte,theta))
+    plank_list.append(voorplank(-u0,theta))
     #plank_list.append(deur(breedte_kast/2. - voorplank_breedte))
     
     
@@ -59,7 +64,7 @@ def maak(theta):
         plank_list.append(deur(u0+ui*1,theta))
         plank_list.append(stut(u0+ui*1,theta))
         scharnier_list.append(scharnier(u0+ui*1,theta))
-        plank_list.append(voorplank(u0+ui*1-voorplank_breedte))
+        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta))
 
     elif rib_extra == 2:
         #ux=(breedte_kast-dikte_plank*2-dikte_rib)/6.
@@ -76,8 +81,8 @@ def maak(theta):
         plank_list.append(deur(u0+ui*2,theta))
         plank_list.append(stut(u0+ui*2,theta))
         scharnier_list.append(scharnier(u0+ui*2,theta))
-        plank_list.append(voorplank(u0+ui*1-voorplank_breedte))
-        plank_list.append(voorplank(u0+ui*2-voorplank_breedte))
+        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta))
+        plank_list.append(voorplank(u0+ui*2-voorplank_breedte,theta))
             
     elif rib_extra >= 3:
         #plank_list.append(voorplank(0))
@@ -99,9 +104,9 @@ def maak(theta):
         plank_list.append(deur(u0+ui*3,theta))
         plank_list.append(stut(u0+ui*3,theta))
         scharnier_list.append(scharnier(u0+ui*3,theta))
-        plank_list.append(voorplank(u0+ui*1-voorplank_breedte))
-        plank_list.append(voorplank(u0+ui*2-voorplank_breedte))
-        plank_list.append(voorplank(u0+ui*3-voorplank_breedte))
+        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta))
+        plank_list.append(voorplank(u0+ui*2-voorplank_breedte,theta))
+        plank_list.append(voorplank(u0+ui*3-voorplank_breedte,theta))
     
     combined_list=[]
     for i in range(len(plank_list)):
@@ -113,7 +118,7 @@ def maak(theta):
     
     return combined_list,combined_list2
     
-def voorplank(ux):
+def voorplank(ux,theta):
     hoogte_kast=cfg.hoogte_kast
     #breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -143,6 +148,49 @@ def voorplank(ux):
     plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
     balk=plank.balk()
     Balken.append(balk)
+    if theta == 0:
+        try:
+            if cfg.df_voorkant == []:
+                df_voorkant = pd.DataFrame({
+                    "naam":         ['voorkant'],
+                    "subnaam":      ['voorplank'],
+                    "type":         ['plank'],
+                    "nummer":       [0],
+                    "lengte":       [hoogte_kast-hoogte_voet],
+                    "breedte":      [voorplank_breedte],
+                    "dikte":        [dikte_plank],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+                cfg.df_voorkant=df_voorkant
+                
+        except ValueError:
+                df_voorkant_append = pd.DataFrame({
+                    "naam":         ['voorkant'],
+                    "subnaam":      ['voorplank'],
+                    "type":         ['plank'],
+                    "nummer":       [cfg.df_voorkant.shape[0]],
+                    "lengte":       [hoogte_kast-hoogte_voet],
+                    "breedte":      [voorplank_breedte],
+                    "dikte":        [dikte_plank],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+            
+                cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
+                #cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant],ignore_index=True)
+            
+        #cfg.df_voorkant=df_voorkant
 
     return Balken
 
@@ -222,6 +270,47 @@ def deur(ux,theta):
         plank.transformatie(rx,ry,rz,uxa,uya,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
+        if theta == 0:
+            try:
+                if cfg.df_voorkant == []:
+                    df_voorkant = pd.DataFrame({
+                        "naam":         ['voorkant'],
+                        "subnaam":      ['deur'],
+                        "type":         ['plank'],
+                        "nummer":       [0],
+                        "lengte":       [hoogte_kast-hoogte_voet],
+                        "breedte":      [round(Breedtes[planken],1)],
+                        "dikte":        [dikte_plank],
+                        "xloc":         [ux],
+                        "yloc":         [uy],
+                        "zloc":         [uz],
+                        "rx":           [rx],
+                        "ry":           [ry],
+                        "rz":           [rz],
+                        "opmerking":    [''],
+                        })
+                    cfg.df_voorkant=df_voorkant
+                
+            except ValueError:
+                df_voorkant_append = pd.DataFrame({
+                    "naam":         ['voorkant'],
+                    "subnaam":      ['deur'],
+                    "type":         ['plank'],
+                    "nummer":       [cfg.df_voorkant.shape[0]],
+                    "lengte":       [hoogte_kast-hoogte_voet],
+                    "breedte":      [round(Breedtes[planken],1)],
+                    "dikte":        [dikte_plank],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+            
+                cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
+                #cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant],ignore_index=True)
         
     return Balken
 
@@ -272,6 +361,47 @@ def stut(ux,theta):
         plank.transformatie(rx,ry,rz,uxa,uya,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
+        if theta == 0:
+            try:
+                if cfg.df_voorkant == []:
+                    df_voorkant = pd.DataFrame({
+                        "naam":         ['voorkant'],
+                        "subnaam":      ['stut'],
+                        "type":         ['plank'],
+                        "nummer":       [0],
+                        "lengte":       [round(d*.9,1)],
+                        "breedte":      [breedte_plank],
+                        "dikte":        [dikte_plank],
+                        "xloc":         [ux],
+                        "yloc":         [uy],
+                        "zloc":         [uz],
+                        "rx":           [rx],
+                        "ry":           [ry],
+                        "rz":           [rz],
+                        "opmerking":    [''],
+                        })
+                    cfg.df_voorkant=df_voorkant
+                
+            except ValueError:
+                df_voorkant_append = pd.DataFrame({
+                    "naam":         ['voorkant'],
+                    "subnaam":      ['stut'],
+                    "type":         ['plank'],
+                    "nummer":       [cfg.df_voorkant.shape[0]],
+                    "lengte":       [round(d*.9,1)],
+                    "breedte":      [breedte_plank],
+                    "dikte":        [dikte_plank],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+            
+                cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
+                #cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant],ignore_index=True)
         
     return Balken
 
@@ -350,6 +480,47 @@ def scharnier(ux,theta):
         plank.transformatie(rx,ry,rz,uxs,uys,uzs,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
+        if theta == 0:
+            try:
+                if cfg.df_voorkant == []:
+                    df_voorkant = pd.DataFrame({
+                        "naam":         ['voorkant'],
+                        "subnaam":      ['scharnier'],
+                        "type":         ['scharnier'],
+                        "nummer":       [0],
+                        "lengte":       [lengte_voet],
+                        "breedte":      [breedte_voet],
+                        "dikte":        [dikte_voet],
+                        "xloc":         [ux],
+                        "yloc":         [uy],
+                        "zloc":         [uz],
+                        "rx":           [rx],
+                        "ry":           [ry],
+                        "rz":           [rz],
+                        "opmerking":    [''],
+                        })
+                    cfg.df_voorkant=df_voorkant
+                
+            except ValueError:
+                df_voorkant_append = pd.DataFrame({
+                    "naam":         ['voorkant'],
+                    "subnaam":      ['scharnier'],
+                    "type":         ['scharnier'],
+                    "nummer":       [cfg.df_voorkant.shape[0]],
+                    "lengte":       [lengte_voet],
+                    "breedte":      [breedte_voet],
+                    "dikte":        [dikte_voet],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+            
+                cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
+                #cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant],ignore_index=True)
         
     #slot
     plank=p.plank(lengte_plank,breedte_plank,dikte_plank)
@@ -364,7 +535,48 @@ def scharnier(ux,theta):
     plank.transformatie(rx,ry,rz,uxa,uya,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
     balk=plank.balk()
     Balken.append(balk)
-        
+    if theta == 0:
+        try:
+            if cfg.df_voorkant == []:
+                    df_voorkant = pd.DataFrame({
+                        "naam":         ['voorkant'],
+                        "subnaam":      ['slot'],
+                        "type":         ['slot'],
+                        "nummer":       [0],
+                        "lengte":       [breedte_clip],
+                        "breedte":      [breedte_clip],
+                        "dikte":        [dikte_clip],
+                        "xloc":         [ux],
+                        "yloc":         [uy],
+                        "zloc":         [uz],
+                        "rx":           [rx],
+                        "ry":           [ry],
+                        "rz":           [rz],
+                        "opmerking":    [''],
+                        })
+                    cfg.df_voorkant=df_voorkant
+                
+        except ValueError:
+                df_voorkant_append = pd.DataFrame({
+                    "naam":         ['voorkant'],
+                    "subnaam":      ['slot'],
+                    "type":         ['slot'],
+                    "nummer":       [cfg.df_voorkant.shape[0]],
+                    "lengte":       [breedte_clip],
+                    "breedte":      [breedte_clip],
+                    "dikte":        [dikte_clip],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+            
+                cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
+                #cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant],ignore_index=True)
+            
     return Balken
 
 def rotate_point(pointX, pointY, originX, originY, angle):

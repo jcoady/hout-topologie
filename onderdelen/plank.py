@@ -10,6 +10,7 @@ from math import radians
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from onderdelen import config as cfg
 
 class plank:
     def __init__(self,lengte,breedte,dikte):
@@ -100,6 +101,8 @@ class plank:
         self.amax=np.amax(self.matrix_nieuw)
         self.vlakken_maken(self.matrix_nieuw)
         self.matrix3 = self.matrix_nieuw
+        #cfg.plank_lijst.append([lengte,breedte,dikte])
+        #print(len(cfg.plank_lijst))
     
     '''
     def plank_vlakken(self):

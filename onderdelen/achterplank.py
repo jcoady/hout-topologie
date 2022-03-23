@@ -9,6 +9,7 @@ Created on Tue Jan 11 22:42:49 2022
 from onderdelen import plank as p
 from onderdelen import config as cfg
 from math import floor
+import pandas as pd
 
 def maak():
     Breedtes=[]
@@ -68,5 +69,46 @@ def maak():
         plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
+        
+        if planken == 0:
+            df_plank = pd.DataFrame({
+                "naam":         ['achterplank'],
+                "subnaam":      [''],
+                "type":         ['plank'],
+                "nummer":       [0],
+                "lengte":       [hoogte_kast-hoogte_voet],
+                "breedte":      [Breedtes[planken]],
+                "dikte":        [dikte_plank],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+        else:
+            df_plank_append = pd.DataFrame({
+                "naam":         ['achterplank'],
+                "subnaam":      [''],
+                "type":         ['plank'],
+                "nummer":       [df_plank.shape[0]],
+                "lengte":       [hoogte_kast-hoogte_voet],
+                "breedte":      [Breedtes[planken]],
+                "dikte":        [dikte_plank],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_plank=pd.concat([df_plank,df_plank_append],ignore_index=True)
+        
+    cfg.df_achterplank=df_plank
+    print(cfg.df_achterplank)
         
     return Balken

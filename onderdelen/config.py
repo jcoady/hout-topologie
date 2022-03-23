@@ -25,6 +25,14 @@ dikte_rib=breedte_rib
 
 voorplank_breedte=0
 
+df_voet=[]
+df_onderstel=[]
+df_zeiplank=[]
+df_achterplank=[]
+df_voorkant=[]
+df_ribben=[]
+df_vlonders=[]
+
 procent=0
 
 start=0

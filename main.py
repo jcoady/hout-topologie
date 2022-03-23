@@ -60,44 +60,6 @@ def main():
                 print('reset triggered')
                 finish = True
                 
-                #reset config
-                cfg.breedte_kast=0
-                cfg.hoogte_kast=0
-                cfg.diepte_kast=0
-                
-                cfg.breedte_plank=0
-                cfg.lengte_plank=0
-                cfg.dikte_plank=0
-                
-                cfg.niveaus=0
-                cfg.plankhoogte=0
-                
-                cfg.hoogte_voet=0
-                
-                cfg.breedte_rib=5
-                cfg.lengte_rib=240
-                cfg.dikte_rib=cfg.breedte_rib
-                
-                cfg.voorplank_breedte=0
-                
-                cfg.procent=0
-                
-                cfg.start=0
-                cfg.end=0
-                
-                cfg.graphics=0
-                cfg.sliders=[]
-                cfg.sliders_update=[]
-                cfg.update_graph=False
-                
-                cfg.reset=False
-                cfg.reset_loop=True
-                
-                cfg.knoppen=[]
-                cfg.build_state=False
-                
-                cfg.finish_drawing = False
-                #cfg.reset = False
             if cfg.finish_drawing == True:
                 cfg.reset_loop == False
                 finish = True

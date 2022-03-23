@@ -21,15 +21,15 @@ def input_data():
         else:
             cfg.hoogte_voet = 0.
         #cfg.hoogte_kast=cfg.hoogte_kast
-        cfg.breedte_plank=30.#float(input('Wat is de breedte van de plank in cm? '))
-        cfg.lengte_plank=600.#float(input('Wat is de lengte van de plank in cm? '))
-        cfg.dikte_plank=3.2#float(input('Wat is de dikte van de plank in cm? '))
+        cfg.breedte_plank=20.#float(input('Wat is de breedte van de plank in cm? '))
+        cfg.lengte_plank=250.#float(input('Wat is de lengte van de plank in cm? '))
+        cfg.dikte_plank=2.2#float(input('Wat is de dikte van de plank in cm? '))
         cfg.niveaus=3#int(input('Hoeveel niveaus wil je ? '))
         #cfg.tussenschot =int(input('Hoeveel tussenschotten wil je ? '))
-        if cfg.hoogte_kast > cfg.lengte_plank:
+        if cfg.hoogte_kast > cfg.lengte_plank + 2*cfg.dikte_plank + cfg.hoogte_voet:
             print('De kast is hoger dan de hoogte van de plank dat is niet mogelijk!')
             print('Voer de waarden opnieuw in.')
-        if cfg.breedte_kast > cfg.lengte_plank:
+        if cfg.breedte_kast > cfg.lengte_plank + 2*cfg.dikte_plank:
             print('De kast is breder dan de hoogte van de plank dat is niet mogelijk!')
             print('Voer de waarden opnieuw in.')
         else:

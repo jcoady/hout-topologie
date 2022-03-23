@@ -9,6 +9,7 @@ Created on Sat Jan 15 18:14:51 2022
 from onderdelen import plank as p
 from onderdelen import config as cfg
 from math import floor
+import pandas as pd
     
 def maak():
     lengte=cfg.breedte_kast-2*cfg.dikte_plank-1.
@@ -99,6 +100,46 @@ def vlonder(lengte_vlonder,uz):
         plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
+        
+        try:
+            if cfg.df_vlonders == []:
+                df_vlonders = pd.DataFrame({
+                    "naam":         ['vlonders'],
+                    "subnaam":      [''],
+                    "type":         ['plank'],
+                    "nummer":       [0],
+                    "lengte":       [lengte_vlonder],
+                    "breedte":      [Breedtes[planken]],
+                    "dikte":        [dikte_plank],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+                cfg.df_vlonders=df_vlonders
+                    
+        except ValueError:
+            df_vlonders_append = pd.DataFrame({
+                "naam":         ['vlonders'],
+                "subnaam":      [''],
+                "type":         ['plank'],
+                "nummer":       [cfg.df_vlonders.shape[0]],
+                "lengte":       [lengte_vlonder],
+                "breedte":      [Breedtes[planken]],
+                "dikte":        [dikte_plank],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            cfg.df_vlonders=pd.concat([cfg.df_vlonders,df_vlonders_append],ignore_index=True)
         
     return Balken
     

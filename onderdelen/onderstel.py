@@ -9,6 +9,7 @@ Created on Tue Jan 11 22:42:49 2022
 from onderdelen import plank as p
 from onderdelen import config as cfg
 from math import floor
+import pandas as pd
 
 def maak():
     
@@ -20,12 +21,12 @@ def maak():
     #breedte_kast=cfg.breedte_kast
     hoogte_voet=cfg.hoogte_voet
     
-    onderstel=stel(hoogte_voet+dikte_plank/2.)
-    bovenkant=stel(hoogte_kast-dikte_plank/2.)
+    onderstel=stel(hoogte_voet+dikte_plank/2.,'onderkant')
+    bovenkant=stel(hoogte_kast-dikte_plank/2.,'bovenkant')
     
     return onderstel+bovenkant
 
-def stel(uz):
+def stel(uz,sub):
     Breedtes=[]
     Balken=[]
     
@@ -81,5 +82,46 @@ def stel(uz):
         plank.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
+        
+        if planken == 0:
+            df_onderstel = pd.DataFrame({
+                "naam":         ['onderstel'],
+                "subnaam":      [sub],
+                "type":         ['plank'],
+                "nummer":       [0],
+                "lengte":       [breedte_kast-2*dikte_plank],
+                "breedte":      [Breedtes[planken]],
+                "dikte":        [dikte_plank],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+        else:
+            df_onderstel_append = pd.DataFrame({
+                "naam":         ['onderstel'],
+                "subnaam":      [sub],
+                "type":         ['plank'],
+                "nummer":       [df_onderstel.shape[0]],
+                "lengte":       [breedte_kast-2*dikte_plank],
+                "breedte":      [Breedtes[planken]],
+                "dikte":        [dikte_plank],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_onderstel=pd.concat([df_onderstel,df_onderstel_append],ignore_index=True)
+        
+    cfg.df_onderstel=df_onderstel
+    print(cfg.df_onderstel)
         
     return Balken

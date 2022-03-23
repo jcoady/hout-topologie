@@ -168,7 +168,9 @@ def knop_niveau(b):
     
 def reset(b):
     print('RESET')
-    
+    print('WERKT NOG NIET')
+    #TODO: RESET KNOP MAKEN
+    '''
     cfg.reset=True
     for i in range(len(cfg.sliders_update)):
         cfg.sliders_update[i][2].delete()
@@ -193,6 +195,7 @@ def reset(b):
     cfg.knoppen[1].disabled = True
     cfg.knoppen[2].disabled = True
     cfg.knoppen[3].disabled = True
+    '''
     
 def building(b):
     print('BUILD')

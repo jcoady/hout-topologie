@@ -8,6 +8,7 @@ Created on Sat Jan 15 18:14:51 2022
 
 from onderdelen import plank as p
 from onderdelen import config as cfg
+import pandas as pd
 
 def maak():
     breedte_kast=cfg.breedte_kast
@@ -79,6 +80,46 @@ def rib(ux):
     rib1=r1.balk()
     Ribben.append(rib1)
     
+    try:
+        if cfg.df_ribben == []:
+            df_ribben = pd.DataFrame({
+                "naam":         ['ribben'],
+                "subnaam":      ['onder'],
+                "type":         ['balk'],
+                "nummer":       [0],
+                "lengte":       [diepte_kast-2*dikte_plank],
+                "breedte":      [breedte_rib],
+                "dikte":        [dikte_rib],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            cfg.df_ribben=df_ribben
+                
+    except ValueError:
+        df_ribben_append = pd.DataFrame({
+            "naam":         ['ribben'],
+            "subnaam":      ['onder'],
+            "type":         ['balk'],
+            "nummer":       [cfg.df_ribben.shape[0]],
+            "lengte":       [diepte_kast-2*dikte_plank],
+            "breedte":      [breedte_rib],
+            "dikte":        [dikte_rib],
+            "xloc":         [ux],
+            "yloc":         [uy],
+            "zloc":         [uz],
+            "rx":           [rx],
+            "ry":           [ry],
+            "rz":           [rz],
+            "opmerking":    [''],
+            })
+        
+        cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
+
     #rib2 - ene zeide
     r2=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
@@ -92,6 +133,46 @@ def rib(ux):
     r2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
     rib2=r2.balk()
     Ribben.append(rib2)
+    
+    try:
+        if cfg.df_ribben == []:
+            df_ribben = pd.DataFrame({
+                "naam":         ['ribben'],
+                "subnaam":      ['zeide'],
+                "type":         ['balk'],
+                "nummer":       [0],
+                "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+                "breedte":      [breedte_rib],
+                "dikte":        [dikte_rib],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            cfg.df_ribben=df_ribben
+                
+    except ValueError:
+        df_ribben_append = pd.DataFrame({
+            "naam":         ['ribben'],
+            "subnaam":      ['zeide'],
+            "type":         ['balk'],
+            "nummer":       [cfg.df_ribben.shape[0]],
+            "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+            "breedte":      [breedte_rib],
+            "dikte":        [dikte_rib],
+            "xloc":         [ux],
+            "yloc":         [uy],
+            "zloc":         [uz],
+            "rx":           [rx],
+            "ry":           [ry],
+            "rz":           [rz],
+            "opmerking":    [''],
+            })
+        
+        cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
     
     #rib3 - andere zeide
     r3=p.plank(lengte_rib,breedte_rib,dikte_rib)
@@ -107,6 +188,47 @@ def rib(ux):
     rib3=r3.balk()
     Ribben.append(rib3)
     
+    try:
+        if cfg.df_ribben == []:
+            df_ribben = pd.DataFrame({
+                "naam":         ['ribben'],
+                "subnaam":      ['zeide'],
+                "type":         ['balk'],
+                "nummer":       [0],
+                "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+                "breedte":      [breedte_rib],
+                "dikte":        [dikte_rib],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            cfg.df_ribben=df_ribben
+                
+    except ValueError:
+        df_ribben_append = pd.DataFrame({
+            "naam":         ['ribben'],
+            "subnaam":      ['zeide'],
+            "type":         ['balk'],
+            "nummer":       [cfg.df_ribben.shape[0]],
+            "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+            "breedte":      [breedte_rib],
+            "dikte":        [dikte_rib],
+            "xloc":         [ux],
+            "yloc":         [uy],
+            "zloc":         [uz],
+            "rx":           [rx],
+            "ry":           [ry],
+            "rz":           [rz],
+            "opmerking":    [''],
+            })
+        
+        cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
+    
+    
     #rib4 - bovenkant
     r4=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
@@ -120,6 +242,46 @@ def rib(ux):
     r4.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
     rib4=r4.balk()
     Ribben.append(rib4)
+    
+    try:
+        if cfg.df_ribben == []:
+            df_ribben = pd.DataFrame({
+                "naam":         ['ribben'],
+                "subnaam":      ['boven'],
+                "type":         ['balk'],
+                "nummer":       [0],
+                "lengte":       [diepte_kast-2*dikte_plank],
+                "breedte":      [breedte_rib],
+                "dikte":        [dikte_rib],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            cfg.df_ribben=df_ribben
+                
+    except ValueError:
+        df_ribben_append = pd.DataFrame({
+            "naam":         ['ribben'],
+            "subnaam":      ['boven'],
+            "type":         ['balk'],
+            "nummer":       [cfg.df_ribben.shape[0]],
+            "lengte":       [diepte_kast-2*dikte_plank],
+            "breedte":      [breedte_rib],
+            "dikte":        [dikte_rib],
+            "xloc":         [ux],
+            "yloc":         [uy],
+            "zloc":         [uz],
+            "rx":           [rx],
+            "ry":           [ry],
+            "rz":           [rz],
+            "opmerking":    [''],
+            })
+        
+        cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
     
     ph=0
     for niveau in range(niveaus):
@@ -137,5 +299,45 @@ def rib(ux):
         r5.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         rib5=r5.balk()
         Ribben.append(rib5)
+        
+        try:
+            if cfg.df_ribben == []:
+                df_ribben = pd.DataFrame({
+                    "naam":         ['ribben'],
+                    "subnaam":      ['tussen'],
+                    "type":         ['balk'],
+                    "nummer":       [0],
+                    "lengte":       [diepte_kast-2*dikte_plank-2*dikte_rib],
+                    "breedte":      [breedte_rib],
+                    "dikte":        [dikte_rib],
+                    "xloc":         [ux],
+                    "yloc":         [uy],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [''],
+                    })
+                cfg.df_ribben=df_ribben
+                    
+        except ValueError:
+            df_ribben_append = pd.DataFrame({
+                "naam":         ['ribben'],
+                "subnaam":      ['tussen'],
+                "type":         ['balk'],
+                "nummer":       [cfg.df_ribben.shape[0]],
+                "lengte":       [diepte_kast-2*dikte_plank-2*dikte_rib],
+                "breedte":      [breedte_rib],
+                "dikte":        [dikte_rib],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
 
     return Ribben
