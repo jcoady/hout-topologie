@@ -106,7 +106,8 @@ def vpythonplot(breedte,hoogte,diepte,amax,aanzicht,Voeten,Onderstel,Ribben,Zeid
             
     cfg.graphics = graphics.copy()
 
-    sl = slider(min=cfg.hoogte_voet+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank, value=cfg.hoogte_voet+cfg.dikte_plank+100., length=640, bind=setspeed, right=15, step=.1,id=1)
+    #sl = slider(min=cfg.hoogte_voet+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank, value=cfg.hoogte_voet+cfg.dikte_plank+10., length=640, bind=setspeed, right=15, step=.1,id=1)
+    sl = slider(min=cfg.breedte_rib*2+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank-cfg.breedte_rib-cfg.hoogte_voet-cfg.dikte_plank, value=cfg.breedte_rib*2+cfg.dikte_plank, length=640, bind=setspeed, right=15, step=.1,id=1)
     wt = wtext(text='{:1.2f}'.format(sl.value),id=1)
     #scene.append_to_caption(' cm tov grond')
     #cfg.sliders.append([0,0,sl,wt])
@@ -160,10 +161,13 @@ def knop_niveau(b):
     niveaus=cfg.niveaus+1
     print('knop - added niveau',niveaus)
     scene.append_to_caption('\n \n')
-    sl = slider(min=cfg.hoogte_voet+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank, value=cfg.hoogte_voet+cfg.dikte_plank+100., length=640, bind=setspeed, right=15, step=.1,id=niveaus)
+    sl = slider(min=cfg.breedte_rib*2+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank-cfg.breedte_rib-cfg.hoogte_voet-cfg.dikte_plank, value=cfg.breedte_rib*2+cfg.dikte_plank, length=640, bind=setspeed, right=15, step=.1,id=niveaus)
     wt = wtext(text='{:1.2f}'.format(sl.value),id=niveaus)
+    #sl = slider(min=cfg.hoogte_voet+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank, value=cfg.hoogte_voet+cfg.dikte_plank+10., length=640, bind=setspeed, right=15, step=.1,id=niveaus)
+    #wt = wtext(text='{:1.2f}'.format(sl.value-(cfg.hoogte_voet+cfg.dikte_plank)),id=niveaus)
     #scene.append_to_caption(' cm tov grond')
-    cfg.sliders_update.append([niveaus,sl.value,sl,wt])   
+    #cfg.sliders_update.append([niveaus,sl.value,sl,wt])
+    cfg.sliders_update.append([cfg.niveaus,sl.value,sl,wt])
     cfg.update_graph=True
     
 def reset(b):

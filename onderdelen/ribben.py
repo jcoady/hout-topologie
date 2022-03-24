@@ -294,7 +294,7 @@ def rib(ux):
         rx,ry,rz=0,0,90
         #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
         uy=0
-        uz=ph-dikte_rib/2.-cfg.dikte_plank
+        uz=ph-dikte_rib/2.-cfg.dikte_plank+cfg.hoogte_voet+cfg.dikte_plank
         sx,sy,sz=1,1,1
         r5.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         rib5=r5.balk()

@@ -97,7 +97,7 @@ def rib(lengte,ux):
 
         r1.plank_zagen(lengte,breedte_rib,dikte_rib)
         rx,ry,rz=0,0,0
-        uz=ph-dikte_rib/2.
+        uz=ph-dikte_rib/2.+cfg.hoogte_voet+cfg.dikte_plank
         sx,sy,sz=1,1,1
         r1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         rib1=r1.balk()

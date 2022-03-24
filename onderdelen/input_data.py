@@ -42,12 +42,12 @@ def input_data():
         if cfg.hoogte_voet != 0:
             print('Hoogte van het voetje is %.1f cm' % (cfg.hoogte_voet))
         print('Hoogte onderste plank van kast is %.1f cm' % (cfg.hoogte_voet+cfg.dikte_plank))
-        cfg.plankhoogte.append(cfg.hoogte_voet+cfg.dikte_plank)
+        cfg.plankhoogte.append(cfg.breedte_rib*2+cfg.dikte_plank+cfg.hoogte_voet+cfg.dikte_plank-cfg.hoogte_voet-cfg.dikte_plank)
         niveau=0
         max_planken = False
         while max_planken == False:
             print('Er is nog %.1f cm ruimte boven de plank' % (cfg.hoogte_kast - cfg.dikte_plank - cfg.plankhoogte[niveau]))
-            cfg.plankhoogte.append(100)#float(input('Wat is de afstand tot de onderkant van de volgende plank in cm ? '))+cfg.dikte_plank+cfg.plankhoogte[niveau])
+            cfg.plankhoogte.append(cfg.breedte_rib*2+cfg.dikte_plank+cfg.hoogte_voet+cfg.dikte_plank-cfg.hoogte_voet-cfg.dikte_plank)#float(input('Wat is de afstand tot de onderkant van de volgende plank in cm ? '))+cfg.dikte_plank+cfg.plankhoogte[niveau])
             print('Er is nog %.1f cm ruimte boven de plank' % (cfg.hoogte_kast - cfg.dikte_plank - cfg.plankhoogte[-1]))
             check='N'#input('Moet er nog een plank worden toegevoegd ? Y/N '))
             if check == 'N':

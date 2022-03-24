@@ -31,7 +31,7 @@ def maak():
     for niveau in range(niveaus):
         #ph=ph+plank_hoogte[niveau]
         ph=plank_hoogte[niveau]
-        uz=ph-dikte_plank/2.
+        uz=ph-dikte_plank/2.+cfg.hoogte_voet+cfg.dikte_plank
         Vlonder=vlonder(lengte,uz)
         if niveau == 0:
             Vlonderlist=Vlonder
