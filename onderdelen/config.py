@@ -14,8 +14,8 @@ breedte_plank=0
 lengte_plank=0
 dikte_plank=0
 
-niveaus=0
-plankhoogte=0
+niveaus=1
+plankhoogte=[]
 
 hoogte_voet=0
 
@@ -47,6 +47,12 @@ reset=False
 reset_loop=True
 
 knoppen=[]
+input_velden=[]
 build_state=False
 
 finish_drawing = False
+
+wt_error=0
+error_message = ' '
+error_message0 = ' '
+error_message1 = '                                                                        <b>ERROR</b>'

@@ -6,7 +6,7 @@ Created on Tue Jan 11 22:40:57 2022
 @author: windhoos
 """
 
-from onderdelen import input_data, voeten, onderstel, ribben, zeiplanken, achterplank, vlonders, achterrib, voorkant, updater
+from onderdelen import input_data, voeten, onderstel, ribben, zeiplanken, achterplank, vlonders, achterrib, voorkant, updater,reset
 from onderdelen import config as cfg
 from onderdelen import plotter
 
@@ -27,7 +27,9 @@ def main():
         cfg.build_state = False
         wait=True
             
-        input_data.input_data()
+        #input_data.input_data()
+        cfg.niveaus = 1
+        cfg.plankhoogte.append(cfg.breedte_rib*2+cfg.dikte_plank+cfg.hoogte_voet+cfg.dikte_plank-cfg.hoogte_voet-cfg.dikte_plank)
             
         Voeten=voeten.maak()
         Onderstel=onderstel.maak()
@@ -61,6 +63,7 @@ def main():
             if cfg.reset == True:
                 print('reset triggered')
                 finish = True
+                reset.reset()
                 
             if cfg.finish_drawing == True:
                 cfg.reset_loop == False

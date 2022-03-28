@@ -15,24 +15,47 @@ from vpython import vertex, vec, quad, color, cylinder, vector, canvas, checkbox
 
 def build_scene():
     global scene
-    scene = canvas(title='Kast 3D model \n\n', width=800, height=600, center=vector(0,0,0), background=color.white)
+    scene = canvas(title='                                                                  <b>Closet 3D model</b>    \n\n', width=800, height=600, center=vector(0,0,0), background=color.white)
     scene.userzoom = False
     scene.userpan = False
+    scene.append_to_title('                                                              Closet outer dimensions \n')
+    scene.append_to_title('                                    Width ')
+    kast_width=winput( bind=input_raam , width=56, pos=scene.title_anchor, id=1)
+    scene.append_to_title(' cm , Height ')
+    kast_height=winput( bind=input_raam , width=56, pos=scene.title_anchor, id=2)
+    scene.append_to_title(' cm , Depth ')
+    kast_depth=winput( bind=input_raam , width=56, pos=scene.title_anchor,id=3)
+    scene.append_to_title(' cm \n\n')
     
-    scene.append_to_title('width ')
-    winput( bind=input_raam , width=56, pos=scene.title_anchor, id=1)
-    scene.append_to_title(' cm , height ')
-    winput( bind=input_raam , width=56, pos=scene.title_anchor, id=2)
-    scene.append_to_title(' cm , depth ')
-    winput( bind=input_raam , width=56, pos=scene.title_anchor,id=3)
-    scene.append_to_title(' cm ')
-    build_knop=button(text='BUILD', bind=building, pos=scene.title_anchor)
+    scene.append_to_title('                                                                 Plank dimensions \n')
+    scene.append_to_title('                                    Width ')
+    plank_width=winput( bind=input_raam , width=56, pos=scene.title_anchor, id=4)
+    scene.append_to_title(' cm , Height ')
+    plank_height=winput( bind=input_raam , width=56, pos=scene.title_anchor, id=5)
+    scene.append_to_title(' cm , Length ')
+    plank_length=winput( bind=input_raam , width=56, pos=scene.title_anchor,id=6)
+    scene.append_to_title(' cm \n\n')
+    
+    scene.append_to_title('                                                                  Feet dimensions \n')
+    scene.append_to_title('                                                                Height ')
+    voet_height=winput( bind=input_raam , width=56, pos=scene.title_anchor, id=7)
+    scene.append_to_title(' cm \n\n')
+    
+    scene.append_to_title('                                                                 Model interactions \n')
+    scene.append_to_title('                                             ')
+    build_knop=button(text='Build', bind=building, pos=scene.title_anchor)
     scene.append_to_title(' ')
-    reset_knop=button(text='RESET', bind=reset, pos=scene.title_anchor)
+    build_knop=button(text='Buy', bind=buy, pos=scene.title_anchor)
     scene.append_to_title(' ')
-    plank_knop=button(text='Add plank \n', bind=knop_niveau ,pos=scene.title_anchor)
+    reset_knop=button(text='Reset', bind=reset, pos=scene.title_anchor)
+    scene.append_to_title(' ')
+    plank_knop=button(text='Add plank', bind=knop_niveau ,pos=scene.title_anchor)
     scene.append_to_title(' ')
     menu_knop=menu(choices=['Door closed', 'Door open', 'Door gone'], index=0, bind=menu_deur,pos=scene.title_anchor)
+    scene.append_to_title('\n')
+    cfg.wt_error = wtext(text=cfg.error_message,pos=scene.title_anchor)
+    scene.append_to_title('\n')
+    
     
     scene.forward = vector(0,-1,0)
     scene.up = vector(0,0,1)
@@ -43,6 +66,7 @@ def build_scene():
     menu_knop.disabled = True
     plank_knop.disabled = True
     
+    cfg.input_velden=[kast_width,kast_height,kast_depth,plank_width,plank_height,plank_length,voet_height]
     cfg.knoppen=[build_knop,reset_knop,plank_knop,menu_knop]
    
 def vpythonplot(breedte,hoogte,diepte,amax,aanzicht,Voeten,Onderstel,Ribben,Zeiden,Achterplank,Vlonders,Achterrib, Voorkant, Voorkant120,Scharnier,Scharnier120):
@@ -107,11 +131,13 @@ def vpythonplot(breedte,hoogte,diepte,amax,aanzicht,Voeten,Onderstel,Ribben,Zeid
     cfg.graphics = graphics.copy()
 
     #sl = slider(min=cfg.hoogte_voet+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank, value=cfg.hoogte_voet+cfg.dikte_plank+10., length=640, bind=setspeed, right=15, step=.1,id=1)
+    wt_enter = wtext(text='\n',id=1)
     sl = slider(min=cfg.breedte_rib*2+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank-cfg.breedte_rib-cfg.hoogte_voet-cfg.dikte_plank, value=cfg.breedte_rib*2+cfg.dikte_plank, length=640, bind=setspeed, right=15, step=.1,id=1)
     wt = wtext(text='{:1.2f}'.format(sl.value),id=1)
-    #scene.append_to_caption(' cm tov grond')
+    wt_cm = wtext(text=' cm from bottom',id=1)
+    #scene.append_to_caption(' cm from bottom')
     #cfg.sliders.append([0,0,sl,wt])
-    cfg.sliders_update.append([cfg.niveaus,sl.value,sl,wt])
+    cfg.sliders_update.append([cfg.niveaus,sl.value,sl,wt,wt_cm,wt_enter])
     
 def input_raam(s): 
     if s.id == 1:
@@ -120,6 +146,14 @@ def input_raam(s):
         cfg.hoogte_kast=s.number
     elif s.id == 3:
         cfg.diepte_kast=s.number
+    elif s.id == 4:
+        cfg.breedte_plank=s.number
+    elif s.id == 5:
+        cfg.dikte_plank=s.number
+    elif s.id == 6:
+        cfg.lengte_plank=s.number
+    elif s.id == 7:
+        cfg.hoogte_voet=s.number
         
 def menu_deur(m):
     val = m.selected
@@ -160,58 +194,65 @@ def opacity(element,TF):
 def knop_niveau(b):
     niveaus=cfg.niveaus+1
     print('knop - added niveau',niveaus)
-    scene.append_to_caption('\n \n')
+    #scene.append_to_caption('\n \n')
+    wt_enter = wtext(text='\n \n',id=niveaus)
     sl = slider(min=cfg.breedte_rib*2+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank-cfg.breedte_rib-cfg.hoogte_voet-cfg.dikte_plank, value=cfg.breedte_rib*2+cfg.dikte_plank, length=640, bind=setspeed, right=15, step=.1,id=niveaus)
     wt = wtext(text='{:1.2f}'.format(sl.value),id=niveaus)
     #sl = slider(min=cfg.hoogte_voet+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank, value=cfg.hoogte_voet+cfg.dikte_plank+10., length=640, bind=setspeed, right=15, step=.1,id=niveaus)
     #wt = wtext(text='{:1.2f}'.format(sl.value-(cfg.hoogte_voet+cfg.dikte_plank)),id=niveaus)
-    #scene.append_to_caption(' cm tov grond')
+    #scene.append_to_caption(' cm from bottom')
+    wt_cm = wtext(text=' cm from bottom',id=niveaus)
     #cfg.sliders_update.append([niveaus,sl.value,sl,wt])
-    cfg.sliders_update.append([cfg.niveaus,sl.value,sl,wt])
+    cfg.sliders_update.append([cfg.niveaus,sl.value,sl,wt,wt_cm,wt_enter])
     cfg.update_graph=True
     
 def reset(b):
     print('RESET')
-    print('WERKT NOG NIET')
     #TODO: RESET KNOP MAKEN
-    '''
     cfg.reset=True
-    for i in range(len(cfg.sliders_update)):
-        cfg.sliders_update[i][2].delete()
-        cfg.sliders_update[i][3].delete()
-    cfg.sliders_update=[]
     
-    for a in range(len(cfg.graphics)):
-        for b in range(len(cfg.graphics[a])):
-            for c in range(len(cfg.graphics[a][b])):
-                cfg.graphics[a][b][c][0].visible=False
-                cfg.graphics[a][b][c][1].visible=False
-                cfg.graphics[a][b][c][2].visible=False
-                cfg.graphics[a][b][c][3].visible=False
-                cfg.graphics[a][b][c][4].visible=False
-                del cfg.graphics[a][b][c][4]
-                del cfg.graphics[a][b][c][3]
-                del cfg.graphics[a][b][c][2]
-                del cfg.graphics[a][b][c][1]
-                del cfg.graphics[a][b][c][0]
-    
-    cfg.knoppen[0].disabled = False
-    cfg.knoppen[1].disabled = True
-    cfg.knoppen[2].disabled = True
-    cfg.knoppen[3].disabled = True
-    '''
+def buy(b):
+    print('BUY')
     
 def building(b):
     print('BUILD')
     #cfg.knoppen=[build_knop,reset_knop,plank_knop,menu_knop]
     if ((isinstance(cfg.breedte_kast, (int,float)) and isinstance(cfg.hoogte_kast, (int,float))) and isinstance(cfg.diepte_kast, (int,float))):
         if ((cfg.breedte_kast >= 45. and cfg.hoogte_kast >= 100.) and cfg.diepte_kast >= 25):
-            cfg.build_state = True
-            cfg.knoppen[0].disabled = True
-            cfg.knoppen[1].disabled = False
-            cfg.knoppen[2].disabled = False
-            cfg.knoppen[3].disabled = False    
-    
+            if ((isinstance(cfg.breedte_plank, (int,float)) and isinstance(cfg.lengte_plank, (int,float))) and isinstance(cfg.dikte_plank, (int,float))):
+                if ((cfg.breedte_plank >= 5. and cfg.lengte_plank >= 100.) and cfg.dikte_plank >= 1.):
+                    if ((cfg.lengte_plank >= cfg.breedte_kast and cfg.lengte_plank >= cfg.hoogte_kast-cfg.hoogte_voet) and cfg.diepte_kast >= cfg.breedte_plank):
+                        if ((cfg.breedte_kast >= cfg.breedte_plank and cfg.dikte_plank <= 10.) and cfg.diepte_kast >= cfg.breedte_plank):
+                            if ((isinstance(cfg.hoogte_voet, (int,float)) and cfg.hoogte_voet >= 0.) and cfg.hoogte_voet <= 20.):
+                                cfg.build_state = True
+                                cfg.knoppen[0].disabled = True
+                                cfg.knoppen[1].disabled = False
+                                cfg.knoppen[2].disabled = False
+                                cfg.knoppen[3].disabled = False
+                                cfg.error_message = cfg.error_message0
+                                cfg.wt_error.text = cfg.error_message
+                            else:
+                                cfg.error_message = cfg.error_message1
+                                cfg.wt_error.text = cfg.error_message
+                        else:
+                            cfg.error_message = cfg.error_message1
+                            cfg.wt_error.text = cfg.error_message
+                    else:
+                        cfg.error_message = cfg.error_message1
+                        cfg.wt_error.text = cfg.error_message
+                else:
+                    cfg.error_message = cfg.error_message1
+                    cfg.wt_error.text = cfg.error_message
+            else:
+                cfg.error_message = cfg.error_message1
+                cfg.wt_error.text = cfg.error_message
+        else:
+            cfg.error_message = cfg.error_message1
+            cfg.wt_error.text = cfg.error_message
+    else:
+        cfg.error_message = cfg.error_message1
+        cfg.wt_error.text = cfg.error_message
+        
 def setspeed(s):
     cfg.sliders_update[s.id-1][0]=s.id
     cfg.sliders_update[s.id-1][1]=s.value
