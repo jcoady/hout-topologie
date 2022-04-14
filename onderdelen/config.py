@@ -19,8 +19,8 @@ plankhoogte=[]
 
 hoogte_voet=0
 
-breedte_rib=5
-lengte_rib=240
+breedte_rib=3
+lengte_rib=250
 dikte_rib=breedte_rib
 
 voorplank_breedte=0
@@ -45,6 +45,7 @@ update_graph=False
 
 reset=False
 reset_loop=True
+buy=False
 
 knoppen=[]
 input_velden=[]

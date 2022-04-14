@@ -15,9 +15,12 @@ def maak():
     dikte_plank=cfg.dikte_plank
     dikte_rib=cfg.dikte_rib
     
+    locatie = 0
+    
     riblist=[]
-    riblist.append(rib(breedte_kast/2.-dikte_plank-dikte_rib/2.))
-
+    riblist.append(rib(breedte_kast/2.-dikte_plank-dikte_rib/2.,locatie))
+    locatie = locatie+1
+    
     rib_extra=0
     if breedte_kast >= 170:
         for i in range(int(breedte_kast/150)):
@@ -28,20 +31,24 @@ def maak():
     if rib_extra > 0:
         #for r in range(rib_extra):
         if rib_extra == 1:
-            riblist.append(rib(0))
+            riblist.append(rib(0,locatie))
 
         elif rib_extra == 2:
             ux=(breedte_kast-dikte_plank*2-dikte_rib)/6.
-            riblist.append(rib(ux))
-            riblist.append(rib(-ux))
+            riblist.append(rib(ux,locatie))
+            locatie=locatie+1
+            riblist.append(rib(-ux,locatie))
             
         elif rib_extra >= 3:
-            riblist.append(rib(0))
+            riblist.append(rib(0,locatie))
+            locatie=locatie+1
             ux=(breedte_kast-dikte_plank*2-dikte_rib)/4.
-            riblist.append(rib(ux))
-            riblist.append(rib(-ux))
-                
-    riblist.append(rib(-(breedte_kast/2.-dikte_plank-dikte_rib/2.)))
+            riblist.append(rib(ux,locatie))
+            locatie=locatie+1
+            riblist.append(rib(-ux,locatie))
+    
+    locatie=locatie+1            
+    riblist.append(rib(-(breedte_kast/2.-dikte_plank-dikte_rib/2.),locatie))
     
     combined_riblist=[]
     for i in range(len(riblist)):
@@ -49,7 +56,7 @@ def maak():
     
     return combined_riblist
     
-def rib(ux):
+def rib(ux,locatie):
     hoogte_kast=cfg.hoogte_kast
     #breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -96,7 +103,7 @@ def rib(ux):
                 "rx":           [rx],
                 "ry":           [ry],
                 "rz":           [rz],
-                "opmerking":    [''],
+                "opmerking":    [locatie],
                 })
             cfg.df_ribben=df_ribben
                 
@@ -115,7 +122,7 @@ def rib(ux):
             "rx":           [rx],
             "ry":           [ry],
             "rz":           [rz],
-            "opmerking":    [''],
+            "opmerking":    [locatie],
             })
         
         cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
@@ -150,7 +157,7 @@ def rib(ux):
                 "rx":           [rx],
                 "ry":           [ry],
                 "rz":           [rz],
-                "opmerking":    [''],
+                "opmerking":    [locatie],
                 })
             cfg.df_ribben=df_ribben
                 
@@ -169,7 +176,7 @@ def rib(ux):
             "rx":           [rx],
             "ry":           [ry],
             "rz":           [rz],
-            "opmerking":    [''],
+            "opmerking":    [locatie],
             })
         
         cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
@@ -204,7 +211,7 @@ def rib(ux):
                 "rx":           [rx],
                 "ry":           [ry],
                 "rz":           [rz],
-                "opmerking":    [''],
+                "opmerking":    [locatie],
                 })
             cfg.df_ribben=df_ribben
                 
@@ -223,7 +230,7 @@ def rib(ux):
             "rx":           [rx],
             "ry":           [ry],
             "rz":           [rz],
-            "opmerking":    [''],
+            "opmerking":    [locatie],
             })
         
         cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
@@ -259,7 +266,7 @@ def rib(ux):
                 "rx":           [rx],
                 "ry":           [ry],
                 "rz":           [rz],
-                "opmerking":    [''],
+                "opmerking":    [locatie],
                 })
             cfg.df_ribben=df_ribben
                 
@@ -278,7 +285,7 @@ def rib(ux):
             "rx":           [rx],
             "ry":           [ry],
             "rz":           [rz],
-            "opmerking":    [''],
+            "opmerking":    [locatie],
             })
         
         cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)
@@ -316,7 +323,7 @@ def rib(ux):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [locatie],
                     })
                 cfg.df_ribben=df_ribben
                     
@@ -335,7 +342,7 @@ def rib(ux):
                 "rx":           [rx],
                 "ry":           [ry],
                 "rz":           [rz],
-                "opmerking":    [''],
+                "opmerking":    [locatie],
                 })
             
             cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)

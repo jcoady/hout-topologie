@@ -1,0 +1,216 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar 29 21:38:59 2022
+
+@author: windhoos
+"""
+
+from latex import config as cfg
+
+import pandas as pd
+import os.path
+
+def build():
+    path=os.path.dirname(__file__) + '/../stuklijst.xlsx'
+    cfg.stuklijst=pd.read_excel(path)
+    path=os.path.dirname(__file__) + '/../plankenlijst.xlsx'
+    cfg.plankenlijst=pd.read_excel(path)
+    
+    plankenlijst = cfg.plankenlijst.copy()
+    
+    #voeten
+    print('\n voeten')
+    colum = 'naam'
+    sub = 'voet'
+    voeten = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    voeten = voeten.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    voeten = voeten.reset_index(drop=True)
+    cfg.voeten=voeten
+    print(cfg.voeten)
+    
+    #bouw onderkant
+    print('\n onderkant')
+    colum = 'naam'
+    sub = 'onderstel'
+    onderkant = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'onderkant'
+    onderkant = onderkant[onderkant[colum].str.contains(sub, regex=False, case=False, na=False)]
+    onderkant = onderkant.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    onderkant = onderkant.reset_index(drop=True)
+    cfg.onderkant=onderkant
+    print(cfg.onderkant)
+    
+    #bouw rib1
+    print('\n rib1')
+    colum = 'naam'
+    sub = 'ribben'
+    rib1 = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    sub2 = 'opmerking'
+    rib1 = rib1.loc[rib1[sub2] == 0.0]
+    rib1 = rib1.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    rib1 = rib1.reset_index(drop=True)
+    cfg.rib1=rib1
+    print(cfg.rib1)
+    
+    #bouw ribmax
+    print('\n ribmax')
+    colum = 'naam'
+    sub = 'ribben'
+    ribmax = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    ribmax = ribmax.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    ribmax = ribmax.reset_index(drop=True)
+    cfg.ribmax=ribmax
+    print(cfg.ribmax)
+    
+    #bouw bovenkant
+    print('\n bovenkant')
+    colum = 'naam'
+    sub = 'onderstel'
+    bovenkant = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'bovenkant'
+    bovenkant = bovenkant[bovenkant[colum].str.contains(sub, regex=False, case=False, na=False)]
+    bovenkant = bovenkant.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    bovenkant = bovenkant.reset_index(drop=True)
+    cfg.bovenkant=bovenkant
+    print(cfg.bovenkant)
+    
+    #achterrib
+    print('\n achterrib')
+    colum = 'naam'
+    sub = 'ribben'
+    achterrib = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'achter'
+    achterrib = achterrib[achterrib[colum].str.contains(sub, regex=False, case=False, na=False)]
+    achterrib = achterrib.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    achterrib = achterrib.reset_index(drop=True)
+    cfg.achterrib=achterrib
+    print(cfg.achterrib)
+    
+    #vlonders
+    print('\n vlonders')
+    colum = 'naam'
+    sub = 'vlonders'
+    vlonders = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    #colum = 'subnaam'
+    #sub = 'achter'
+    #vlonders = vlonders[vlonders[colum].str.contains(sub, regex=False, case=False, na=False)]
+    vlonders = vlonders.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    vlonders = vlonders.reset_index(drop=True)
+    cfg.vlonders=vlonders
+    print(cfg.vlonders)
+    
+    #zeide links
+    print('\n zeide links')
+    colum = 'naam'
+    sub = 'zeiplanken'
+    zeidelinks = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'links'
+    zeidelinks = zeidelinks[zeidelinks[colum].str.contains(sub, regex=False, case=False, na=False)]
+    zeidelinks = zeidelinks.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    zeidelinks = zeidelinks.reset_index(drop=True)
+    cfg.zeidelinks=zeidelinks
+    print(cfg.zeidelinks)
+    
+    #zeide rechts
+    print('\n zeide rechts')
+    colum = 'naam'
+    sub = 'zeiplanken'
+    zeiderechts = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'rechts'
+    zeiderechts = zeiderechts[zeiderechts[colum].str.contains(sub, regex=False, case=False, na=False)]
+    zeiderechts = zeiderechts.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    zeiderechts = zeiderechts.reset_index(drop=True)
+    cfg.zeiderechts=zeiderechts
+    print(cfg.zeiderechts)
+    
+    #achterkant
+    print('\n achterkant')
+    colum = 'naam'
+    sub = 'achterplank'
+    achterkant = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    #colum = 'subnaam'
+    #sub = 'rechts'
+    #achterkant = achterkant[achterkant[colum].str.contains(sub, regex=False, case=False, na=False)]
+    achterkant = achterkant.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    achterkant = achterkant.reset_index(drop=True)
+    cfg.achterkant=achterkant
+    print(cfg.achterkant)
+    
+    #voorkant
+    print('\n voorkant')
+    colum = 'naam'
+    sub = 'voorkant'
+    voorkant = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'voorplank'
+    voorkant = voorkant[voorkant[colum].str.contains(sub, regex=False, case=False, na=False)]
+    voorkant = voorkant.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    voorkant = voorkant.reset_index(drop=True)
+    cfg.voorkant=voorkant
+    print(cfg.voorkant)
+    
+    #deur
+    print('\n deur')
+    colum = 'naam'
+    sub = 'voorkant'
+    deur = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'deur'
+    deur = deur[deur[colum].str.contains(sub, regex=False, case=False, na=False)]
+    sub2 = 'opmerking'
+    deur = deur.loc[deur[sub2] == 1.0]
+    deur = deur.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    deur = deur.reset_index(drop=True)
+    cfg.deur=deur
+    print(cfg.deur)
+    
+    #stut
+    print('\n stut')
+    colum = 'naam'
+    sub = 'voorkant'
+    stut = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'stut'
+    stut = stut[stut[colum].str.contains(sub, regex=False, case=False, na=False)]
+    sub2 = 'opmerking'
+    stut = stut.loc[stut[sub2] == 1.0]
+    stut = stut.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    stut = stut.reset_index(drop=True)
+    cfg.stut=stut
+    print(cfg.stut)
+    
+    #scharnier
+    print('\n scharnier')
+    colum = 'naam'
+    sub = 'voorkant'
+    scharnier = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'scharnier'
+    scharnier = scharnier[scharnier[colum].str.contains(sub, regex=False, case=False, na=False)]
+    sub2 = 'opmerking'
+    scharnier = scharnier.loc[scharnier[sub2] == 1.0]
+    scharnier = scharnier.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    scharnier = scharnier.reset_index(drop=True)
+    cfg.scharnier=scharnier
+    print(cfg.scharnier)
+    
+    #slot
+    print('\n slot')
+    colum = 'naam'
+    sub = 'voorkant'
+    slot = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'slot'
+    slot = slot[slot[colum].str.contains(sub, regex=False, case=False, na=False)]
+    sub2 = 'opmerking'
+    slot = slot.loc[slot[sub2] == 1.0]
+    slot = slot.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    slot = slot.reset_index(drop=True)
+    cfg.slot=slot
+    print(cfg.slot)

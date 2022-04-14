@@ -16,6 +16,7 @@ def maak():
     dikte_rib=cfg.dikte_rib
     
     riblist=[]
+    locatie = 0
 
     rib_extra=0
     if breedte_kast >= 170:
@@ -29,7 +30,7 @@ def maak():
         lengte=breedte_kast-2*dikte_plank-2*dikte_rib
         ux=0.
         
-        riblist.append(rib(lengte,ux))
+        riblist.append(rib(lengte,ux,locatie))
         
     elif rib_extra == 1:
         #lengte=(breedte_kast-2*dikte_plank-(2+rib_extra)*dikte_rib)/(1+rib_extra)
@@ -37,19 +38,19 @@ def maak():
         uxl=lengte/2.+dikte_rib/2.
         uxr=-uxl
         
-        riblist.append(rib(lengte,uxl))
-        riblist.append(rib(lengte,uxr))
+        riblist.append(rib(lengte,uxl,locatie))
+        riblist.append(rib(lengte,uxr,locatie+1))
 
     elif rib_extra == 2:
         #lengte=(breedte_kast-2*dikte_plank-(2+rib_extra)*dikte_rib)/(1+rib_extra)
         lengte=(breedte_kast-2*dikte_plank-4*dikte_rib)/3.
         ux=0.
-        riblist.append(rib(lengte,ux))
+        riblist.append(rib(lengte,ux,locatie+1))
         uxl=lengte/2.+dikte_rib+lengte/2.
         uxr=-uxl
         
-        riblist.append(rib(lengte,uxl))
-        riblist.append(rib(lengte,uxr))
+        riblist.append(rib(lengte,uxl,locatie))
+        riblist.append(rib(lengte,uxr,locatie+2))
             
     elif rib_extra >= 3:
         #lengte=(breedte_kast-2*dikte_plank-(2+rib_extra)*dikte_rib)/(1+3)
@@ -59,10 +60,10 @@ def maak():
         uxr=-uxl
         uxrr=-uxll
         
-        riblist.append(rib(lengte,uxl))
-        riblist.append(rib(lengte,uxll))
-        riblist.append(rib(lengte,uxr))
-        riblist.append(rib(lengte,uxrr))
+        riblist.append(rib(lengte,uxl,locatie+1))
+        riblist.append(rib(lengte,uxll,locatie))
+        riblist.append(rib(lengte,uxr,locatie+2))
+        riblist.append(rib(lengte,uxrr,locatie+3))
 
     combined_riblist=[]
     for i in range(len(riblist)):
@@ -70,7 +71,7 @@ def maak():
     
     return combined_riblist
     
-def rib(lengte,ux):
+def rib(lengte,ux,locatie):
     #hoogte_kast=cfg.hoogte_kast
     #breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -107,7 +108,7 @@ def rib(lengte,ux):
             if cfg.df_ribben == []:
                 df_ribben = pd.DataFrame({
                     "naam":         ['ribben'],
-                    "subnaam":      ['tussen'],
+                    "subnaam":      ['achter'],
                     "type":         ['balk'],
                     "nummer":       [0],
                     "lengte":       [lengte],
@@ -119,14 +120,14 @@ def rib(lengte,ux):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [locatie],
                     })
                 cfg.df_ribben=df_ribben
                     
         except ValueError:
             df_ribben_append = pd.DataFrame({
                 "naam":         ['ribben'],
-                "subnaam":      ['tussen'],
+                "subnaam":      ['achter'],
                 "type":         ['balk'],
                 "nummer":       [cfg.df_ribben.shape[0]],
                 "lengte":       [lengte],
@@ -138,7 +139,7 @@ def rib(lengte,ux):
                 "rx":           [rx],
                 "ry":           [ry],
                 "rz":           [rz],
-                "opmerking":    [''],
+                "opmerking":    [locatie],
                 })
             
             cfg.df_ribben=pd.concat([cfg.df_ribben,df_ribben_append],ignore_index=True)

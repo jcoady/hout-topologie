@@ -26,6 +26,8 @@ def maak(theta):
     plank_list=[]
     scharnier_list=[]
     
+    nummer = 0
+    
     if dikte_plank+dikte_rib <= 7.5:
         voorplank_breedte = 7.5
     else:
@@ -43,45 +45,53 @@ def maak(theta):
     u0=-breedte_kast/2.+voorplank_breedte
     ui=(breedte_kast-voorplank_breedte)/(rib_extra+1)
 
-    plank_list.append(voorplank(u0-voorplank_breedte,theta))
-    plank_list.append(voorplank(-u0,theta))
+    plank_list.append(voorplank(u0-voorplank_breedte,theta,nummer))
+    plank_list.append(voorplank(-u0,theta,nummer))
     #plank_list.append(deur(breedte_kast/2. - voorplank_breedte))
     
     
     if rib_extra == 0:
-        plank_list.append(deur(u0+ui*0,theta))
-        plank_list.append(stut(u0+ui*0,theta))
-        scharnier_list.append(scharnier(u0+ui*0,theta))
+        nummer=nummer+1
+        plank_list.append(deur(u0+ui*0,theta,nummer))
+        plank_list.append(stut(u0+ui*0,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*0,theta,nummer))
     
     elif rib_extra == 1:
+        nummer=nummer+1
         #plank_list.append(deur(voorplank_breedte/2.))
-        plank_list.append(deur(u0+ui*0,theta))
-        plank_list.append(stut(u0+ui*0,theta))
-        scharnier_list.append(scharnier(u0+ui*0,theta))
-        plank_list.append(deur(u0+ui*1,theta))
-        plank_list.append(stut(u0+ui*1,theta))
-        scharnier_list.append(scharnier(u0+ui*1,theta))
-        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta))
+        plank_list.append(deur(u0+ui*0,theta,nummer))
+        plank_list.append(stut(u0+ui*0,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*0,theta,nummer))
+        nummer=nummer+1
+        plank_list.append(deur(u0+ui*1,theta,nummer))
+        plank_list.append(stut(u0+ui*1,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*1,theta,nummer))
+        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta,nummer))
 
     elif rib_extra == 2:
+        nummer=nummer+1
         #ux=(breedte_kast-dikte_plank*2-dikte_rib)/6.
         #plank_list.append(voorplank(ux))
         #plank_list.append(voorplank(-ux))
         #plank_list.append(deur(ux-voorplank_breedte/2.))
         #plank_list.append(deur(-ux+voorplank_breedte/2.))
-        plank_list.append(deur(u0+ui*0,theta))
-        plank_list.append(stut(u0+ui*0,theta))
-        scharnier_list.append(scharnier(u0+ui*0,theta))
-        plank_list.append(deur(u0+ui*1,theta))
-        plank_list.append(stut(u0+ui*1,theta))
-        scharnier_list.append(scharnier(u0+ui*1,theta))
-        plank_list.append(deur(u0+ui*2,theta))
-        plank_list.append(stut(u0+ui*2,theta))
-        scharnier_list.append(scharnier(u0+ui*2,theta))
-        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta))
-        plank_list.append(voorplank(u0+ui*2-voorplank_breedte,theta))
+        plank_list.append(deur(u0+ui*0,theta,nummer))
+        plank_list.append(stut(u0+ui*0,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*0,theta,nummer))
+        nummer=nummer+1
+        plank_list.append(deur(u0+ui*1,theta,nummer))
+        plank_list.append(stut(u0+ui*1,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*1,theta,nummer))
+        nummer=nummer+1
+        plank_list.append(deur(u0+ui*2,theta,nummer))
+        plank_list.append(stut(u0+ui*2,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*2,theta,nummer))
+        nummer=nummer+1
+        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta,nummer-1))
+        plank_list.append(voorplank(u0+ui*2-voorplank_breedte,theta,nummer))
             
     elif rib_extra >= 3:
+        nummer=nummer+1
         #plank_list.append(voorplank(0))
         #plank_list.append(deur(voorplank_breedte/2.))
         #ux=(breedte_kast-dikte_plank*2-dikte_rib)/4.
@@ -89,21 +99,24 @@ def maak(theta):
         #plank_list.append(voorplank(-ux))
         #plank_list.append(deur(ux-voorplank_breedte/2.))
         #plank_list.append(deur(-ux+voorplank_breedte/2.))
-        plank_list.append(deur(u0+ui*0,theta))
-        plank_list.append(stut(u0+ui*0,theta))
-        scharnier_list.append(scharnier(u0+ui*0,theta))
-        plank_list.append(deur(u0+ui*1,theta))
-        plank_list.append(stut(u0+ui*1,theta))
-        scharnier_list.append(scharnier(u0+ui*1,theta))
-        plank_list.append(deur(u0+ui*2,theta))
-        plank_list.append(stut(u0+ui*2,theta))
-        scharnier_list.append(scharnier(u0+ui*2,theta))
-        plank_list.append(deur(u0+ui*3,theta))
-        plank_list.append(stut(u0+ui*3,theta))
-        scharnier_list.append(scharnier(u0+ui*3,theta))
-        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta))
-        plank_list.append(voorplank(u0+ui*2-voorplank_breedte,theta))
-        plank_list.append(voorplank(u0+ui*3-voorplank_breedte,theta))
+        plank_list.append(deur(u0+ui*0,theta,nummer))
+        plank_list.append(stut(u0+ui*0,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*0,theta,nummer))
+        nummer=nummer+1
+        plank_list.append(deur(u0+ui*1,theta,nummer))
+        plank_list.append(stut(u0+ui*1,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*1,theta,nummer))
+        nummer=nummer+1
+        plank_list.append(deur(u0+ui*2,theta,nummer))
+        plank_list.append(stut(u0+ui*2,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*2,theta,nummer))
+        nummer=nummer+1
+        plank_list.append(deur(u0+ui*3,theta,nummer))
+        plank_list.append(stut(u0+ui*3,theta,nummer))
+        scharnier_list.append(scharnier(u0+ui*3,theta,nummer))
+        plank_list.append(voorplank(u0+ui*1-voorplank_breedte,theta,nummer-2))
+        plank_list.append(voorplank(u0+ui*2-voorplank_breedte,theta,nummer-1))
+        plank_list.append(voorplank(u0+ui*3-voorplank_breedte,theta,nummer))
     
     combined_list=[]
     for i in range(len(plank_list)):
@@ -115,7 +128,7 @@ def maak(theta):
     
     return combined_list,combined_list2
     
-def voorplank(ux,theta):
+def voorplank(ux,theta,nummer):
     hoogte_kast=cfg.hoogte_kast
     #breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -162,7 +175,7 @@ def voorplank(ux,theta):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [nummer],
                     })
                 cfg.df_voorkant=df_voorkant
                 
@@ -181,7 +194,7 @@ def voorplank(ux,theta):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [nummer],
                     })
             
                 cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
@@ -191,7 +204,7 @@ def voorplank(ux,theta):
 
     return Balken
 
-def deur(ux,theta):
+def deur(ux,theta,nummer):
     hoogte_kast=cfg.hoogte_kast
     breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -284,7 +297,7 @@ def deur(ux,theta):
                         "rx":           [rx],
                         "ry":           [ry],
                         "rz":           [rz],
-                        "opmerking":    [''],
+                        "opmerking":    [nummer],
                         })
                     cfg.df_voorkant=df_voorkant
                 
@@ -303,7 +316,7 @@ def deur(ux,theta):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [nummer],
                     })
             
                 cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
@@ -311,7 +324,7 @@ def deur(ux,theta):
         
     return Balken
 
-def stut(ux,theta):
+def stut(ux,theta,nummer):
     hoogte_kast=cfg.hoogte_kast
     breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -375,7 +388,7 @@ def stut(ux,theta):
                         "rx":           [rx],
                         "ry":           [ry],
                         "rz":           [rz],
-                        "opmerking":    [''],
+                        "opmerking":    [nummer],
                         })
                     cfg.df_voorkant=df_voorkant
                 
@@ -394,7 +407,7 @@ def stut(ux,theta):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [nummer],
                     })
             
                 cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
@@ -402,7 +415,7 @@ def stut(ux,theta):
         
     return Balken
 
-def scharnier(ux,theta):
+def scharnier(ux,theta,nummer):
     hoogte_kast=cfg.hoogte_kast
     breedte_kast=cfg.breedte_kast
     diepte_kast=cfg.diepte_kast
@@ -494,7 +507,7 @@ def scharnier(ux,theta):
                         "rx":           [rx],
                         "ry":           [ry],
                         "rz":           [rz],
-                        "opmerking":    [''],
+                        "opmerking":    [nummer],
                         })
                     cfg.df_voorkant=df_voorkant
                 
@@ -513,7 +526,7 @@ def scharnier(ux,theta):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [nummer],
                     })
             
                 cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
@@ -549,7 +562,7 @@ def scharnier(ux,theta):
                         "rx":           [rx],
                         "ry":           [ry],
                         "rz":           [rz],
-                        "opmerking":    [''],
+                        "opmerking":    [nummer],
                         })
                     cfg.df_voorkant=df_voorkant
                 
@@ -568,7 +581,7 @@ def scharnier(ux,theta):
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
-                    "opmerking":    [''],
+                    "opmerking":    [nummer],
                     })
             
                 cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)

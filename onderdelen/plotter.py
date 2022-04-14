@@ -45,7 +45,7 @@ def build_scene():
     scene.append_to_title('                                             ')
     build_knop=button(text='Build', bind=building, pos=scene.title_anchor)
     scene.append_to_title(' ')
-    build_knop=button(text='Buy', bind=buy, pos=scene.title_anchor)
+    buy_knop=button(text='Buy', bind=buy, pos=scene.title_anchor)
     scene.append_to_title(' ')
     reset_knop=button(text='Reset', bind=reset, pos=scene.title_anchor)
     scene.append_to_title(' ')
@@ -65,9 +65,10 @@ def build_scene():
     reset_knop.disabled = True
     menu_knop.disabled = True
     plank_knop.disabled = True
+    buy_knop.disabled = True
     
     cfg.input_velden=[kast_width,kast_height,kast_depth,plank_width,plank_height,plank_length,voet_height]
-    cfg.knoppen=[build_knop,reset_knop,plank_knop,menu_knop]
+    cfg.knoppen=[build_knop,reset_knop,plank_knop,menu_knop,buy_knop]
    
 def vpythonplot(breedte,hoogte,diepte,amax,aanzicht,Voeten,Onderstel,Ribben,Zeiden,Achterplank,Vlonders,Achterrib, Voorkant, Voorkant120,Scharnier,Scharnier120):
     matrix=[Voeten,Onderstel,Ribben,Zeiden,Achterplank,Vlonders,Achterrib, Voorkant, Voorkant120, Scharnier, Scharnier120]
@@ -208,11 +209,11 @@ def knop_niveau(b):
     
 def reset(b):
     print('RESET')
-    #TODO: RESET KNOP MAKEN
     cfg.reset=True
     
 def buy(b):
     print('BUY')
+    cfg.buy=True
     
 def building(b):
     print('BUILD')
@@ -225,10 +226,12 @@ def building(b):
                         if ((cfg.breedte_kast >= cfg.breedte_plank and cfg.dikte_plank <= 10.) and cfg.diepte_kast >= cfg.breedte_plank):
                             if ((isinstance(cfg.hoogte_voet, (int,float)) and cfg.hoogte_voet >= 0.) and cfg.hoogte_voet <= 20.):
                                 cfg.build_state = True
+                                #cfg.knoppen=[build_knop,reset_knop,plank_knop,menu_knop,buy_knop]
                                 cfg.knoppen[0].disabled = True
                                 cfg.knoppen[1].disabled = False
                                 cfg.knoppen[2].disabled = False
                                 cfg.knoppen[3].disabled = False
+                                cfg.knoppen[4].disabled = False
                                 cfg.error_message = cfg.error_message0
                                 cfg.wt_error.text = cfg.error_message
                             else:

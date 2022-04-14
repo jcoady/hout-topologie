@@ -30,6 +30,14 @@ def update():
             os.remove('plankenlijst.xlsx')
         print('Create excel')
         excel.to_excel('plankenlijst.xlsx')
+        
+        if (os.path.exists('plankenlijst-FINAL.xlsx') and cfg.buy==True):
+            print('Delete excel-FINAL')
+            os.remove('plankenlijst-FINAL.xlsx')
+        if cfg.buy==True:
+            print('Create excel-FINAL')
+            excel.to_excel('plankenlijst-FINAL.xlsx')
+        
         #excel=excel.sort_values(['lengte','breedte','dikte'], ascending=[False,False,False],ignore_index=True)
         
         dups_excel = excel.pivot_table(columns=['type','dikte','breedte','lengte'], aggfunc='size')
@@ -39,6 +47,14 @@ def update():
             os.remove('stuklijst.xlsx')
         print('Create excel2')
         dups_excel.to_excel('stuklijst.xlsx')
+        
+        if (os.path.exists('stuklijst-FINAL.xlsx') and cfg.buy == True):
+            print('Delete excel2-FINAL')
+            os.remove('stuklijst-FINAL.xlsx')
+        if cfg.buy == True:
+            print('Create excel2-FINAL')
+            dups_excel.to_excel('stuklijst-FINAL.xlsx')
+            cfg.buy=False
         
         cfg.sliders = cfg.sliders_update.copy()
         cfg.niveaus = len(cfg.sliders)
@@ -75,9 +91,10 @@ def update():
                     del cfg.graphics[a][b][c][2]
                     del cfg.graphics[a][b][c][1]
                     del cfg.graphics[a][b][c][0]
-        
+        #cfg.knoppen=[build_knop,reset_knop,plank_knop,menu_knop]
         cfg.knoppen[0].disabled = False
         cfg.knoppen[1].disabled = True
         cfg.knoppen[2].disabled = True
         cfg.knoppen[3].disabled = True
+        cfg.knoppen[4].disabled = True
     
