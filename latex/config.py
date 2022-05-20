@@ -23,3 +23,5 @@ voorkant=0
 deur=0
 scharnier=0
 slot=0
+
+step1=[]
