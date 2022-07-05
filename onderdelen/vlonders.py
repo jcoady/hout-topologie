@@ -62,25 +62,30 @@ def vlonder(lengte_vlonder,uz):
     hele_planken=int(floor(fractie_planken))
     over=fractie_planken-hele_planken
     
-    if ((over > 0.0) and (hele_planken > 1)):
-        hele_planken=hele_planken-1
-        for planken in range(hele_planken):
-            Breedtes.append(b)
-        if hele_planken > 0:
-            over=(b*(over+1.)/2.)
-            Breedtes.append(over)
-            Breedtes.append(over)
-        else:
-            over=(b*(over+1.)/2.)
-            Breedtes.append(over)
-            
-    elif over > 0.0:
-            over=(b*(over+1.)/2.)
-            Breedtes.append(over)
-            Breedtes.append(over)
+    print(d,b,hele_planken,over)
+    
+    if hele_planken == 0:
+        Breedtes.append(d)
     else:
-        for planken in range(hele_planken):
-            Breedtes.append(b)
+        if ((over > 0.0) and (hele_planken > 1.)):
+            hele_planken=hele_planken-1
+            for planken in range(hele_planken):
+                Breedtes.append(b)
+            if hele_planken > 0:
+                over=(b*(over+1.)/2.)
+                Breedtes.append(over)
+                Breedtes.append(over)
+            else:
+                over=(b*(over+1.)/2.)
+                Breedtes.append(over)
+                
+        elif over > 0.0:
+                over=(b*(over+1.)/2.)
+                Breedtes.append(over)
+                Breedtes.append(over)
+        else:
+            for planken in range(hele_planken):
+                Breedtes.append(b)
     
     ux=0.
     uy=diepte_kast/2.- dikte_plank - dikte_rib

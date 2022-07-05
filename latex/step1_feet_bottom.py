@@ -13,6 +13,8 @@ import pandas as pd
 def get_feet():
     voeten=cfg.voeten
     rows=len(voeten.index)
+    arrowlist=[]
+    arrowlist2=[[],[],[]]
     for row in range(rows):
         x0=voeten.loc[row,'xloc']
         y0=voeten.loc[row,'yloc']
@@ -26,6 +28,31 @@ def get_feet():
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step1.append(B)
+        
+        if y0 > 0:
+            arrowlist.append([x0,y0,z0,l,w,h,xa,ya,za])
+            
+    for feet in range(len(arrowlist)):
+        if feet != 0:
+            xa0=arrowlist[0][0]+arrowlist[0][3]/2.
+            xa1=arrowlist[feet][0]+arrowlist[feet][3]/2.
+            arrowlist2[0].append([xa0,xa1])
+    
+    ya0=0
+    for feet in range(len(arrowlist)):
+        if feet != 0:
+            ya0=max(ya0,arrowlist[feet][1])
+            ya0=ya0+8.
+            ya1=ya0
+            arrowlist2[1].append([ya0,ya1])
+            
+    for feet in range(len(arrowlist)):
+        if feet != 0:
+            za0=arrowlist[0][2]
+            za1=arrowlist[feet][2]
+            arrowlist2[2].append([za0,za1])
+        
+    return arrowlist2
 
 def get_bottom():
     onderkant=cfg.onderkant
@@ -44,11 +71,24 @@ def get_bottom():
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step1.append(B)
         
-def get_arrow():
-    A=arrow.build(235.6/2.,40,5,-235.6/2.,40,5,0,0)
-    
+def build_arrow(arrowlist):
+    print(arrowlist)
+    for a in range(len(arrowlist[0])):
+        x0=arrowlist[0][a][0]
+        x1=arrowlist[0][a][1]
+        y0=arrowlist[1][a][0]
+        y1=arrowlist[1][a][1]
+        z0=arrowlist[2][a][0]
+        z1=arrowlist[2][a][1]
+        A=get_arrow(x0,y0,z0,x1,y1,z1,0,0)
+        cfg.step1arrow.append(A)
+        
+def get_arrow(x0,y0,z0,x1,y1,z1,label,angle):
+    #A=arrow.build(235.6/2.,40,5,-235.6/2.,40,5,0,0)
+    A=arrow.build(x0,y0,z0,x1,y1,z1,label,angle)
+    return A
 
 def build():
-    feet=get_feet()
+    arrowlist=get_feet()
     bottom=get_bottom()
-    arrow=get_arrow()
+    arrow=build_arrow(arrowlist)
