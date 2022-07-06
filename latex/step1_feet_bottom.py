@@ -42,7 +42,7 @@ def get_feet():
     for feet in range(len(arrowlist)):
         if feet != 0:
             ya0=max(ya0,arrowlist[feet][1])
-            ya0=ya0+8.
+            ya0=ya0#+8.
             ya1=ya0
             arrowlist2[1].append([ya0,ya1])
             
