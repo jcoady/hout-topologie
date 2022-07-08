@@ -24,5 +24,6 @@ deur=0
 scharnier=0
 slot=0
 
-step1=[]
+step1_feet=[]
+step1_bottom=[]
 step1arrow=[]

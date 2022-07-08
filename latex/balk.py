@@ -162,4 +162,13 @@ def construct(x0,y0,z0,l,w,h,xa,ya,za):
     d1,d2,d3=s(p8,p4)
     rand12 = cylinder(pos=vector(p4[0],p4[1],p4[2]),         axis=vector(d1,d2,d3), radius=.1,color=vector(0,0,0))
     
-    return [balk,rand1,rand2,rand3,rand4,rand5,rand6,rand7,rand8,rand9,rand10,rand11,rand12]
+    p1,p2,p6,p5
+    x1=(p1[0]+p2[0]+p3[0]+p4[0])/4
+    y1=(p1[1]+p2[1]+p3[1]+p4[1])/4
+    z1=(p1[2]+p2[2]+p3[2]+p4[2])/4
+    x2=(p4[0]+p3[0]+p7[0]+p8[0])/4.
+    y2=(p4[1]+p3[1]+p7[1]+p8[1])/4.
+    z2=(p4[2]+p3[2]+p7[2]+p8[2])/4.
+    pa=[x1,y1,z1]
+    pb=[x2,y2,z2]
+    return [balk,rand1,rand2,rand3,rand4,rand5,rand6,rand7,rand8,rand9,rand10,rand11,rand12,pa,pb]

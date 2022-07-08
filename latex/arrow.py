@@ -8,16 +8,15 @@ Created on Fri May 20 15:39:28 2022
 
 from vpython import vector,cylinder,cone, compound, quad, vertex
 import numpy as np
-from math import sqrt
 
 def build(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness):
-    x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness=direction(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness)
-    a=arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness)
+    a=direction(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness)
     return a
 
 def direction(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness):
     if (z0 == z1 and z0==z2 and y1 == y2 and x0 == x1 and y0 < y1):
-        return 1
+        a=arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness)
+        return a
     elif (z0 == z1 and z0==z2 and y1 == y2 and x0 == x1 and y0 > y1):
         return 2
     elif (y0 == y1 and y0==y2 and z1 == z2 and x0 == x1 and z0 > z1):
@@ -67,18 +66,18 @@ def arrow(x2,y2,z2,x0,y0,z0,x1,y1,z1,label,thickness):
     head=cone(pos=vector(x0-x0e,y0-y0e,z0-z0e), axis=vector(x0e,y0e,z0e), radius=head_thickness, color=vector(1,0,0))
     tail=cone(pos=vector(x1-x1e,y1-y1e,z1-z1e), axis=vector(x1e,y1e,z1e), radius=head_thickness, color=vector(1,0,0))
     body=cylinder(pos=vector(x0-x0e,y0-y0e,z0-z0e), axis=vector(x1-x0-x1e+x0e,y1-y0-y1e+y0e,z1-z0-z1e+z0e), color=vector(1,0,0), radius = body_thickness )
-    v1=vertex(pos=vector(x0,y0-head_thickness,z0-head_thickness), color=vector(1,0,0))
-    v2=vertex(pos=vector(x0,y0-head_thickness,z0+head_thickness), color=vector(1,0,0))
-    v3=vertex(pos=vector(x0,y0+head_thickness,z0+head_thickness), color=vector(1,0,0))
-    v4=vertex(pos=vector(x0,y0+head_thickness,z0-head_thickness), color=vector(1,0,0))
-    slab=quad(vs=[v1,v2,v3,v4])
+    va1=vertex(pos=vector(x1,y2,z2+thickness), color=vector(1,0,0))
+    va2=vertex(pos=vector(x1,y2,z2-thickness), color=vector(1,0,0))
+    va3=vertex(pos=vector(x1,y1+thickness*2,z1-thickness), color=vector(1,0,0))
+    va4=vertex(pos=vector(x1,y1+thickness*2,z1+thickness), color=vector(1,0,0))
+    slaba=quad(vs=[va1,va2,va3,va4])   
     
-    va=vertex(pos=vector(x0,y0-head_thickness,z0-head_thickness), color=vector(1,0,0))
-    va=vertex(pos=vector(x0,y0-head_thickness,z0+head_thickness), color=vector(1,0,0))
-    va=vertex(pos=vector(x0,y0+head_thickness,z0+head_thickness), color=vector(1,0,0))
-    va=vertex(pos=vector(x0,y0+head_thickness,z0-head_thickness), color=vector(1,0,0))
-    slab=quad(vs=[va,va,va,va])   
+    vb1=vertex(pos=vector(x0,y2,z2+thickness), color=vector(1,0,0))
+    vb2=vertex(pos=vector(x0,y2,z2-thickness), color=vector(1,0,0))
+    vb3=vertex(pos=vector(x0,y0+thickness*2,z0-thickness), color=vector(1,0,0))
+    vb4=vertex(pos=vector(x0,y0+thickness*2,z0+thickness), color=vector(1,0,0))
+    slabb=quad(vs=[vb1,vb2,vb3,vb4])   
     
-    arrow = compound([head, body, tail,slab])
+    arrow = compound([head, body, tail,slaba,slabb])
     return arrow
     
