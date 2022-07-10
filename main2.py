@@ -12,4 +12,6 @@ def main():
     get_excel.build()
     scene.start_scene()
     step1_feet_bottom.build()
+    scene.cam_reset()
+    scene.capture('step-1-bottom.png')
 main()

@@ -26,4 +26,5 @@ slot=0
 
 step1_feet=[]
 step1_bottom=[]
-step1arrow=[]
+step1_arrow=[]
+step1_camera=[0,0,0]

@@ -29,7 +29,7 @@ def build():
     cfg.voeten=voeten
     print(cfg.voeten)
     
-    #bouw onderkant
+    #onderplanken
     print('\n onderkant')
     colum = 'naam'
     sub = 'onderstel'
@@ -42,13 +42,13 @@ def build():
     cfg.onderkant=onderkant
     print(cfg.onderkant)
     
-    #bouw rib1
-    print('\n rib1')
+    #onder ribben
+    print('\n onder ribben')
     colum = 'naam'
     sub = 'ribben'
     rib1 = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
-    sub2 = 'opmerking'
-    rib1 = rib1.loc[rib1[sub2] == 0.0]
+    sub2 = 'subnaam'
+    rib1 = rib1.loc[rib1[sub2] == 'onder']
     rib1 = rib1.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
     rib1 = rib1.reset_index(drop=True)
     cfg.rib1=rib1

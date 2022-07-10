@@ -52,31 +52,29 @@ def get_bottom():
         cfg.step1_bottom.append(B)
         
 def build_arrow(arrowlist):
-    print(arrowlist)
     for a in range(len(arrowlist)):
         if a != 0:
-            x0=arrowlist[0][0][0] + arrowlist[0][2]/2.
-            y0=arrowlist[0][0][1]+arrowlist[0][0][2]/2
+            x0=arrowlist[0][0][0] 
+            y0=arrowlist[0][0][1] + arrowlist[0][0][2]
             z0=arrowlist[0][0][2]
             
-            x1=arrowlist[0][0][0] + arrowlist[0][2]/2.
-            y1=arrowlist[0][0][1]+arrowlist[0][2]/2+arrowlist[0][2]*a*2
+            x1=arrowlist[0][0][0] 
+            y1=arrowlist[0][0][1] + arrowlist[0][2]*a*2
             z1=arrowlist[0][0][2]
             
-            x2=arrowlist[a][0][0] + arrowlist[a][2]/2.
-            y2=arrowlist[a][0][1]+arrowlist[a][2]/2+arrowlist[a][2]*a*2
+            x2=arrowlist[a][0][0] 
+            y2=arrowlist[a][0][1] + arrowlist[a][2]*a*2
             z2=arrowlist[a][0][2]
             
-            label = (arrowlist[0][0][0] + arrowlist[a][0][0])/2
+            #label = (arrowlist[0][0][0] + arrowlist[a][0][0])/2
             
             thickness = arrowlist[0][2]/3
             
-            A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness)
-            cfg.step1arrow.append(A)
+            A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
+            cfg.step1_arrow.append(A)
         
-def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness):
-    #A=arrow.build(235.6/2.,40,5,-235.6/2.,40,5,0,0)
-    A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,label,thickness)
+def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
+    A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
     return A
 
 def build():
