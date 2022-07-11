@@ -11,7 +11,7 @@ planklijst= 0
 
 voeten=0
 onderkant=0
-rib1=0
+rib_onder=0
 ribmax=0
 bovenkant=0
 achterrib=0
@@ -28,3 +28,9 @@ step1_feet=[]
 step1_bottom=[]
 step1_arrow=[]
 step1_camera=[0,0,0]
+
+step2_feet=[]
+step2_bottom=[]
+step2_rib_onder=[]
+step2_arrow=[]
+step2_camera=[0,0,0]

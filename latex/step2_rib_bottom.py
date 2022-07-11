@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 11 14:49:59 2022
+Created on Mon Jul 11 09:33:40 2022
 
 @author: windhoos
 """
 
 from latex import config as cfg
 from latex import balk, arrow
-#import pandas as pd
+
 
 def get_feet():
     voeten=cfg.voeten
     rows=len(voeten.index)
-    arrowlist=[]
     for row in range(rows):
         x0=voeten.loc[row,'xloc']
         y0=voeten.loc[row,'yloc']
@@ -26,13 +25,7 @@ def get_feet():
         za=voeten.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step1_feet.append(B)
-        pa=B[-2]
-        pb=B[-1]
-        if y0 > 0:
-            arrowlist.append([pa,pb,l,w,h])
-            
-    return arrowlist
+        cfg.step2_feet.append(B)
 
 def get_bottom():
     onderkant=cfg.onderkant
@@ -49,7 +42,30 @@ def get_bottom():
         za=onderkant.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step1_bottom.append(B)
+        cfg.step2_bottom.append(B)
+        
+def get_rib():
+    rib_onder=cfg.rib_onder
+    rows=len(rib_onder.index)
+    arrowlist=[]
+    for row in range(rows):
+        x0=rib_onder.loc[row,'xloc']
+        y0=rib_onder.loc[row,'yloc']
+        z0=rib_onder.loc[row,'zloc']
+        l=rib_onder.loc[row,'lengte']
+        w=rib_onder.loc[row,'breedte']
+        h=rib_onder.loc[row,'dikte']
+        xa=rib_onder.loc[row,'rx']
+        ya=rib_onder.loc[row,'ry']
+        za=rib_onder.loc[row,'rz']
+        
+        B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
+        cfg.step2_rib_onder.append(B)
+        pa=B[-2]
+        pb=B[-1]
+        arrowlist.append([pa,pb,l,w,h])
+            
+    return arrowlist
         
 def build_arrow(arrowlist):
     for a in range(len(arrowlist)):
@@ -66,18 +82,17 @@ def build_arrow(arrowlist):
             y2=arrowlist[a][0][1] + arrowlist[a][2]*a*2
             z2=arrowlist[a][0][2]
             
-            #label = (arrowlist[0][0][0] + arrowlist[a][0][0])/2
-            
             thickness = arrowlist[0][2]/3
             
             A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
-            cfg.step1_arrow.append(A)
+            cfg.step2_arrow.append(A)
         
 def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
     A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
     return A
 
 def build():
-    arrowlist=get_feet()
+    get_feet()
     get_bottom()
-    cfg.step1_arrow=build_arrow(arrowlist)
+    arrowlist=get_rib()
+    #cfg.step2_arrow=build_arrow(arrowlist)

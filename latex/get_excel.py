@@ -51,8 +51,8 @@ def build():
     rib1 = rib1.loc[rib1[sub2] == 'onder']
     rib1 = rib1.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
     rib1 = rib1.reset_index(drop=True)
-    cfg.rib1=rib1
-    print(cfg.rib1)
+    cfg.rib_onder=rib1
+    print(cfg.rib_onder)
     
     #bouw ribmax
     print('\n ribmax')

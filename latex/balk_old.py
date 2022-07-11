@@ -9,7 +9,6 @@ Created on Sat Apr  2 22:12:02 2022
 from vpython import box,vector,cylinder
 import numpy as np
 from scipy.spatial.transform import Rotation as R
-from math import radians
 
 def s(a,b):
     c1=a[0]-b[0]
@@ -62,10 +61,6 @@ def construct(x0,y0,z0,l,w,h,xa,ya,za):
          8\___________\5
     '''
     
-    xa=radians(xa)
-    ya=radians(ya)
-    za=radians(za)
-    
     px1=x0+l/2
     py1=y0+w/2
     pz1=z0+h/2
@@ -108,7 +103,6 @@ def construct(x0,y0,z0,l,w,h,xa,ya,za):
     p7=px7,py7,pz7
     p8=px8,py8,pz8
     
-    '''
     paxis=x0+1,y0,z0
     pup=x0,y0,z0+1
     
@@ -123,15 +117,14 @@ def construct(x0,y0,z0,l,w,h,xa,ya,za):
     p6=rotate(p6,xa,ya,za)
     p7=rotate(p7,xa,ya,za)
     p8=rotate(p8,xa,ya,za)
-    '''
     
     kleur =  vector(0.4,0.3,0.2)
-    #d1,d2,d3=s(p0,paxis)
-    #d4,d5,d6=s(p0,pup)
-    balk =   box(pos=vector(x0,y0,z0), size=vector(l,h,w) , axis=vector(1,0,0),up=vector(0,0,1),color=kleur)
-    balk.rotate(angle=xa,axis=vector(1,0,0))
-    balk.rotate(angle=ya,axis=vector(0,1,0))
-    balk.rotate(angle=za,axis=vector(0,0,1))
+    d1,d2,d3=s(p0,paxis)
+    d4,d5,d6=s(p0,pup)
+    balk =   box(pos=vector(x0,y0,z0), size=vector(l,h,w) , axis=vector(d1,d2,d3),up=vector(d4,d5,d6),color=kleur)
+    balk.rotate(angle=xa,axis=vector(1,0,0),origin=vector(x0,y0,z0))
+    balk.rotate(angle=ya,axis=vector(0,1,0),origin=vector(x0,y0,z0))
+    balk.rotate(angle=za,axis=vector(0,0,1),origin=vector(x0,y0,z0))
     
     d1,d2,d3=s(p2,p1)
     rand1 =  cylinder(pos=vector(p1[0],p1[1],p1[2]),         axis=vector(d1,d2,d3), radius=.1,color=vector(0,0,0))

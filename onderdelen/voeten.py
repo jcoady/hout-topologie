@@ -145,7 +145,7 @@ def maak():
     })
     
     df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
-    
+    print('voet extra:',voet_extra)
     if voet_extra > 0:
         ve1=p.plank(v,v,v)
         rx,ry,rz=0,0,0
@@ -160,8 +160,27 @@ def maak():
             voete1=ve1.balk()
             Voeten.append(voete1)
             
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
+            
         elif voet_extra == 2:
-            ve1=p.plank(v,v,v)
+            ve1a=p.plank(v,v,v)
             rx,ry,rz=0,0,0
 
             #ux=(breedte_kast-2*dikte_plank)/6.
@@ -169,33 +188,90 @@ def maak():
             uy=diepte_kast/2.-v/2.-dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete1=ve1.balk()
-            Voeten.append(voete1)
+            ve1a.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1a=ve1a.balk()
+            Voeten.append(voete1a)
             
-            ve1=p.plank(v,v,v)
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
+            
+            ve1b=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             #ux=-(breedte_kast-2*dikte_plank)/6.
             ux=-(breedte_kast-dikte_plank*2-dikte_rib)/6.
             uy=diepte_kast/2.-v/2.-dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete1=ve1.balk()
-            Voeten.append(voete1)
+            ve1b.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1b=ve1b.balk()
+            Voeten.append(voete1b)
+            
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
             
         elif voet_extra >= 3:
-            ve1=p.plank(v,v,v)
+            ve1a=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             ux=0
             uy=diepte_kast/2.-v/2.-dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete1=ve1.balk()
-            Voeten.append(voete1)
+            ve1a.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1a=ve1a.balk()
+            Voeten.append(voete1a)
             
-            ve1=p.plank(v,v,v)
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
+            
+            ve1b=p.plank(v,v,v)
             rx,ry,rz=0,0,0
 
             #ux=(breedte_kast-2*dikte_plank)/4.
@@ -203,42 +279,61 @@ def maak():
             uy=diepte_kast/2.-v/2.-dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete1=ve1.balk()
-            Voeten.append(voete1)
+            ve1b.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1b=ve1b.balk()
+            Voeten.append(voete1b)
             
-            ve1=p.plank(v,v,v)
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
+            
+            ve1c=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             #ux=-(breedte_kast-2*dikte_plank)/4.
             ux=-(breedte_kast-dikte_plank*2-dikte_rib)/4.
             uy=diepte_kast/2.-v/2.-dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve1.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete1=ve1.balk()
-            Voeten.append(voete1)
+            ve1c.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete1c=ve1c.balk()
+            Voeten.append(voete1c)
+            
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+        
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
             
         #new_row = {'naam':'voet','subnaam':'','index':df_voet.shape[0]+1,'lengte':v,'breedte':v,'dikte':v,'type':'blok','opmerking':''}
         #df_voet = df_voet.append(new_row, ignore_index=True)
-        
-        df_voet_append = pd.DataFrame({
-            "naam":         ['voet'],
-            "subnaam":      [''],
-            "type":         ['blok'],
-            "nummer":       [df_voet.shape[0]],
-            "lengte":       [v],
-            "breedte":      [v],
-            "dikte":        [v],
-            "xloc":         [ux],
-            "yloc":         [uy],
-            "zloc":         [uz],
-            "rx":           [rx],
-            "ry":           [ry],
-            "rz":           [rz],
-            "opmerking":    [''],
-            })
-    
-        df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
         
         ve2=p.plank(v,v,v)
         rx,ry,rz=0,0,0
@@ -252,83 +347,178 @@ def maak():
             ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
             voete2=ve2.balk()
             Voeten.append(voete2)
+            
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
         elif voet_extra == 2:
-            ve2=p.plank(v,v,v)
+            ve2a=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             #ux=(breedte_kast-2*dikte_plank)/6.
             ux=(breedte_kast-dikte_plank*2-dikte_rib)/6.
             uy=-diepte_kast/2.+v/2.+dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete2=ve2.balk()
-            Voeten.append(voete2)
+            ve2a.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2a=ve2a.balk()
+            Voeten.append(voete2a)
             
-            ve2=p.plank(v,v,v)
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
+            
+            ve2b=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             #ux=-(breedte_kast-2*dikte_plank)/6.
             ux=-(breedte_kast-dikte_plank*2-dikte_rib)/6.
             uy=-diepte_kast/2.+v/2.+dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete2=ve2.balk()
-            Voeten.append(voete2)
+            ve2b.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2b=ve2b.balk()
+            Voeten.append(voete2b)
+            
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
             
         elif voet_extra >= 3:
-            ve2=p.plank(v,v,v)
+            ve2a=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             ux=0.
             uy=-diepte_kast/2.+v/2.+dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete2=ve2.balk()
-            Voeten.append(voete2)
+            ve2a.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2a=ve2a.balk()
+            Voeten.append(voete2a)
             
-            ve2=p.plank(v,v,v)
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
+            
+            ve2b=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             #ux=(breedte_kast-2*dikte_plank)/4.
             ux=(breedte_kast-dikte_plank*2-dikte_rib)/4.
             uy=-diepte_kast/2.+v/2.+dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete2=ve2.balk()
-            Voeten.append(voete2)
+            ve2b.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2b=ve2b.balk()
+            Voeten.append(voete2b)
             
-            ve2=p.plank(v,v,v)
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
+            
+            ve2c=p.plank(v,v,v)
             rx,ry,rz=0,0,0
             #ux=-(breedte_kast-2*dikte_plank)/4.
             ux=-(breedte_kast-dikte_plank*2-dikte_rib)/4.
             uy=-diepte_kast/2.+v/2.+dikte_plank
             uz=v/2.
             sx,sy,sz=1,1,1
-            ve2.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
-            voete2=ve2.balk()
-            Voeten.append(voete2)
+            ve2c.transformatie(rx,ry,rz,ux,uy,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
+            voete2c=ve2c.balk()
+            Voeten.append(voete2c)
+            
+            df_voet_append = pd.DataFrame({
+                "naam":         ['voet'],
+                "subnaam":      [''],
+                "type":         ['blok'],
+                "nummer":       [df_voet.shape[0]],
+                "lengte":       [v],
+                "breedte":      [v],
+                "dikte":        [v],
+                "xloc":         [ux],
+                "yloc":         [uy],
+                "zloc":         [uz],
+                "rx":           [rx],
+                "ry":           [ry],
+                "rz":           [rz],
+                "opmerking":    [''],
+                })
+            
+            df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
             
         #new_row = {'naam':'voet','subnaam':'','index':df_voet.shape[0]+1,'lengte':v,'breedte':v,'dikte':v,'type':'blok','opmerking':''}
         #df_voet = df_voet.append(new_row, ignore_index=True)
-        
-        df_voet_append = pd.DataFrame({
-            "naam":         ['voet'],
-            "subnaam":      [''],
-            "type":         ['blok'],
-            "nummer":       [df_voet.shape[0]],
-            "lengte":       [v],
-            "breedte":      [v],
-            "dikte":        [v],
-            "xloc":         [ux],
-            "yloc":         [uy],
-            "zloc":         [uz],
-            "rx":           [rx],
-            "ry":           [ry],
-            "rz":           [rz],
-            "opmerking":    [''],
-            })
-        
-        df_voet=pd.concat([df_voet,df_voet_append],ignore_index=True)
         
     cfg.df_voet=df_voet
 
