@@ -204,13 +204,41 @@ def construct(x0,y0,z0,l,w,h,xa,ya,za):
     rand12.rotate(angle=xa,axis=vector(1,0,0),origin=vector(x0,y0,z0))
     rand12.rotate(angle=ya,axis=vector(0,1,0),origin=vector(x0,y0,z0))
     rand12.rotate(angle=za,axis=vector(0,0,1),origin=vector(x0,y0,z0))
-    
+    #TODO: hier gaat het fout, deze punten zijn niet geroteerd.
+    '''
     x1=(p1[0]+p2[0]+p6[0]+p5[0])/4
     y1=(p1[1]+p2[1]+p6[1]+p5[1])/4
     z1=(p1[2]+p2[2]+p6[2]+p5[2])/4
     x2=(p4[0]+p3[0]+p7[0]+p8[0])/4.
     y2=(p4[1]+p3[1]+p7[1]+p8[1])/4.
     z2=(p4[2]+p3[2]+p7[2]+p8[2])/4.
-    pa=[x1,y1,z1]
-    pb=[x2,y2,z2]
+    '''
+    
+    x1=balk.pos.x
+    x1v=balk.axis.x
+    x1e=x1-x1v/2
+    
+    y1=balk.pos.y
+    y1v=balk.axis.y
+    y1e=y1-y1v/2
+    
+    z1=balk.pos.z
+    z1v=balk.axis.z/2
+    z1e=z1-z1v
+    
+    x2=balk.pos.x
+    x2v=balk.axis.x
+    x2e=x2+x2v/2
+    
+    y2=balk.pos.y
+    y2v=balk.axis.y
+    y2e=y2+y2v/2
+    
+    z2=balk.pos.z
+    z2v=balk.axis.z/2
+    z2e=z2+z2v
+    
+    pa=[x1e,y1e,z1e]
+    pb=[x2e,y2e,z2e]
+    
     return [balk,rand1,rand2,rand3,rand4,rand5,rand6,rand7,rand8,rand9,rand10,rand11,rand12,pa,pb]

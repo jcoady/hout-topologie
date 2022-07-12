@@ -8,7 +8,6 @@ Created on Wed May 11 14:49:59 2022
 
 from latex import config as cfg
 from latex import balk, arrow
-#import pandas as pd
 
 def get_feet():
     voeten=cfg.voeten
@@ -74,7 +73,8 @@ def build_arrow(arrowlist):
             cfg.step1_arrow.append(A)
         
 def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
-    A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
+    case=1
+    A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,case)
     return A
 
 def build():

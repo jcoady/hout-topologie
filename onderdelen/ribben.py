@@ -76,7 +76,8 @@ def rib(ux,locatie):
     #rib1 - onder
     r1=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r1.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
+    #r1.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
+    r1.plank_zagen(diepte_kast-2*dikte_plank-2*breedte_rib,breedte_rib,dikte_rib)
 
     rx,ry,rz=0,0,90
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
@@ -94,7 +95,7 @@ def rib(ux,locatie):
                 "subnaam":      ['onder'],
                 "type":         ['balk'],
                 "nummer":       [0],
-                "lengte":       [diepte_kast-2*dikte_plank],
+                "lengte":       [diepte_kast-2*dikte_plank-2*breedte_rib],
                 "breedte":      [breedte_rib],
                 "dikte":        [dikte_rib],
                 "xloc":         [ux],
@@ -113,7 +114,7 @@ def rib(ux,locatie):
             "subnaam":      ['onder'],
             "type":         ['balk'],
             "nummer":       [cfg.df_ribben.shape[0]],
-            "lengte":       [diepte_kast-2*dikte_plank],
+            "lengte":       [diepte_kast-2*dikte_plank-2*breedte_rib],
             "breedte":      [breedte_rib],
             "dikte":        [dikte_rib],
             "xloc":         [ux],
@@ -130,7 +131,8 @@ def rib(ux,locatie):
     #rib2 - ene zeide
     r2=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r2.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
+    #r2.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
+    r2.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet,breedte_rib,dikte_rib)
 
     rx,ry,rz=0,90,0
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
@@ -148,7 +150,7 @@ def rib(ux,locatie):
                 "subnaam":      ['zeide'],
                 "type":         ['balk'],
                 "nummer":       [0],
-                "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+                "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet],
                 "breedte":      [breedte_rib],
                 "dikte":        [dikte_rib],
                 "xloc":         [ux],
@@ -167,7 +169,7 @@ def rib(ux,locatie):
             "subnaam":      ['zeide'],
             "type":         ['balk'],
             "nummer":       [cfg.df_ribben.shape[0]],
-            "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+            "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet],
             "breedte":      [breedte_rib],
             "dikte":        [dikte_rib],
             "xloc":         [ux],
@@ -184,7 +186,8 @@ def rib(ux,locatie):
     #rib3 - andere zeide
     r3=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r3.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
+    #r3.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib,breedte_rib,dikte_rib)
+    r3.plank_zagen(hoogte_kast-2*dikte_plank-hoogte_voet,breedte_rib,dikte_rib)
 
     rx,ry,rz=0,90,0
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
@@ -202,7 +205,7 @@ def rib(ux,locatie):
                 "subnaam":      ['zeide'],
                 "type":         ['balk'],
                 "nummer":       [0],
-                "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+                "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet],
                 "breedte":      [breedte_rib],
                 "dikte":        [dikte_rib],
                 "xloc":         [ux],
@@ -221,7 +224,7 @@ def rib(ux,locatie):
             "subnaam":      ['zeide'],
             "type":         ['balk'],
             "nummer":       [cfg.df_ribben.shape[0]],
-            "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet-2*dikte_rib],
+            "lengte":       [hoogte_kast-2*dikte_plank-hoogte_voet],
             "breedte":      [breedte_rib],
             "dikte":        [dikte_rib],
             "xloc":         [ux],
@@ -239,7 +242,8 @@ def rib(ux,locatie):
     #rib4 - bovenkant
     r4=p.plank(lengte_rib,breedte_rib,dikte_rib)
 
-    r4.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
+    #r4.plank_zagen(diepte_kast-2*dikte_plank,breedte_rib,dikte_rib)
+    r4.plank_zagen(diepte_kast-2*dikte_plank-2*breedte_rib,breedte_rib,dikte_rib)
 
     rx,ry,rz=0,0,90
     #ux=breedte_kast/2.-dikte_plank-dikte_rib/2.
@@ -257,7 +261,7 @@ def rib(ux,locatie):
                 "subnaam":      ['boven'],
                 "type":         ['balk'],
                 "nummer":       [0],
-                "lengte":       [diepte_kast-2*dikte_plank],
+                "lengte":       [diepte_kast-2*dikte_plank-2*breedte_rib],
                 "breedte":      [breedte_rib],
                 "dikte":        [dikte_rib],
                 "xloc":         [ux],
@@ -276,7 +280,7 @@ def rib(ux,locatie):
             "subnaam":      ['boven'],
             "type":         ['balk'],
             "nummer":       [cfg.df_ribben.shape[0]],
-            "lengte":       [diepte_kast-2*dikte_plank],
+            "lengte":       [diepte_kast-2*dikte_plank-2*breedte_rib],
             "breedte":      [breedte_rib],
             "dikte":        [dikte_rib],
             "xloc":         [ux],
