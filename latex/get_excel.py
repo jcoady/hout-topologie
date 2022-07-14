@@ -59,6 +59,7 @@ def build():
     colum = 'naam'
     sub = 'ribben'
     ribmax = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    ribmax = ribmax[~ribmax.select_dtypes(['object']).eq('onder').any(1)]
     ribmax = ribmax.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
     ribmax = ribmax.reset_index(drop=True)
     cfg.ribmax=ribmax

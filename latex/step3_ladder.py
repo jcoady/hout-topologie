@@ -8,59 +8,35 @@ Created on Mon Jul 11 09:33:40 2022
 
 from latex import config as cfg
 from latex import balk, arrow
-
-
-def get_feet():
-    voeten=cfg.voeten
-    rows=len(voeten.index)
-    for row in range(rows):
-        x0=voeten.loc[row,'xloc']
-        y0=voeten.loc[row,'yloc']
-        z0=voeten.loc[row,'zloc']
-        l=voeten.loc[row,'lengte']
-        w=voeten.loc[row,'breedte']
-        h=voeten.loc[row,'dikte']
-        xa=voeten.loc[row,'rx']
-        ya=voeten.loc[row,'ry']
-        za=voeten.loc[row,'rz']
-        
-        B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step2_feet.append(B)
-
-def get_bottom():
-    onderkant=cfg.onderkant
-    rows=len(onderkant.index)
-    for row in range(rows):
-        x0=onderkant.loc[row,'xloc']
-        y0=onderkant.loc[row,'yloc']
-        z0=onderkant.loc[row,'zloc']
-        l=onderkant.loc[row,'lengte']
-        w=onderkant.loc[row,'breedte']
-        h=onderkant.loc[row,'dikte']
-        xa=onderkant.loc[row,'rx']
-        ya=onderkant.loc[row,'ry']
-        za=onderkant.loc[row,'rz']
-        
-        B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step2_bottom.append(B)
         
 def get_rib():
-    rib_onder=cfg.rib_onder
-    rows=len(rib_onder.index)
+    ribmax=cfg.ribmax
+    #vind maximale waarde in df
+    xmax = ribmax.loc[ribmax['xloc'].idxmax()]
+    xmax = xmax[3]
+    cfg.step3_xmax=xmax
+    zmax = ribmax.loc[ribmax['lengte'].idxmax()]
+    zmax = zmax[5]
+    cfg.step3_zmax=zmax
+    #selecteer rijen met maximum waarde in column xloc
+    ribmax = ribmax.loc[ribmax['xloc'] == xmax]
+    ribmax = ribmax.reset_index(drop=True)
+    print(ribmax)
+    rows=len(ribmax.index)
     arrowlist=[]
     for row in range(rows):
-        x0=rib_onder.loc[row,'xloc']
-        y0=rib_onder.loc[row,'yloc']
-        z0=rib_onder.loc[row,'zloc']
-        l=rib_onder.loc[row,'lengte']
-        w=rib_onder.loc[row,'breedte']
-        h=rib_onder.loc[row,'dikte']
-        xa=rib_onder.loc[row,'rx']
-        ya=rib_onder.loc[row,'ry']
-        za=rib_onder.loc[row,'rz']
+        x0=ribmax.loc[row,'xloc']
+        y0=ribmax.loc[row,'yloc']
+        z0=ribmax.loc[row,'zloc']
+        l=ribmax.loc[row,'lengte']
+        w=ribmax.loc[row,'breedte']
+        h=ribmax.loc[row,'dikte']
+        xa=ribmax.loc[row,'rx']
+        ya=ribmax.loc[row,'ry']
+        za=ribmax.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step2_rib_onder.append(B)
+        cfg.step3_ribben.append(B)
         pa=B[-2]
         pb=B[-1]
         arrowlist.append([pa,pb,l,w,h])
@@ -121,8 +97,6 @@ def get_arrow2(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
     return A
 
 def build():
-    get_feet()
-    get_bottom()
     arrowlist=get_rib()
-    build_arrow(arrowlist)
-    build_arrow2(arrowlist)
+    #build_arrow(arrowlist)
+    #build_arrow2(arrowlist)
