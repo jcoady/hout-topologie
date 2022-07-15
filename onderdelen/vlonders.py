@@ -62,7 +62,7 @@ def vlonder(lengte_vlonder,uz):
     hele_planken=int(floor(fractie_planken))
     over=fractie_planken-hele_planken
     
-    print(d,b,hele_planken,over)
+    #print(d,b,hele_planken,over)
     
     if hele_planken == 0:
         Breedtes.append(d)

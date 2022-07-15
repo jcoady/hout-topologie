@@ -10,10 +10,26 @@ from onderdelen import config as cfg
 from time import sleep
 import pandas as pd
 import os
+import numpy as np
 
 def update():
     sleep(.5)
     #print('update - sliders_update ',cfg.sliders_update,' sliders ',  cfg.sliders)
+    a=[]
+    b=[]
+    for i in range(len(cfg.sliders)):
+        a.append(cfg.sliders[i][1])
+    for i in range(len(cfg.sliders)):
+        b.append(cfg.sliders_update[i][1])
+        
+    if len(a) != 0:
+        a=np.array(a)
+        b=np.array(b)
+    
+    if len(a) != 0:       
+        if not ((a == b).all()):
+            cfg.update_graph = True
+    
     if cfg.update_graph == True:
         cfg.update_graph = False
         

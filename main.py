@@ -60,6 +60,10 @@ def main():
     
             updater.update()
             
+            #print(cfg.df_ribben)
+            
+            #cfg.update_graph = True
+            
             if cfg.reset == True:
                 print('reset triggered')
                 finish = True
@@ -69,4 +73,5 @@ def main():
                 cfg.reset_loop == False
                 finish = True
         #reload(cfg)
+        #TODO: laatste plank wordt niet op juiste manier neergezet
 main()

@@ -53,17 +53,17 @@ def get_bottom():
 def build_arrow(arrowlist):
     for a in range(len(arrowlist)):
         if a != 0:
-            x0=arrowlist[0][0][0] 
-            y0=arrowlist[0][0][1] + arrowlist[0][0][2]
-            z0=arrowlist[0][0][2]
+            x0=arrowlist[0][1][0] 
+            y0=arrowlist[0][1][1] + arrowlist[0][0][2]
+            z0=arrowlist[0][1][2]
             
-            x1=arrowlist[0][0][0] 
-            y1=arrowlist[0][0][1] + arrowlist[0][2]*a*2
-            z1=arrowlist[0][0][2]
+            x1=arrowlist[0][1][0] 
+            y1=arrowlist[0][1][1] + arrowlist[0][2]*a*2
+            z1=arrowlist[0][1][2]
             
-            x2=arrowlist[a][0][0] 
-            y2=arrowlist[a][0][1] + arrowlist[a][2]*a*2
-            z2=arrowlist[a][0][2]
+            x2=arrowlist[a][1][0] 
+            y2=arrowlist[a][1][1] + arrowlist[a][2]*a*2
+            z2=arrowlist[a][1][2]
             
             #label = (arrowlist[0][0][0] + arrowlist[a][0][0])/2
             

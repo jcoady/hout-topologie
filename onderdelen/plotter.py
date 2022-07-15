@@ -130,7 +130,7 @@ def vpythonplot(breedte,hoogte,diepte,amax,aanzicht,Voeten,Onderstel,Ribben,Zeid
                 graphics[part][balk].append([Q,rod1,rod2,rod3,rod4])
             
     cfg.graphics = graphics.copy()
-
+    
     #sl = slider(min=cfg.hoogte_voet+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank, value=cfg.hoogte_voet+cfg.dikte_plank+10., length=640, bind=setspeed, right=15, step=.1,id=1)
     wt_enter = wtext(text='\n',id=1)
     sl = slider(min=cfg.breedte_rib*2+cfg.dikte_plank , max=cfg.hoogte_kast-cfg.dikte_plank-cfg.breedte_rib-cfg.hoogte_voet-cfg.dikte_plank, value=cfg.breedte_rib*2+cfg.dikte_plank, length=640, bind=setspeed, right=15, step=.1,id=1)
