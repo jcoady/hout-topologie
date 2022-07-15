@@ -11,25 +11,40 @@ from time import sleep
 import pandas as pd
 import os
 import numpy as np
+#import copy
 
 def update():
     sleep(.5)
-    #print('update - sliders_update ',cfg.sliders_update,' sliders ',  cfg.sliders)
+
     a=[]
     b=[]
     for i in range(len(cfg.sliders)):
         a.append(cfg.sliders[i][1])
-    for i in range(len(cfg.sliders)):
+    for i in range(len(cfg.sliders_update)):
         b.append(cfg.sliders_update[i][1])
         
-    if len(a) != 0:
+    if len(b) != 0:
         a=np.array(a)
         b=np.array(b)
-    
-    if len(a) != 0:       
-        if not ((a == b).all()):
-            cfg.update_graph = True
-    
+    print(a,b)
+    if len(a) != len(b):
+        print('a!=b')
+        cfg.update_graph = True
+    else:    
+        if len(b) != 0:       
+            if not (a == b).all():
+                print('a!=b')
+                cfg.update_graph = True
+                
+    cfg.sliders = cfg.sliders_update.copy()
+    #cfg.sliders = copy.deepcopy(cfg.sliders_update)
+    cfg.niveaus = len(cfg.sliders)
+    plankhoogte = []
+    for i in range(len(cfg.sliders)):
+        plankhoogte.append(cfg.sliders[i][1])
+    cfg.plankhoogte=plankhoogte
+                
+    #cfg.update_graph = True   
     if cfg.update_graph == True:
         cfg.update_graph = False
         
@@ -71,15 +86,17 @@ def update():
             print('Create excel2-FINAL')
             dups_excel.to_excel('stuklijst-FINAL.xlsx')
             cfg.buy=False
-        
+        '''
         cfg.sliders = cfg.sliders_update.copy()
+        #cfg.sliders = copy.deepcopy(cfg.sliders_update)
         cfg.niveaus = len(cfg.sliders)
         plankhoogte = []
         for i in range(len(cfg.sliders)):
             plankhoogte.append(cfg.sliders[i][1])
         cfg.plankhoogte=plankhoogte
+        '''
     else:
-        sleep(.5)
+        sleep(.1)
         #print('pause')
     if cfg.reset == True:
         for i in range(len(cfg.input_velden)):
