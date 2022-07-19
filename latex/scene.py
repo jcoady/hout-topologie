@@ -46,7 +46,24 @@ def cam_reset(step):
         x=-cfg.step3_camera[0]+cfg.step3_xmax
         y=-cfg.step3_camera[1]
         z=cfg.step3_camera[2]+cfg.step3_zmax
-        print(z,cfg.step3_camera[2],cfg.step3_zmax)
+        sl.center = sl.center + vector(x,y,z)
+    elif step == 4:
+        sl.ambient= vector(1,1,1)
+        sl.forward = vector(-1.5,-1.5,-1)
+        sl.up = vector(0,0,1)
+        x=0 #-cfg.step4_camera[0]+cfg.step4_xmax
+        y=-cfg.step4_camera[1]
+        z=cfg.step4_camera[2]+cfg.step4_zmax -cfg.voeten.iloc[0]['lengte']*2 - cfg.onderkant.iloc[0]['dikte']*2
+        
+        sl.center = sl.center + vector(x,y,z)
+    elif step == 5:
+        sl.ambient= vector(1,1,1)
+        sl.forward = vector(-1.5,-1.5,-1)
+        sl.up = vector(0,0,1)
+        x=0 #-cfg.step4_camera[0]+cfg.step4_xmax
+        y=-cfg.step5_camera[1]
+        z=cfg.step5_camera[2]+cfg.step5_zmax - cfg.voeten.iloc[0]['lengte']*2 - cfg.onderkant.iloc[0]['dikte']*2
+        
         sl.center = sl.center + vector(x,y,z)
         
     return sl.center

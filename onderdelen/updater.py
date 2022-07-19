@@ -35,7 +35,7 @@ def update():
             if not (a == b).all():
                 print('a!=b')
                 cfg.update_graph = True
-                
+    '''            
     cfg.sliders = cfg.sliders_update.copy()
     #cfg.sliders = copy.deepcopy(cfg.sliders_update)
     cfg.niveaus = len(cfg.sliders)
@@ -43,7 +43,7 @@ def update():
     for i in range(len(cfg.sliders)):
         plankhoogte.append(cfg.sliders[i][1])
     cfg.plankhoogte=plankhoogte
-                
+    '''            
     #cfg.update_graph = True   
     if cfg.update_graph == True:
         cfg.update_graph = False
@@ -86,7 +86,7 @@ def update():
             print('Create excel2-FINAL')
             dups_excel.to_excel('stuklijst-FINAL.xlsx')
             cfg.buy=False
-        '''
+        
         cfg.sliders = cfg.sliders_update.copy()
         #cfg.sliders = copy.deepcopy(cfg.sliders_update)
         cfg.niveaus = len(cfg.sliders)
@@ -94,7 +94,7 @@ def update():
         for i in range(len(cfg.sliders)):
             plankhoogte.append(cfg.sliders[i][1])
         cfg.plankhoogte=plankhoogte
-        '''
+        
     else:
         sleep(.1)
         #print('pause')

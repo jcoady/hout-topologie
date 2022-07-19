@@ -12,9 +12,9 @@ import pandas as pd
 import os.path
 
 def build():
-    path=os.path.dirname(__file__) + '/../stuklijst.xlsx'
+    path=os.path.dirname(__file__) + '/../stuklijst-FINAL.xlsx'
     cfg.stuklijst=pd.read_excel(path)
-    path=os.path.dirname(__file__) + '/../plankenlijst.xlsx'
+    path=os.path.dirname(__file__) + '/../plankenlijst-FINAL.xlsx'
     cfg.plankenlijst=pd.read_excel(path)
     
     plankenlijst = cfg.plankenlijst.copy()

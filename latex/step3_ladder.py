@@ -121,6 +121,36 @@ def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
     A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,case)
     return A
 
+def build_pointer(arrowlist):
+    pointerlist=[]
+    for member in range(len(arrowlist)):
+        links=arrowlist[member][0]
+        rechts=arrowlist[member][1]
+        dikte=arrowlist[member][4]
+        
+        x0l=links[0]
+        y0l=links[1] +dikte*1.5 + dikte*5
+        z0l=links[2] -dikte*2 - dikte*5
+        
+        x1l=links[0]
+        y1l=links[1] +dikte*1.5
+        z1l=links[2] -dikte*2
+        
+        x1r=rechts[0]
+        y1r=rechts[1] -dikte*1.5
+        z1r=rechts[2] -dikte*2
+        
+        x0r=rechts[0]
+        y0r=rechts[1] -dikte*1.5 - dikte*5
+        z0r=rechts[2] -dikte*2 - dikte*5
+        
+        pointer_links=arrow.pointer(x0l,y0l,z0l,x1l,y1l,z1l)
+        pointer_rechts=arrow.pointer(x0r,y0r,z0r,x1r,y1r,z1r)
+        pointerlist.append([pointer_links,pointer_rechts])
+        
+    cfg.step3_pointer=pointerlist
+
 def build():
     arrowlist=get_rib()
     build_arrow(arrowlist)
+    build_pointer(arrowlist)
