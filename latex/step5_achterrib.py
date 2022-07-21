@@ -8,6 +8,7 @@ Created on Mon Jul 11 09:33:40 2022
 
 from latex import config as cfg
 from latex import balk, arrow
+from vpython import vector
 
 def get_feet():
     voeten=cfg.voeten
@@ -85,14 +86,16 @@ def get_rib_frame():
     
     vertmax = ribmax.loc[ribmax['lengte'].idxmax()]
     vertmax = vertmax [0]
-    vert = ribmax.loc[ribmax['lengte'] == vertmax]
+    #vert = ribmax.loc[ribmax['lengte'] == vertmax]
+    vert = ribmax.loc[ribmax['ry'] == 90]
     vert = vert.reset_index(drop=True)
     
     horizmax = ribmax.loc[ribmax['lengte'].idxmin()]
     horizmax = horizmax[0]
-    horiz = ribmax.loc[ribmax['lengte'] == horizmax]
+    #horiz = ribmax.loc[ribmax['lengte'] == horizmax]
+    horiz = ribmax.loc[ribmax['rz'] == 90]
     horiz = horiz.reset_index(drop=True)
-
+    
     #zet alle verticale elementen in een afbeelding
     rows=len(vert.index)
     arrowlist=[]
@@ -147,6 +150,13 @@ def get_achterrib():
     arrowlist=[]
     arrowlist_small=[]
     
+    cfg.step5_hoogte=cfg.step4_hoogte
+    cfg.step5_breedte=cfg.step4_breedte
+    cfg.step5_diepte=cfg.step4_diepte
+    cfg.step5_Ox=cfg.step4_Ox
+    cfg.step5_Oy=cfg.step4_Oy
+    cfg.step5_Oz=cfg.step4_Oz
+    
     xmax = achterrib.loc[achterrib['xloc'].idxmax()]
     xmax = xmax[3]
     
@@ -166,43 +176,47 @@ def get_achterrib():
         pa=B[-2]
         pb=B[-1]
         arrowlist.append([pa,pb,l,w,h])
-        if x0 == xmax:
+        if x0==xmax:
             arrowlist_small.append([pa,pb,l,w,h])
         
     arrowlist2=[]
     for i in range(len(arrowlist)):
         arrowlist2.append(arrowlist[-(i+1)])
         
-    arrowlist_small2=[]
-    for i in range(len(arrowlist_small)):
-        arrowlist_small2.append(arrowlist_small[-(i+1)])
+    #arrowlist_small2=[]
+    #for i in range(len(arrowlist_small)):
+    #    arrowlist_small2.append(arrowlist_small[-(i+1)])
             
-    return arrowlist2,arrowlist_small2
+    return arrowlist2,arrowlist_small
         
 def build_arrow(arrowlist,arrowlist2):
-    print('arrowlist - ladder')
-    print(arrowlist)
-    print('arrowlist2 - achterrib')
-    print(arrowlist2)
-    for a in range(len(arrowlist)):
-        if a != 0:
-            x0=arrowlist[0][0][0] 
-            y0=arrowlist[0][0][1] - arrowlist[0][3]
-            z0=arrowlist[0][0][2] + arrowlist[0][4]/2
+    arrowlist.reverse()
+    middleIndex = int((len(arrowlist) - 1)/2)
+    for a in range(len(arrowlist2)):
 
-            x1=arrowlist[0][0][0] 
-            y1=arrowlist[0][0][1] - arrowlist[0][3] - arrowlist[0][3]*a*8
-            z1=arrowlist[0][0][2] + arrowlist[0][4]/2
+        x0=arrowlist[a][0][0] + arrowlist[a][3]/2
+        y0=arrowlist[a][0][1] - arrowlist[a][3]/2
+        z0=arrowlist[a][0][2] + arrowlist[a][4]/2
+
+        x1=arrowlist[a][0][0] + arrowlist[a][3]/2  + arrowlist[0][3]*(a)*8 + arrowlist[0][3]*4 #+ arrowlist[0][3] + arrowlist[0][3]*a*8
+        y1=arrowlist[a][0][1] - arrowlist[a][3]/2
+        z1=arrowlist[a][0][2] + arrowlist[a][4]/2
             
-            x2=arrowlist[-a][0][0] 
-            y2=arrowlist[-a][0][1] - arrowlist[0][3] - arrowlist[0][3]*a*8
-            z2=arrowlist[-a][0][2] + arrowlist[0][4]/2
+        x2=arrowlist2[a][1][0] + arrowlist2[a][3]  + arrowlist[0][3]*(a)*8 + arrowlist[0][3]*4#+ arrowlist[0][3] + arrowlist[0][3]*a*8
+        y2=arrowlist2[a][1][1]
+        z2=arrowlist2[a][1][2] + arrowlist2[a][4]/2
             
-            thickness = arrowlist[0][4]
-            
-            A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
-            cfg.step5_arrow.append(A)
+        thickness = arrowlist[0][4]
         
+        if a == 0:        
+            cfg.step5_cam22=vector(x0,y0,z0)
+        
+        if a == middleIndex:
+            cfg.step5_cam21=vector(0,0,abs(arrowlist[a][0][2]-arrowlist[a][1][2])/2.)
+                
+        A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
+        cfg.step5_arrow.append(A)
+
 def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
     case = 5
     A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,case)

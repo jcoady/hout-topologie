@@ -11,23 +11,49 @@ from latex import balk, arrow
         
 def get_rib():
     ribmax=cfg.ribmax
-    #vind maximale waarde in df
+    
+    #####
+    #DIEPTE - globaal
+    #lengte,breedie,dikte,xloc,yloc,zloc,rx,ry,rz
+    #selecteer 1 rib, die met de maximale xloc
+    xmax = ribmax.loc[ribmax['xloc'].idxmax()]
+    xmax = xmax[3]  #<--- waarde max xloc
+    diepte=ribmax.loc[ribmax['xloc'] == xmax]
+    #selecteer horizontale componenten
+    diepte=diepte.loc[diepte['rz'] == 90]
+    #selecteer bovenste ligger
+    ymax=diepte.loc[diepte['lengte'].idxmax()]
+    ymax=ymax[0] #<--- waarde max yloc
+    cfg.step3_diepte=ymax+cfg.balk_dikte*2+2*cfg.plank_dikte
+    
+    #BREEDTE - globaal
+    xmax = ribmax.loc[ribmax['xloc'].idxmax()]
+    xmax = xmax[2]
+    cfg.step3_breedte=xmax
+    
+    #HOOGTE - globaal
     xmax = ribmax.loc[ribmax['xloc'].idxmax()]
     xmax = xmax[3]
-    cfg.step3_xmax=xmax
+    hoogte = ribmax.loc[ribmax['xloc'] == xmax]
+    hoogte = hoogte.loc[hoogte['ry'] == 90]
+    hoogte = hoogte.iloc[0,0]
+    cfg.step3_hoogte = hoogte
     
-    #vind de maximale lengte in de lijst
-    zmax = ribmax.loc[ribmax['lengte'].idxmax()]
-    zmax = zmax[5]#-(zmax[0]- zmax[5])
+    cfg.step3_Ox=xmax
+    cfg.step3_Oy=0.
+    cfg.step3_Oz=cfg.step3_hoogte/2.
     
-    cfg.step3_zmax=zmax
-    
+    #print(cfg.step3_hoogte,cfg.step3_breedte,cfg.step3_diepte)
+    #print(cfg.step3_Ox,cfg.step3_Oy,cfg.step3_Oz)
+    #####
+
     #selecteer de rijen met de grootste x
     #selecteer de rijen met de grootste lengte
     vert = ribmax.loc[ribmax['xloc'] == xmax]
     vertmax = vert.loc[vert['lengte'].idxmax()]
     vertmax = vertmax[0]
-    vert = vert.loc[vert['lengte'] == vertmax]
+    #vert = vert.loc[vert['lengte'] == vertmax]
+    vert = vert.loc[ribmax['ry'] == 90]
     vert = vert.reset_index(drop=True)
     
     #selecteer de rijen met de kleinste lengte
@@ -43,12 +69,13 @@ def get_rib():
     horiz = ribmax.loc[ribmax['xloc'] == xmax]
     horizmax = horiz.loc[horiz['lengte'].idxmin()]
     horizmax = horizmax[0]
-    horiz = horiz.loc[horiz['lengte'] == horizmax]
+    horiz = horiz.loc[ribmax['rz'] == 90]
+    #horiz = horiz.loc[horiz['lengte'] == horizmax]
     horiz = horiz.reset_index(drop=True)
 
     #selecteer rijen met maximum waarde in column xloc
-    ribmax = ribmax.loc[ribmax['xloc'] == xmax]
-    ribmax = ribmax.reset_index(drop=True)
+    #ribmax = ribmax.loc[ribmax['xloc'] == xmax]
+    #ribmax = ribmax.reset_index(drop=True)
 
     #zet alle verticale elementen in een afbeelding
     rows=len(vert.index)

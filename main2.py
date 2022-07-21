@@ -12,7 +12,7 @@ import time
 
 def main():
     get_excel.build()
-    runlist=[5]
+    runlist=[3]
     for i in range(len(runlist)):
         run=runlist[i]
         if run == 1:
@@ -22,6 +22,7 @@ def main():
             O=scene.cam_reset(1)
             #arrow.origin(O)
             scene.capture(name)
+            time.sleep(1)
             scene.delete()
             time.sleep(1)
             
@@ -32,6 +33,7 @@ def main():
             O=scene.cam_reset(2)
             #arrow.origin(O)
             scene.capture(name)
+            time.sleep(1)
             scene.delete()
             time.sleep(1)
             
@@ -41,8 +43,8 @@ def main():
             step3_ladder.build()
             O=scene.cam_reset(3)
             #arrow.origin(O)
-            scene.zoom(cfg.step3_zmax)
             scene.capture(name)
+            time.sleep(1)
             scene.delete()
             time.sleep(1)
             
@@ -53,16 +55,22 @@ def main():
             O=scene.cam_reset(4)
             #arrow.origin(O)
             scene.capture(name)
+            time.sleep(1)
             scene.delete()
             time.sleep(1)
             
         if run == 5: 
-            name='scene 5 - achterrib'
+            name='scene 5 - achterrib a'
             scene.start_scene(name)
             step5_achterrib.build()
-            O=scene.cam_reset(5)
+            O=scene.cam_reset(51)
             arrow.origin(O)
-            #scene.capture(name)
+            scene.capture(name)
+            time.sleep(1)
+            name='scene 5 - achterrib b'
+            O=scene.cam_reset(52)
+            scene.capture(name)
+            time.sleep(1)
             #scene.delete()
             #time.sleep(1)
     

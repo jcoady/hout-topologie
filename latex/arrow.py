@@ -387,6 +387,9 @@ def arrow3(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     slabb=quad(vs=[vb1,vb2,vb3,vb4])   
     
     arrow = compound([head, body, tail,slaba,slabb,t])
+    
+    cfg.step3_ycam.append(body.pos.y)
+    
     return arrow
 
 def arrow5(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
@@ -453,22 +456,25 @@ def arrow5(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     
     red = 0.75
     
-    head=cone(pos=vector(x1,y1,z1-2*head_thickness), axis=vector(x1e,y1e,-z1e), radius=head_thickness,length=2*head_thickness, color=vector(red,0,0))
-    tail=cone(pos=vector(x2,y2,z2+2*head_thickness), axis=vector(x2e,y2e,-z2e), radius=head_thickness,length=2*head_thickness,color=vector(red,0,0))
-    body=cylinder(pos=vector(x1-x1e,y1-y1e,z1-2*head_thickness), axis=vector(x2-x1-x2e+x1e,y2-y1-y2e+y1e,z2-z1-z2e+z1e), color=vector(red,0,0),length=z1-z2-2*head_length , radius = body_thickness )
-    t=text(text=f'{dtot} cm', pos=head.pos+head.axis*0.2+vector(0,thickness*(2.5),0) ,axis = vrichting, align='left', height=3*thickness, color=vector(red,0,0))
-    t.rotate(angle=pi, axis=vector(0,1,0),origin=head.pos+0.5*head.axis+vector(0,thickness*(1+2/3),0))
+    #head=cone(pos=vector(x1,y1,z1-2*head_thickness), axis=vector(x1e,y1e,-z1e), radius=head_thickness,length=2*head_thickness, color=vector(red,0,0))
+    #tail=cone(pos=vector(x2,y2,z2+2*head_thickness), axis=vector(x2e,y2e,-z2e), radius=head_thickness,length=2*head_thickness,color=vector(red,0,0))
+    head=cone(pos=vector(x1,y1,z1-2*head_thickness), axis=vector(x1e,y1e,z1e), radius=head_thickness,length=2*head_thickness, color=vector(red,0,0))
+    tail=cone(pos=vector(x2,y2,z2+2*head_thickness), axis=vector(x2e,y2e,z2e), radius=head_thickness,length=2*head_thickness,color=vector(red,0,0))
+    body=cylinder(pos=vector(x1-x1e,y1-y1e,tail.pos.z+2*head_length), axis=vector(x2-x1-x2e+x1e,y2-y1-y2e+y1e,z2-z1-z2e+z1e), color=vector(red,0,0),length=z1-z2-2*head_length , radius = body_thickness )
+    #t_invisible=text(text=f'{dtot} cm', pos=body.pos+vector(-body.pos.x*2,0,-body.pos.z/2) ,axis = vrichting, up=vector(1,0,0), align='center', height=3*thickness, color=vector(1,1,1))
+    t=text(text=f'{dtot} cm', pos=body.pos+vector(thickness*2.5,0,0) ,axis = vrichting, up=vector(1,0,0), align='center', height=3*thickness, color=vector(red,0,0))
+    #t.rotate(angle=pi, axis=vector(0,1,0),origin=head.pos+0.5*head.axis+vector(0,thickness*(1+2/3),0))
     
-    va1=vertex(pos=vector(x2+thickness,y0,z2), color=vector(red,0,0))
-    va2=vertex(pos=vector(x2-thickness,y0,z2), color=vector(red,0,0))
-    va3=vertex(pos=vector(x2-thickness,y2-thickness*2,z2), color=vector(red,0,0))
-    va4=vertex(pos=vector(x2+thickness,y2-thickness*2,z2), color=vector(red,0,0))
+    va1=vertex(pos=vector(x0-thickness,y0+thickness*2,z2), color=vector(red,0,0))
+    va2=vertex(pos=vector(x0-thickness,y0-thickness*2,z2), color=vector(red,0,0))
+    va3=vertex(pos=vector(x2+thickness,y2-thickness*2,z2), color=vector(red,0,0))
+    va4=vertex(pos=vector(x2+thickness,y2+thickness*2,z2), color=vector(red,0,0))
     slaba=quad(vs=[va1,va2,va3,va4])   
     
-    vb1=vertex(pos=vector(x1+thickness,y0,z0), color=vector(red,0,0))
-    vb2=vertex(pos=vector(x1-thickness,y0,z0), color=vector(red,0,0))
-    vb3=vertex(pos=vector(x1-thickness,y1-thickness*2,z1), color=vector(red,0,0))
-    vb4=vertex(pos=vector(x1+thickness,y1-thickness*2,z1), color=vector(red,0,0))
+    vb1=vertex(pos=vector(x0-thickness,y0+thickness*2,z0), color=vector(red,0,0))
+    vb2=vertex(pos=vector(x0-thickness,y0-thickness*2,z0), color=vector(red,0,0))
+    vb3=vertex(pos=vector(x1+thickness,y1-thickness*2,z1), color=vector(red,0,0))
+    vb4=vertex(pos=vector(x1+thickness,y1+thickness*2,z1), color=vector(red,0,0))
     slabb=quad(vs=[vb1,vb2,vb3,vb4])   
     
     arrow = compound([head, body, tail,slaba,slabb,t])

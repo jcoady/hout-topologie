@@ -26,24 +26,17 @@ def update():
     if len(b) != 0:
         a=np.array(a)
         b=np.array(b)
-    print(a,b)
     if len(a) != len(b):
-        print('a!=b')
         cfg.update_graph = True
     else:    
         if len(b) != 0:       
             if not (a == b).all():
                 print('a!=b')
                 cfg.update_graph = True
-    '''            
-    cfg.sliders = cfg.sliders_update.copy()
-    #cfg.sliders = copy.deepcopy(cfg.sliders_update)
-    cfg.niveaus = len(cfg.sliders)
-    plankhoogte = []
-    for i in range(len(cfg.sliders)):
-        plankhoogte.append(cfg.sliders[i][1])
-    cfg.plankhoogte=plankhoogte
-    '''            
+    
+    if cfg.buy == True:
+        cfg.update_graph = True
+         
     #cfg.update_graph = True   
     if cfg.update_graph == True:
         cfg.update_graph = False
@@ -61,7 +54,7 @@ def update():
             os.remove('plankenlijst.xlsx')
         print('Create excel')
         excel.to_excel('plankenlijst.xlsx')
-        
+        print(cfg.buy)
         if (os.path.exists('plankenlijst-FINAL.xlsx') and cfg.buy==True):
             print('Delete excel-FINAL')
             os.remove('plankenlijst-FINAL.xlsx')

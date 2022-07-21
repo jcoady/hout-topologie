@@ -215,3 +215,13 @@ def build():
     slot = slot.reset_index(drop=True)
     cfg.slot=slot
     print(cfg.slot)
+    
+    plank=onderkant.loc[onderkant['lengte'].idxmax()]
+    cfg.plank_dikte=plank[2]
+    
+    balk=rib1.loc[rib1['lengte'].idxmax()]
+    cfg.balk_dikte=balk[1]
+    
+    poot=voeten.loc[voeten['lengte'].idxmax()]
+    poot=poot[0]
+    cfg.poot_hoogte=poot

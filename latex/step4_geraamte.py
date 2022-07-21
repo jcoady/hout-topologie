@@ -72,25 +72,51 @@ def get_rib():
         
 def get_rib_frame():
     ribmax=cfg.ribmax
-    #vind maximale waarde in df
+    
+    #####
+    #DIEPTE
+    #lengte,breedie,dikte,xloc,yloc,zloc,rx,ry,rz
+    #selecteer 1 rib, die met de maximale xloc
+    xmax = ribmax.loc[ribmax['xloc'].idxmax()]
+    xmax = xmax[3]  #<--- waarde max xloc
+    diepte=ribmax.loc[ribmax['xloc'] == xmax]
+    #selecteer horizontale componenten
+    diepte=diepte.loc[diepte['rz'] == 90]
+    #selecteer bovenste ligger
+    zmax=diepte.loc[diepte['zloc'].idxmax()]
+    zmax=zmax[5] #<--- waarde max zloc
+    diepte=diepte.loc[diepte['zloc'] == zmax]
+    #tel de eerste en tweede cel bij elkaar op
+    cfg.step4_diepte=diepte.iloc[0,0]+diepte.iloc[0,1]
+    #print(breedte)
+    
+    #BREEDTE
     xmax = ribmax.loc[ribmax['xloc'].idxmax()]
     xmax = xmax[3]
-    cfg.step4_xmax=xmax
+    cfg.step4_breedte=xmax*2+cfg.balk_dikte+cfg.plank_dikte*2
     
-    #vind de maximale lengte in de lijst
-    zmax = ribmax.loc[ribmax['lengte'].idxmax()]
-    zmax = zmax[5]#-(zmax[0]- zmax[5])
+    #HOOGTE
+    xmax = ribmax.loc[ribmax['xloc'].idxmax()]
+    xmax = xmax[3]
+    hoogte = ribmax.loc[ribmax['xloc'] == xmax]
+    hoogte = hoogte.loc[hoogte['ry'] == 90]
+    hoogte = hoogte.iloc[0,0]
+    cfg.step4_hoogte = hoogte + cfg.poot_hoogte + cfg.plank_dikte
     
-    cfg.step4_zmax=zmax
+    cfg.step4_Ox=0.
+    cfg.step4_Oy=0.
+    cfg.step4_Oz=cfg.step4_hoogte/2.
     
     vertmax = ribmax.loc[ribmax['lengte'].idxmax()]
     vertmax = vertmax [0]
-    vert = ribmax.loc[ribmax['lengte'] == vertmax]
+    #vert = ribmax.loc[ribmax['lengte'] == vertmax]
+    vert = ribmax.loc[ribmax['rz'] == 90]
     vert = vert.reset_index(drop=True)
     
     horizmax = ribmax.loc[ribmax['lengte'].idxmin()]
     horizmax = horizmax[0]
-    horiz = ribmax.loc[ribmax['lengte'] == horizmax]
+    #horiz = ribmax.loc[ribmax['lengte'] == horizmax]
+    horiz = ribmax.loc[ribmax['ry'] == 90]
     horiz = horiz.reset_index(drop=True)
 
     #zet alle verticale elementen in een afbeelding
