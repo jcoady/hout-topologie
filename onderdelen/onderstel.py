@@ -44,7 +44,7 @@ def stel(uz,sub):
     hele_planken=int(floor(fractie_planken))
     over=fractie_planken-hele_planken
     
-    if ((over > 0.0) and (hele_planken > 1)):
+    if ((over > 0.0) and (hele_planken > 1.)):
         hele_planken=hele_planken-1
         for planken in range(hele_planken):
             Breedtes.append(b)

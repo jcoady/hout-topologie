@@ -142,19 +142,19 @@ def vpythonplot(breedte,hoogte,diepte,amax,aanzicht,Voeten,Onderstel,Ribben,Zeid
     
 def input_raam(s): 
     if s.id == 1:
-        cfg.breedte_kast=s.number
+        cfg.breedte_kast=round(s.number,1)
     elif s.id == 2:
-        cfg.hoogte_kast=s.number
+        cfg.hoogte_kast=round(s.number,1)
     elif s.id == 3:
-        cfg.diepte_kast=s.number
+        cfg.diepte_kast=round(s.number,1)
     elif s.id == 4:
-        cfg.breedte_plank=s.number
+        cfg.breedte_plank=round(s.number,1)
     elif s.id == 5:
-        cfg.dikte_plank=s.number
+        cfg.dikte_plank=round(s.number,1)
     elif s.id == 6:
-        cfg.lengte_plank=s.number
+        cfg.lengte_plank=round(s.number,1)
     elif s.id == 7:
-        cfg.hoogte_voet=s.number
+        cfg.hoogte_voet=round(s.number,1)
         
 def menu_deur(m):
     val = m.selected
