@@ -13,7 +13,7 @@ from math import dist
 def start_scene(name):
     print(f'Scene {name} started')
     global sl
-    sl = canvas(width=800, height=600, center=vector(0,0,0), background=vector(1,1,1))
+    sl = canvas(width=800, height=800, center=vector(0,0,0), background=vector(1,1,1))
     #title='                                                                  <b>Closet 3D model</b>    \n\n'
     sl.autoscale = True
     sl.userzoom = False
@@ -25,27 +25,54 @@ def capture(name):
     
 def cam_reset(step):
     if step == 1:
+        #sl.ambient= vector(1,1,1)
+        #sl.forward = vector(0,0,1)
+        #sl.up = vector(0,1,0)
+        #x=cfg.step1_camera[0]
+        #y=cfg.step1_camera[1]
+        #z=cfg.step1_camera[2]
+        #l.center = sl.center + vector(x,y,z)
+        
+        sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        sl.forward = vector(0,0,1)
-        sl.up = vector(0,1,0)
-        x=cfg.step1_camera[0]
-        y=cfg.step1_camera[1]
-        z=cfg.step1_camera[2]
-        sl.center = sl.center + vector(x,y,z)
+        camy_max=max(cfg.step1_ycam)
+        Oy_cam = dist((cfg.step1_diepte/2,), (camy_max,)) / 2
+        dist_max=-max(cfg.step1_diepte-Oy_cam,cfg.step1_breedte)
+        sl.up=vector(0,1,0)
+        sl.center = vector(cfg.step1_Ox,cfg.step1_Oy+Oy_cam,cfg.step1_Oz)
+        sl.camera.pos = vector(0,0,dist_max)
+        sl.camera.axis = vector(0,0,-dist_max)
+        sl.center = vector(cfg.step1_Ox,cfg.step1_Oy+Oy_cam,cfg.step1_Oz)
+        
     elif step == 2:
+        #sl.ambient= vector(1,1,1)
+        #sl.forward = vector(0,0,-1)
+        #sl.up = vector(0,1,0)
+        #x=-cfg.step2_camera[0]
+        #y=cfg.step2_camera[1]
+        #z=cfg.step2_camera[2]
+        #l.center = sl.center + vector(x,y,z)
+        
+        sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        sl.forward = vector(0,0,-1)
-        sl.up = vector(0,1,0)
-        x=-cfg.step2_camera[0]
-        y=cfg.step2_camera[1]
-        z=cfg.step2_camera[2]
-        sl.center = sl.center + vector(x,y,z)
+        camx_max=-max(cfg.step2_xcam)
+        Ox_cam = dist((cfg.step2_breedte/2,), (camx_max,)) / 2
+        camy_max=max(cfg.step2_ycam)
+        Oy_cam = dist((cfg.step2_diepte/2,), (camy_max,)) / 2
+        dist_max=max(cfg.step2_diepte-Oy_cam,cfg.step2_breedte-Ox_cam)*1.5
+        sl.up=vector(0,1,0)
+
+        sl.center = vector(cfg.step2_Ox-Ox_cam,cfg.step2_Oy+Oy_cam,cfg.step2_Oz)
+        sl.camera.pos = vector(0,0,dist_max)
+        sl.camera.axis = vector(0,0,-dist_max)
+        sl.center = vector(cfg.step2_Ox-Ox_cam,cfg.step2_Oy+Oy_cam,cfg.step2_Oz)
+        
     elif step == 3:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
         camy_max=max(cfg.step3_ycam)
         Oy_cam = dist((cfg.step3_diepte/2,), (camy_max,)) / 2
-        dist_max=max(cfg.step3_diepte-Oy_cam,cfg.step3_hoogte)*0.7
+        dist_max=max(cfg.step3_diepte-Oy_cam,cfg.step3_hoogte)
         sl.up=vector(0,1,0)
         sl.center = vector(cfg.step3_Ox,cfg.step3_Oy-Oy_cam,cfg.step3_Oz)
         sl.camera.pos = vector(dist_max,0,0)
@@ -53,36 +80,34 @@ def cam_reset(step):
         sl.center = vector(cfg.step3_Ox,cfg.step3_Oy-Oy_cam,cfg.step3_Oz)
 
     elif step == 4:
+        sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        sl.forward = vector(-1.5,-1.5,-1)
-        sl.up = vector(0,0,1)
-        x=0 #-cfg.step4_camera[0]+cfg.step4_xmax
-        y=-cfg.step4_camera[1]
-        z=cfg.step4_camera[2]+cfg.step4_zmax - cfg.voeten.iloc[0]['lengte']*2 - cfg.onderkant.iloc[0]['dikte']*2
+        dist_max=max(cfg.step4_breedte, cfg.step4_diepte, cfg.step4_hoogte)
+        sl.up=vector(0,0,1)
+        sl.center = vector(cfg.step4_Ox,cfg.step4_Oy,cfg.step4_Oz)
+        sl.camera.pos = vector(dist_max,dist_max/3,dist_max/3)
+        sl.camera.axis = vector(-sl.camera.pos.x,-sl.camera.pos.y,-sl.camera.pos.z)
+        sl.center = vector(cfg.step4_Ox,cfg.step4_Oy,cfg.step4_Oz)
         
-        sl.center = sl.center #+ vector(x,y,z)
     elif step == 51:
+        sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        sl.forward = vector(-.4,-1,-.2)
-        sl.up = vector(0,0,1)
-        sl.range = cfg.step5_xmax*1.75
-        #x=0 #-cfg.step5_camera[0]+cfg.step5_xmax
-        #y=-cfg.step5_camera[1]
-        #z=cfg.step5_camera[2]+cfg.step5_zmax - cfg.voeten.iloc[0]['lengte']*2 - cfg.onderkant.iloc[0]['dikte']*2
-        #sl.center = sl.center + vector(x,y,z)
-        #sl.camera.pos=(-sl.center+sl.camera.pos)*0.6
-        sl.camera.pos=(-sl.center+sl.camera.pos)*0.7
-        sl.camera.pos.x=sl.camera.pos.x*0.1
-        sl.camera.pos.y=sl.camera.pos.y*0.1
-        #sl.center = cfg.step5_cam22 
-        #sl.center.x = sl.center.x - sl.camera.pos.x*0.3
-        #print(sl.camera.pos.x)
+        camx_max=max(cfg.step5_xcam)
+        Ox_cam = dist((cfg.step5_diepte/2,), (camx_max,)) / 2
+        dist_max=max(cfg.step5_breedte-Ox_cam, cfg.step5_diepte, cfg.step5_hoogte)*0.8
+        sl.up=vector(0,0,1)
+        sl.center = vector(cfg.step5_Ox,cfg.step5_Oy,cfg.step5_Oz)
+        sl.camera.pos = vector(dist_max,dist_max,dist_max/3)
+        sl.camera.axis = vector(-sl.camera.pos.x,-sl.camera.pos.y,-sl.camera.pos.z)
+        sl.center = vector(cfg.step5_Ox,cfg.step5_Oy,cfg.step5_Oz)
         
     elif step == 52:
-        sl.forward = vector(-.4,-1,-0.05)
-        sl.up = vector(0,0,1)
-        sl.center = cfg.step5_cam22 # - vector(9,6,-3)
-        sl.camera.pos = sl.center + vector(30,60,10)
+        zoom=cfg.step5_zoom[0][1]
+        sl.center = vector(zoom[0],zoom[1],zoom[2])
+        dist_max=vector(50,50,5)
+        sl.camera.pos = dist_max
+        sl.camera.axis = vector(-sl.camera.pos.x,-sl.camera.pos.y,-sl.camera.pos.z)
+        sl.center = vector(zoom[0],zoom[1],zoom[2])
         
     return sl.center
     

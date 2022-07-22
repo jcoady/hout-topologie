@@ -35,6 +35,19 @@ def get_feet():
 
 def get_bottom():
     onderkant=cfg.onderkant
+    
+    cfg.step1_hoogte=cfg.poot_hoogte+cfg.plank_dikte
+    
+    xmax = onderkant.loc[onderkant['lengte'].idxmax()]
+    xmax = xmax[0]
+    cfg.step1_breedte=xmax
+    
+    cfg.step1_diepte= onderkant['breedte'].sum()
+    
+    cfg.step1_Ox=0.
+    cfg.step1_Oy=0.
+    cfg.step1_Oz=cfg.step1_hoogte/2.
+    
     rows=len(onderkant.index)
     for row in range(rows):
         x0=onderkant.loc[row,'xloc']
@@ -64,8 +77,6 @@ def build_arrow(arrowlist):
             x2=arrowlist[a][1][0] 
             y2=arrowlist[a][1][1] + arrowlist[a][2]*a*2
             z2=arrowlist[a][1][2]
-            
-            #label = (arrowlist[0][0][0] + arrowlist[a][0][0])/2
             
             thickness = arrowlist[0][2]/3
             

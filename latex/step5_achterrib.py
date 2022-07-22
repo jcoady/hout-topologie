@@ -73,16 +73,39 @@ def get_rib():
         
 def get_rib_frame():
     ribmax=cfg.ribmax
-    #vind maximale waarde in df
+    #####
+    #DIEPTE
+    #lengte,breedie,dikte,xloc,yloc,zloc,rx,ry,rz
+    #selecteer 1 rib, die met de maximale xloc
+    xmax = ribmax.loc[ribmax['xloc'].idxmax()]
+    xmax = xmax[3]  #<--- waarde max xloc
+    diepte=ribmax.loc[ribmax['xloc'] == xmax]
+    #selecteer horizontale componenten
+    diepte=diepte.loc[diepte['rz'] == 90]
+    #selecteer bovenste ligger
+    zmax=diepte.loc[diepte['zloc'].idxmax()]
+    zmax=zmax[5] #<--- waarde max zloc
+    diepte=diepte.loc[diepte['zloc'] == zmax]
+    #tel de eerste en tweede cel bij elkaar op
+    cfg.step5_diepte=diepte.iloc[0,0]+diepte.iloc[0,1]*2
+    #print(breedte)
+    
+    #BREEDTE
     xmax = ribmax.loc[ribmax['xloc'].idxmax()]
     xmax = xmax[3]
-    cfg.step5_xmax=xmax
+    cfg.step5_breedte=xmax*2+cfg.balk_dikte
     
-    #vind de maximale lengte in de lijst
-    zmax = ribmax.loc[ribmax['lengte'].idxmax()]
-    zmax = zmax[5]#-(zmax[0]- zmax[5])
-    
-    cfg.step5_zmax=zmax
+    #HOOGTE
+    xmax = ribmax.loc[ribmax['xloc'].idxmax()]
+    xmax = xmax[3]
+    hoogte = ribmax.loc[ribmax['xloc'] == xmax]
+    hoogte = hoogte.loc[hoogte['ry'] == 90]
+    hoogte = hoogte.iloc[0,0]
+    cfg.step5_hoogte = hoogte + cfg.poot_hoogte + cfg.plank_dikte
+
+    cfg.step5_Ox=0.
+    cfg.step5_Oy=0.
+    cfg.step5_Oz=cfg.step5_hoogte/2.
     
     vertmax = ribmax.loc[ribmax['lengte'].idxmax()]
     vertmax = vertmax [0]
@@ -150,13 +173,6 @@ def get_achterrib():
     arrowlist=[]
     arrowlist_small=[]
     
-    cfg.step5_hoogte=cfg.step4_hoogte
-    cfg.step5_breedte=cfg.step4_breedte
-    cfg.step5_diepte=cfg.step4_diepte
-    cfg.step5_Ox=cfg.step4_Ox
-    cfg.step5_Oy=cfg.step4_Oy
-    cfg.step5_Oz=cfg.step4_Oz
-    
     xmax = achterrib.loc[achterrib['xloc'].idxmax()]
     xmax = xmax[3]
     
@@ -178,11 +194,13 @@ def get_achterrib():
         arrowlist.append([pa,pb,l,w,h])
         if x0==xmax:
             arrowlist_small.append([pa,pb,l,w,h])
+            
+    cfg.step5_zoom=arrowlist
         
     arrowlist2=[]
     for i in range(len(arrowlist)):
         arrowlist2.append(arrowlist[-(i+1)])
-        
+    
     #arrowlist_small2=[]
     #for i in range(len(arrowlist_small)):
     #    arrowlist_small2.append(arrowlist_small[-(i+1)])

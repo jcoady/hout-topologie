@@ -7,12 +7,12 @@ Created on Tue Mar 29 21:26:30 2022
 """
 
 from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, arrow
-from latex import config as cfg
+#from latex import config as cfg
 import time
 
 def main():
     get_excel.build()
-    runlist=[3]
+    runlist=[1,2,3,4,5]
     for i in range(len(runlist)):
         run=runlist[i]
         if run == 1:
@@ -64,14 +64,14 @@ def main():
             scene.start_scene(name)
             step5_achterrib.build()
             O=scene.cam_reset(51)
-            arrow.origin(O)
+            #arrow.origin(O)
             scene.capture(name)
             time.sleep(1)
             name='scene 5 - achterrib b'
             O=scene.cam_reset(52)
             scene.capture(name)
             time.sleep(1)
-            #scene.delete()
-            #time.sleep(1)
+            scene.delete()
+            time.sleep(1)
     
 main()

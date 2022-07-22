@@ -87,13 +87,13 @@ def get_rib_frame():
     zmax=zmax[5] #<--- waarde max zloc
     diepte=diepte.loc[diepte['zloc'] == zmax]
     #tel de eerste en tweede cel bij elkaar op
-    cfg.step4_diepte=diepte.iloc[0,0]+diepte.iloc[0,1]
+    cfg.step4_diepte=diepte.iloc[0,0]+diepte.iloc[0,1]*2
     #print(breedte)
     
     #BREEDTE
     xmax = ribmax.loc[ribmax['xloc'].idxmax()]
     xmax = xmax[3]
-    cfg.step4_breedte=xmax*2+cfg.balk_dikte+cfg.plank_dikte*2
+    cfg.step4_breedte=xmax*2+cfg.balk_dikte
     
     #HOOGTE
     xmax = ribmax.loc[ribmax['xloc'].idxmax()]
@@ -102,7 +102,7 @@ def get_rib_frame():
     hoogte = hoogte.loc[hoogte['ry'] == 90]
     hoogte = hoogte.iloc[0,0]
     cfg.step4_hoogte = hoogte + cfg.poot_hoogte + cfg.plank_dikte
-    
+
     cfg.step4_Ox=0.
     cfg.step4_Oy=0.
     cfg.step4_Oz=cfg.step4_hoogte/2.

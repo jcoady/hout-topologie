@@ -29,6 +29,19 @@ def get_feet():
 
 def get_bottom():
     onderkant=cfg.onderkant
+    
+    cfg.step2_hoogte=cfg.poot_hoogte+cfg.plank_dikte+cfg.balk_dikte
+    
+    xmax = onderkant.loc[onderkant['lengte'].idxmax()]
+    xmax = xmax[0]
+    cfg.step2_breedte=xmax
+    
+    cfg.step2_diepte= onderkant['breedte'].sum()
+    
+    cfg.step2_Ox=0.
+    cfg.step2_Oy=0.
+    cfg.step2_Oz=cfg.step1_hoogte/2.
+    
     rows=len(onderkant.index)
     for row in range(rows):
         x0=onderkant.loc[row,'xloc']

@@ -77,6 +77,7 @@ def arrow1(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     d1=x2-x1
     d2=y2-y1
     d3=z2-z1
+    '''
     if x0 != x1:
         x_old=cfg.step1_camera[0]
         y_old=cfg.step1_camera[1]
@@ -107,6 +108,7 @@ def arrow1(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
         cfg.step1_camera[0]=x_new
         cfg.step1_camera[1]=y_new
         cfg.step1_camera[2]=z_new
+    '''
     
     dtot=round(sqrt(d1**2+d2**2+d3**2),1)
     
@@ -145,7 +147,9 @@ def arrow1(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     vb2=vertex(pos=vector(x1,y0,z0-thickness), color=vector(red,0,0))
     vb3=vertex(pos=vector(x1,y1+thickness*2,z1-thickness), color=vector(red,0,0))
     vb4=vertex(pos=vector(x1,y1+thickness*2,z1+thickness), color=vector(red,0,0))
-    slabb=quad(vs=[vb1,vb2,vb3,vb4])   
+    slabb=quad(vs=[vb1,vb2,vb3,vb4])
+    
+    cfg.step1_ycam.append(body.pos.y)
     
     arrow = compound([head, body, tail,slaba,slabb,t])
     return arrow
@@ -154,6 +158,7 @@ def arrow21(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     d1=x2-x1
     d2=y2-y1
     d3=z2-z1
+    '''
     if x0 != x1:
         x_old=cfg.step2_camera[0]
         y_old=cfg.step2_camera[1]
@@ -184,7 +189,7 @@ def arrow21(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
         cfg.step2_camera[0]=x_new
         cfg.step2_camera[1]=y_new
         cfg.step2_camera[2]=z_new
-    
+    '''
     dtot=round(sqrt(d1**2+d2**2+d3**2),1)
     
     vec=np.array([d1,d2,d3])
@@ -222,7 +227,9 @@ def arrow21(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     vb2=vertex(pos=vector(x1,y0,z0-thickness), color=vector(red,0,0))
     vb3=vertex(pos=vector(x1,y1+thickness*2,z1-thickness), color=vector(red,0,0))
     vb4=vertex(pos=vector(x1,y1+thickness*2,z1+thickness), color=vector(red,0,0))
-    slabb=quad(vs=[vb1,vb2,vb3,vb4])   
+    slabb=quad(vs=[vb1,vb2,vb3,vb4])
+    
+    cfg.step2_ycam.append(body.pos.y)
     
     arrow = compound([head, body, tail,slaba,slabb,t])
     return arrow
@@ -231,6 +238,7 @@ def arrow22(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     d1=x2-x1
     d2=y2-y1
     d3=z2-z1
+    '''
     if x0 != x1:
         x_old=cfg.step2_camera[0]
         y_old=cfg.step2_camera[1]
@@ -261,7 +269,7 @@ def arrow22(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
         cfg.step2_camera[0]=x_new
         cfg.step2_camera[1]=y_new
         cfg.step2_camera[2]=z_new
-    
+    '''
     dtot=round(sqrt(d1**2+d2**2+d3**2),1)
     
     vec=np.array([d1,d2,d3])
@@ -302,6 +310,9 @@ def arrow22(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     slabb=quad(vs=[vb1,vb2,vb3,vb4])   
     
     arrow = compound([head, tail,slaba,slabb,t])
+    
+    cfg.step2_xcam.append(head.pos.x)
+    
     return arrow
 
 def arrow3(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
@@ -478,6 +489,10 @@ def arrow5(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     slabb=quad(vs=[vb1,vb2,vb3,vb4])   
     
     arrow = compound([head, body, tail,slaba,slabb,t])
+    
+    cfg.step5_xcam.append(body.pos.x)
+
+    
     return arrow
 
 def pointer(x0,y0,z0,x1,y1,z1):
