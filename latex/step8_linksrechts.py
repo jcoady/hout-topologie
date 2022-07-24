@@ -294,13 +294,13 @@ def build_arrow(arrowlist,arrowlist2):
         z2=arrowlist2[a][1][2] + arrowlist2[a][4]/2
             
         thickness = arrowlist[0][4]
-        
+        '''  
         if a == 0:        
             cfg.step8_cam22=vector(x0,y0,z0)
         
         if a == middleIndex:
             cfg.step8_cam21=vector(0,0,abs(arrowlist[a][0][2]-arrowlist[a][1][2])/2.)
-                
+        '''          
         A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
         cfg.step8_arrow.append(A)
 

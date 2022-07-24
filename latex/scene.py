@@ -161,7 +161,7 @@ def cam_reset(step):
         #camx_max=max(cfg.step8_xcam)
         camx_max=0
         Ox_cam = dist((cfg.step9_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte)*1.2
+        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte)*1
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step9_Ox,cfg.step9_Oy,cfg.step9_Oz)
         sl.camera.pos = vector(dist_max,dist_max,dist_max)
@@ -174,12 +174,37 @@ def cam_reset(step):
         #camx_max=max(cfg.step8_xcam)
         camx_max=0
         Ox_cam = dist((cfg.step9_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte)*1.2
+        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte)*1
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step9_Ox,cfg.step9_Oy,cfg.step9_Oz)
         sl.camera.pos = vector(dist_max,-dist_max,dist_max)
         sl.camera.axis = -sl.camera.pos
         sl.center = vector(cfg.step9_Ox,cfg.step9_Oy,cfg.step9_Oz)
+        
+    elif step == 101:
+        sl.autoscale = False
+        sl.ambient= vector(1,1,1)
+        camz_max=max(cfg.step10_zcam)
+        Oz_cam = dist((cfg.step10_diepte/2,), (abs(camz_max),)) / 2
+        dist_max=max(cfg.step10_breedte, cfg.step10_diepte, cfg.step10_hoogte)*1.4
+        sl.up=vector(0,0,1)
+        sl.center = vector(cfg.step10_Ox,cfg.step10_Oy,cfg.step10_Oz-Oz_cam)
+        sl.camera.pos = vector(dist_max*.2,dist_max,dist_max*.2)
+        sl.camera.axis = -sl.camera.pos
+        sl.center = vector(cfg.step10_Ox,cfg.step10_Oy,cfg.step10_Oz-Oz_cam/2)
+        
+    elif step == 102:
+        sl.autoscale = False
+        sl.ambient= vector(1,1,1)
+        #camz_max=max(cfg.step10_zcam)
+        #Oz_cam = dist((cfg.step10_diepte/2,), (abs(camz_max),)) / 2
+        #dist_max=max(cfg.step10_breedte, cfg.step10_diepte, cfg.step10_hoogte)*1.2
+        sl.up=vector(0,0,1)
+        sl.center = vector(cfg.step10_zoom[0],cfg.step10_zoom[1],cfg.step10_zoom[2])
+        dist_max=vector(10,50,5)
+        sl.camera.pos = dist_max
+        sl.camera.axis = vector(-sl.camera.pos.x,-sl.camera.pos.y,-sl.camera.pos.z)
+        sl.center = vector(cfg.step10_zoom[0],cfg.step10_zoom[1],cfg.step10_zoom[2])
         
     return sl.center
     

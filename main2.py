@@ -6,13 +6,13 @@ Created on Tue Mar 29 21:26:30 2022
 @author: windhoos
 """
 
-from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, step6_vlonders, step7_boven, step8_linksrechts, step9_achter, arrow
+from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, step6_vlonders, step7_boven, step8_linksrechts, step9_achter, step10_deurpost, arrow
 #from latex import config as cfg
 import time
 
 def main():
     get_excel.build()
-    runlist=[1,2,3,4,5,6,7,8,9]
+    runlist=[1,2,3,4,5,6,7,8,9,10]
     for i in range(len(runlist)):
         run=runlist[i]
         if run == 1:
@@ -124,6 +124,21 @@ def main():
             name='scene 9 - achterkant b'
             O=scene.cam_reset(92)
             #arrow.origin(O)
+            scene.capture(name)
+            time.sleep(1)
+            scene.delete()
+            time.sleep(1)
+            
+        if run == 10: 
+            name='scene 10 - deurpost a'
+            scene.start_scene(name)
+            step10_deurpost.build()
+            O=scene.cam_reset(101)
+            #arrow.origin(O)
+            scene.capture(name)
+            time.sleep(1)
+            name='scene 10 - deurpost b'
+            O=scene.cam_reset(102)
             scene.capture(name)
             time.sleep(1)
             scene.delete()

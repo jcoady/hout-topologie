@@ -150,7 +150,7 @@ def input_raam(s):
     elif s.id == 4:
         cfg.breedte_plank=round(s.number,1)
     elif s.id == 5:
-        cfg.dikte_plank=round(s.number,1)
+        cfg.dikte_plank=round(s.number,5)*1.001
     elif s.id == 6:
         cfg.lengte_plank=round(s.number,1)
     elif s.id == 7:
