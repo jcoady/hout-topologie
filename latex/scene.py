@@ -13,7 +13,7 @@ from math import dist
 def start_scene(name):
     print(f'Scene {name} started')
     global sl
-    sl = canvas(width=800, height=800, center=vector(0,0,0), background=vector(1,1,1))
+    sl = canvas(width=1600, height=1600, center=vector(0,0,0), background=vector(1,1,1))
     #title='                                                                  <b>Closet 3D model</b>    \n\n'
     sl.autoscale = True
     sl.userzoom = False
@@ -35,9 +35,9 @@ def cam_reset(step):
         
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        camy_max=max(cfg.step1_ycam)
+        camy_max=max(cfg.step1_ycam, key=abs)
         Oy_cam = dist((cfg.step1_diepte/2,), (camy_max,)) / 2
-        dist_max=-max(cfg.step1_diepte-Oy_cam,cfg.step1_breedte)
+        dist_max=-max(cfg.step1_diepte-Oy_cam,cfg.step1_breedte, key=abs)*1.5
         sl.up=vector(0,1,0)
         sl.center = vector(cfg.step1_Ox,cfg.step1_Oy+Oy_cam,cfg.step1_Oz)
         sl.camera.pos = vector(0,0,dist_max)
@@ -55,11 +55,11 @@ def cam_reset(step):
         
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        camx_max=-max(cfg.step2_xcam)
+        camx_max=-max(cfg.step2_xcam, key=abs)
         Ox_cam = dist((cfg.step2_breedte/2,), (camx_max,)) / 2
-        camy_max=max(cfg.step2_ycam)
+        camy_max=max(cfg.step2_ycam, key=abs)
         Oy_cam = dist((cfg.step2_diepte/2,), (camy_max,)) / 2
-        dist_max=max(cfg.step2_diepte-Oy_cam,cfg.step2_breedte-Ox_cam)
+        dist_max=max(cfg.step2_diepte-Oy_cam,cfg.step2_breedte-Ox_cam, key=abs)*1.5
         sl.up=vector(0,1,0)
 
         sl.center = vector(cfg.step2_Ox-Ox_cam,cfg.step2_Oy+Oy_cam,cfg.step2_Oz)
@@ -70,9 +70,9 @@ def cam_reset(step):
     elif step == 3:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        camy_max=max(cfg.step3_ycam)
+        camy_max=max(cfg.step3_ycam, key=abs)
         Oy_cam = dist((cfg.step3_diepte/2,), (abs(camy_max),)) / 2
-        dist_max=max(cfg.step3_diepte-Oy_cam,cfg.step3_hoogte)
+        dist_max=max(cfg.step3_diepte-Oy_cam,cfg.step3_hoogte, key=abs)*1.5
         sl.up=vector(0,1,0)
         sl.center = vector(cfg.step3_Ox,cfg.step3_Oy-Oy_cam,cfg.step3_Oz)
         sl.camera.pos = vector(dist_max,0,0)
@@ -82,7 +82,7 @@ def cam_reset(step):
     elif step == 4:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        dist_max=max(cfg.step4_breedte, cfg.step4_diepte, cfg.step4_hoogte)*1.2
+        dist_max=max(cfg.step4_breedte, cfg.step4_diepte, cfg.step4_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step4_Ox,cfg.step4_Oy,cfg.step4_Oz)
         sl.camera.pos = vector(dist_max,dist_max/3,dist_max/3)
@@ -92,9 +92,9 @@ def cam_reset(step):
     elif step == 51:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        camx_max=max(cfg.step5_xcam)
+        camx_max=max(cfg.step5_xcam, key=abs)
         Ox_cam = dist((cfg.step5_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step5_breedte-Ox_cam, cfg.step5_diepte, cfg.step5_hoogte)*1.2
+        dist_max=max(cfg.step5_breedte-Ox_cam, cfg.step5_diepte, cfg.step5_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step5_Ox,cfg.step5_Oy,cfg.step5_Oz)
         sl.camera.pos = vector(dist_max,dist_max,dist_max/3)
@@ -112,9 +112,9 @@ def cam_reset(step):
     elif step == 61:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        camx_max=max(cfg.step6_xcam)
+        camx_max=max(cfg.step6_xcam, key=abs)
         Ox_cam = dist((cfg.step6_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step6_breedte-Ox_cam, cfg.step6_diepte, cfg.step6_hoogte)*1.2
+        dist_max=max(cfg.step6_breedte-Ox_cam, cfg.step6_diepte, cfg.step6_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step6_Ox,cfg.step6_Oy,cfg.step6_Oz)
         sl.camera.pos = vector(dist_max,dist_max,dist_max/3)
@@ -135,7 +135,7 @@ def cam_reset(step):
         #camx_max=max(cfg.step7_xcam)
         camx_max=0
         Ox_cam = dist((cfg.step7_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step7_breedte-Ox_cam, cfg.step7_diepte, cfg.step7_hoogte)*1.2
+        dist_max=max(cfg.step7_breedte-Ox_cam, cfg.step7_diepte, cfg.step7_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step7_Ox,cfg.step7_Oy,cfg.step7_Oz)
         sl.camera.pos = vector(dist_max,dist_max,dist_max)
@@ -148,7 +148,7 @@ def cam_reset(step):
         #camx_max=max(cfg.step8_xcam)
         camx_max=0
         Ox_cam = dist((cfg.step8_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step8_breedte-Ox_cam, cfg.step8_diepte, cfg.step8_hoogte)*1.2
+        dist_max=max(cfg.step8_breedte-Ox_cam, cfg.step8_diepte, cfg.step8_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step8_Ox,cfg.step8_Oy,cfg.step8_Oz)
         sl.camera.pos = vector(dist_max,dist_max,dist_max)
@@ -161,7 +161,7 @@ def cam_reset(step):
         #camx_max=max(cfg.step8_xcam)
         camx_max=0
         Ox_cam = dist((cfg.step9_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte)*1
+        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step9_Ox,cfg.step9_Oy,cfg.step9_Oz)
         sl.camera.pos = vector(dist_max,dist_max,dist_max)
@@ -174,7 +174,7 @@ def cam_reset(step):
         #camx_max=max(cfg.step8_xcam)
         camx_max=0
         Ox_cam = dist((cfg.step9_diepte/2,), (abs(camx_max),)) / 2
-        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte)*1
+        dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step9_Ox,cfg.step9_Oy,cfg.step9_Oz)
         sl.camera.pos = vector(dist_max,-dist_max,dist_max)
@@ -186,7 +186,7 @@ def cam_reset(step):
         sl.ambient= vector(1,1,1)
         camz_max=max(cfg.step10_zcam)
         Oz_cam = dist((cfg.step10_diepte/2,), (abs(camz_max),)) / 2
-        dist_max=max(cfg.step10_breedte, cfg.step10_diepte, cfg.step10_hoogte)*1.4
+        dist_max=max(cfg.step10_breedte, cfg.step10_diepte, cfg.step10_hoogte, key=abs)*1.5
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step10_Ox,cfg.step10_Oy,cfg.step10_Oz-Oz_cam)
         sl.camera.pos = vector(dist_max*.2,dist_max,dist_max*.2)
@@ -201,10 +201,24 @@ def cam_reset(step):
         #dist_max=max(cfg.step10_breedte, cfg.step10_diepte, cfg.step10_hoogte)*1.2
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step10_zoom[0],cfg.step10_zoom[1],cfg.step10_zoom[2])
-        dist_max=vector(10,50,5)
+        dist_max=vector(10,50,5)*1.5
         sl.camera.pos = dist_max
         sl.camera.axis = vector(-sl.camera.pos.x,-sl.camera.pos.y,-sl.camera.pos.z)
         sl.center = vector(cfg.step10_zoom[0],cfg.step10_zoom[1],cfg.step10_zoom[2])
+        
+    elif step == 11:
+        sl.autoscale = False
+        sl.ambient= vector(1,1,1)
+        camz_max=max(cfg.step11_zcam, key=abs)
+        camx_max=max(cfg.step11_xcam, key=abs)
+        Oz_cam = dist((cfg.step11_hoogte/2,), (abs(camz_max),)) / 2
+        Ox_cam = dist((cfg.step11_breedte/2,), (abs(camx_max),)) / 2
+        dist_max=max(cfg.step11_breedte, cfg.step11_diepte, cfg.step11_hoogte, key=abs)*1.5
+        sl.up=vector(0,0,1)
+        sl.center = vector(cfg.step11_Ox-Ox_cam/2,cfg.step11_Oy,cfg.step11_Oz+Oz_cam/3)
+        sl.camera.pos = vector(dist_max*.05,-dist_max,dist_max*.05)
+        sl.camera.axis = -sl.camera.pos
+        sl.center = vector(cfg.step11_Ox-Ox_cam/2,cfg.step11_Oy,cfg.step11_Oz+Oz_cam/3)
         
     return sl.center
     

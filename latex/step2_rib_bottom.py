@@ -92,11 +92,11 @@ def build_arrow(arrowlist):
             z0=arrowlist[0][1][2]
 
             x1=arrowlist[0][1][0] - arrowlist[0][4]/2
-            y1=arrowlist[0][1][1] + arrowlist[0][4]*a*6 + arrowlist[0][4]
+            y1=arrowlist[0][1][1] + arrowlist[0][4]*a*8 + arrowlist[0][4]
             z1=arrowlist[0][1][2]
             
             x2=arrowlist[a][1][0] - arrowlist[0][4]/2
-            y2=arrowlist[a][1][1] + arrowlist[0][4]*a*6 + arrowlist[0][4]
+            y2=arrowlist[a][1][1] + arrowlist[0][4]*a*8 + arrowlist[0][4]
             z2=arrowlist[a][1][2]
             
             thickness = arrowlist[0][4]

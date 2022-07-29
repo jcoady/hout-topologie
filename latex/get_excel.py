@@ -171,6 +171,19 @@ def build():
     cfg.deur=deur
     print(cfg.deur)
     
+    #deur volledig
+    print('\n deur volledig')
+    colum = 'naam'
+    sub = 'voorkant'
+    deur = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'deur'
+    deur = deur[deur[colum].str.contains(sub, regex=False, case=False, na=False)]
+    deur = deur.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    deur = deur.reset_index(drop=True)
+    cfg.deur_volledig=deur
+    print(cfg.deur_volledig)
+    
     #stut
     print('\n stut')
     colum = 'naam'
@@ -186,6 +199,19 @@ def build():
     cfg.stut=stut
     print(cfg.stut)
     
+    #stut volledig
+    print('\n stut volledig')
+    colum = 'naam'
+    sub = 'voorkant'
+    stut = plankenlijst[plankenlijst[colum].str.contains(sub, regex=False, case=False, na=False)]
+    colum = 'subnaam'
+    sub = 'stut'
+    stut = stut[stut[colum].str.contains(sub, regex=False, case=False, na=False)]
+    stut = stut.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
+    stut = stut.reset_index(drop=True)
+    cfg.stut_volledig=stut
+    print(cfg.stut_volledig)
+    
     #scharnier
     print('\n scharnier')
     colum = 'naam'
@@ -194,8 +220,8 @@ def build():
     colum = 'subnaam'
     sub = 'scharnier'
     scharnier = scharnier[scharnier[colum].str.contains(sub, regex=False, case=False, na=False)]
-    sub2 = 'opmerking'
-    scharnier = scharnier.loc[scharnier[sub2] == 1.0]
+    #sub2 = 'opmerking'
+    #scharnier = scharnier.loc[scharnier[sub2] == 1.0]
     scharnier = scharnier.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
     scharnier = scharnier.reset_index(drop=True)
     cfg.scharnier=scharnier
@@ -209,8 +235,8 @@ def build():
     colum = 'subnaam'
     sub = 'slot'
     slot = slot[slot[colum].str.contains(sub, regex=False, case=False, na=False)]
-    sub2 = 'opmerking'
-    slot = slot.loc[slot[sub2] == 1.0]
+    #sub2 = 'opmerking'
+    #slot = slot.loc[slot[sub2] == 1.0]
     slot = slot.filter(['lengte','breedte','dikte','xloc','yloc','zloc','rx','ry','rz'])
     slot = slot.reset_index(drop=True)
     cfg.slot=slot
