@@ -136,11 +136,11 @@ def build_arrow(arrowlist, arrowlist2):
         y0=arrowlist[0][1][1]
         z0=arrowlist[0][1][2]
     
-        x1=arrowlist2[0][1][0] - cfg.step11_breedte*1.3 - arrowlist2[1][3]*a/3*2
+        x1=arrowlist2[0][1][0] - cfg.step11_breedte*1.05 - arrowlist2[1][3]*a*1.5
         y1=arrowlist[0][1][1]
         z1=arrowlist[0][1][2]
             
-        x2=arrowlist2[0][1][0] - cfg.step11_breedte*1.3 - arrowlist2[1][3]*a/3*2
+        x2=arrowlist2[0][1][0] - cfg.step11_breedte*1.05 - arrowlist2[1][3]*a*1.5
         y2=arrowlist[0][1][1]
         z2=arrowlist2[a][0][2] - arrowlist2[a][3]/2
             

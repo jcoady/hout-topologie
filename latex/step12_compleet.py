@@ -25,7 +25,7 @@ def get_feet():
         za=voeten.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_feet.append(B)
+        cfg.step12_feet.append(B)
 
 def get_bottom():
     onderkant=cfg.onderkant
@@ -42,7 +42,7 @@ def get_bottom():
         za=onderkant.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_bottom.append(B)
+        cfg.step12_bottom.append(B)
         
 def get_rib():
     rib_onder=cfg.rib_onder
@@ -60,10 +60,10 @@ def get_rib():
         za=rib_onder.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_rib_onder.append(B)
-        pa=B[-2]
-        pb=B[-1]
-        arrowlist.append([pa,pb,l,w,h])
+        cfg.step12_rib_onder.append(B)
+        #pa=B[-2]
+        #pb=B[-1]
+        #arrowlist.append([pa,pb,l,w,h])
         
     #arrowlist2=[]
     #for i in range(len(arrowlist)):
@@ -87,13 +87,13 @@ def get_rib_frame():
     zmax=zmax[5] #<--- waarde max zloc
     diepte=diepte.loc[diepte['zloc'] == zmax]
     #tel de eerste en tweede cel bij elkaar op
-    cfg.step10_diepte=diepte.iloc[0,0]+diepte.iloc[0,1]*2+cfg.plank_dikte*2
+    cfg.step12_diepte=diepte.iloc[0,0]+diepte.iloc[0,1]*2+cfg.plank_dikte*2
     #print(breedte)
     
     #BREEDTE
     xmax = ribmax.loc[ribmax['xloc'].idxmax()]
     xmax = xmax[3]
-    cfg.step10_breedte=xmax*2+cfg.balk_dikte
+    cfg.step12_breedte=xmax*2+cfg.balk_dikte
     
     #HOOGTE
     xmax = ribmax.loc[ribmax['xloc'].idxmax()]
@@ -101,11 +101,11 @@ def get_rib_frame():
     hoogte = ribmax.loc[ribmax['xloc'] == xmax]
     hoogte = hoogte.loc[hoogte['ry'] == 90]
     hoogte = hoogte.iloc[0,0]
-    cfg.step10_hoogte = hoogte + cfg.poot_hoogte + cfg.plank_dikte*2
+    cfg.step12_hoogte = hoogte + cfg.poot_hoogte + cfg.plank_dikte*2
 
-    cfg.step10_Ox=0.
-    cfg.step10_Oy=0.
-    cfg.step10_Oz=cfg.step10_hoogte/2.
+    cfg.step12_Ox=0.
+    cfg.step12_Oy=0.
+    cfg.step12_Oz=cfg.step12_hoogte/2.
     
     vertmax = ribmax.loc[ribmax['lengte'].idxmax()]
     vertmax = vertmax [0]
@@ -134,7 +134,7 @@ def get_rib_frame():
         za=vert.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_ribben_vert.append(B)
+        cfg.step12_ribben_vert.append(B)
         pa=B[-2]
         pb=B[-1]
         arrowlist.append([pa,pb,l,w,h])
@@ -154,7 +154,7 @@ def get_rib_frame():
         za=horiz.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_ribben_horiz.append(B)
+        cfg.step12_ribben_horiz.append(B)
 
     #    if x0 == xmax:
     #        pa=B[-2]
@@ -188,7 +188,7 @@ def get_achterrib():
         za=achterrib.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_achterrib.append(B)
+        cfg.step12_achterrib.append(B)
     #    pa=B[-2]
     #    pb=B[-1]
     #    arrowlist.append([pa,pb,l,w,h])
@@ -222,7 +222,7 @@ def get_vlonders():
         za=vlonders.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_vlonders.append(B)
+        cfg.step12_vlonders.append(B)
         
 def get_boven():
     bovenkant=cfg.bovenkant
@@ -239,7 +239,7 @@ def get_boven():
         za=bovenkant.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_bovenkant.append(B)
+        cfg.step12_bovenkant.append(B)
         
 def get_links():
     zeidelinks=cfg.zeidelinks
@@ -256,7 +256,7 @@ def get_links():
         za=zeidelinks.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_zeidelinks.append(B)
+        cfg.step12_zeidelinks.append(B)
         
 def get_rechts():
     zeiderechts=cfg.zeiderechts
@@ -273,7 +273,7 @@ def get_rechts():
         za=zeiderechts.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_zeiderechts.append(B)
+        cfg.step12_zeiderechts.append(B)
         
 def get_achter():
     achterkant=cfg.achterkant
@@ -290,11 +290,10 @@ def get_achter():
         za=achterkant.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_achterkant.append(B)
+        cfg.step12_achterkant.append(B)
         
 def get_deurpost():
     voorkant=cfg.voorkant
-    arrowlist=[]
     rows=len(voorkant.index)
     for row in range(rows):
         x0=voorkant.loc[row,'xloc']
@@ -308,73 +307,75 @@ def get_deurpost():
         za=voorkant.loc[row,'rz']
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
-        cfg.step10_deurpost.append(B)
+        cfg.step12_deurpost.append(B)
         
-        pa=B[-2]
-        pb=B[-1]
-        arrowlist.append([pa,pb,l,w,h])
+def get_deur():
+    unit=cfg.deur_volledig
+    rows=len(unit.index)
+    for row in range(rows):
+        x0=unit.loc[row,'xloc']
+        y0=unit.loc[row,'yloc']
+        z0=unit.loc[row,'zloc']
+        l=unit.loc[row,'lengte']
+        w=unit.loc[row,'breedte']
+        h=unit.loc[row,'dikte']
+        xa=unit.loc[row,'rx']
+        ya=unit.loc[row,'ry']
+        za=unit.loc[row,'rz']
         
-    return arrowlist
+        B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
+        cfg.step12_deur.append(B)
         
-def build_arrow(arrowlist):
-    #print(arrowlist)
-    #arrowlist.reverse()
-    #middleIndex = int((len(arrowlist) - 1)/2)
-    for a in range(len(arrowlist)):
-        if a != 0:
-            x0=arrowlist[0][1][0] + arrowlist[a][3]/2
-            y0=arrowlist[0][1][1] - arrowlist[a][4]*3/2
-            z0=arrowlist[0][1][2]
-    
-            x1=arrowlist[0][1][0] + arrowlist[a][3]/2
-            y1=arrowlist[0][1][1] - arrowlist[a][4]*3/2
-            z1=arrowlist[0][1][2] - arrowlist[1][4]*(a)*9 - arrowlist[1][4]*4
-                
-            x2=arrowlist[a][1][0] + arrowlist[a][3]/2
-            y2=arrowlist[a][1][1] - arrowlist[a][4]*3/2
-            z2=arrowlist[a][1][2] - arrowlist[1][4]*(a)*9 - arrowlist[1][4]*4
-                
-            thickness = arrowlist[0][4]
-                    
-            A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
-            cfg.step10_arrow.append(A)
-            
-            if a == 1:
-                cfg.step10_zoom = [x0,y0,z0]
-
-def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
-    case = 10
-    A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,case)
-    return A
-
-def build_pointer(arrowlist):
-    pointerlist=[]
-    for member in range(len(arrowlist)):
-        links=arrowlist[member][0]
-        rechts=arrowlist[member][1]
-        dikte=arrowlist[member][4]
+def get_stut():
+    unit=cfg.stut_volledig
+    rows=len(unit.index)
+    for row in range(rows):
+        x0=unit.loc[row,'xloc']
+        y0=unit.loc[row,'yloc']
+        z0=unit.loc[row,'zloc']
+        l=unit.loc[row,'lengte']
+        w=unit.loc[row,'breedte']
+        h=unit.loc[row,'dikte']
+        xa=unit.loc[row,'rx']
+        ya=unit.loc[row,'ry']
+        za=unit.loc[row,'rz']
         
-        x1r=links[0] + dikte*1.5
-        y1r=links[1] 
-        z1r=links[2] - dikte*2
+        B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
+        cfg.step12_stut.append(B)
         
-        x0r=links[0] + dikte*1.5 + dikte*5
-        y0r=links[1] 
-        z0r=links[2] - dikte*2 - dikte*5
-
-        x1l=rechts[0] - dikte*1.5
-        y1l=rechts[1] 
-        z1l=rechts[2] - dikte*2
+def get_scharnier():
+    unit=cfg.scharnier
+    rows=len(unit.index)
+    for row in range(rows):
+        x0=unit.loc[row,'xloc']
+        y0=unit.loc[row,'yloc']
+        z0=unit.loc[row,'zloc']
+        l=unit.loc[row,'lengte']
+        w=unit.loc[row,'breedte']
+        h=unit.loc[row,'dikte']
+        xa=unit.loc[row,'rx']
+        ya=unit.loc[row,'ry']
+        za=unit.loc[row,'rz']
         
-        x0l=rechts[0] - dikte*1.5 - dikte*5
-        y0l=rechts[1] 
-        z0l=rechts[2] - dikte*2 - dikte*5
+        B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za,kleur=vector(.5,.5,.5))
+        cfg.step12_scharnier.append(B)
         
-        pointer_links=arrow.pointer(x0l,y0l,z0l,x1l,y1l,z1l)
-        pointer_rechts=arrow.pointer(x0r,y0r,z0r,x1r,y1r,z1r)
-        pointerlist.append([pointer_links,pointer_rechts])
+def get_slot():
+    unit=cfg.slot
+    rows=len(unit.index)
+    for row in range(rows):
+        x0=unit.loc[row,'xloc']
+        y0=unit.loc[row,'yloc']
+        z0=unit.loc[row,'zloc']
+        l=unit.loc[row,'lengte']
+        w=unit.loc[row,'breedte']
+        h=unit.loc[row,'dikte']
+        xa=unit.loc[row,'rx']
+        ya=unit.loc[row,'ry']
+        za=unit.loc[row,'rz']
         
-    cfg.step10_pointer=pointerlist
+        B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za,kleur=vector(.5,.5,.5))
+        cfg.step12_slot.append(B)
 
 def build():
     get_feet()
@@ -387,6 +388,8 @@ def build():
     get_links()
     get_rechts()
     get_achter()
-    arrowlist=get_deurpost()
-    build_arrow(arrowlist)
-    #build_pointer(arrowlist2)
+    get_deurpost()
+    get_deur()
+    get_stut()
+    get_scharnier()
+    get_slot()

@@ -37,7 +37,7 @@ def rotate(p,xa,ya,za):
     p=p[0],p[1],p[2]
     return p
 
-def construct(x0,y0,z0,l,w,h,xa,ya,za):
+def construct(x0,y0,z0,l,w,h,xa,ya,za,*,kleur=None):
     '''
            __________________________
           /                         /|
@@ -61,6 +61,9 @@ def construct(x0,y0,z0,l,w,h,xa,ya,za):
          7\           \6
          8\___________\5
     '''
+    
+    if kleur == None:
+        kleur =  vector(0.4,0.3,0.2)
     
     xa=radians(xa)
     ya=radians(ya)
@@ -124,8 +127,7 @@ def construct(x0,y0,z0,l,w,h,xa,ya,za):
     p7=rotate(p7,xa,ya,za)
     p8=rotate(p8,xa,ya,za)
     '''
-    
-    kleur =  vector(0.4,0.3,0.2)
+
     #d1,d2,d3=s(p0,paxis)
     #d4,d5,d6=s(p0,pup)
     balk =   box(pos=vector(x0,y0,z0), size=vector(l,h,w) , axis=vector(1,0,0),up=vector(0,0,1),color=kleur)

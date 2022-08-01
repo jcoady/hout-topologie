@@ -382,8 +382,8 @@ def stut(ux,theta,nummer):
                         "lengte":       [round(d*.9,1)],
                         "breedte":      [breedte_plank],
                         "dikte":        [dikte_plank],
-                        "xloc":         [ux],
-                        "yloc":         [uy],
+                        "xloc":         [uxa],
+                        "yloc":         [uya],
                         "zloc":         [uz],
                         "rx":           [rx],
                         "ry":           [ry],
@@ -401,8 +401,8 @@ def stut(ux,theta,nummer):
                     "lengte":       [round(d*.9,1)],
                     "breedte":      [breedte_plank],
                     "dikte":        [dikte_plank],
-                    "xloc":         [ux],
-                    "yloc":         [uy],
+                    "xloc":         [uxa],
+                    "yloc":         [uya],
                     "zloc":         [uz],
                     "rx":           [rx],
                     "ry":           [ry],
@@ -471,6 +471,47 @@ def scharnier(ux,theta,nummer):
         plank.transformatie(rx,ry,rz,uxa,uya,uz,sx,sy,sz) #rx,ry,rz,ux,uy,uz,sx,sy,sz 
         balk=plank.balk()
         Balken.append(balk)
+        if theta == 0:
+            try:
+                if cfg.df_voorkant == []:
+                    df_voorkant = pd.DataFrame({
+                        "naam":         ['voorkant'],
+                        "subnaam":      ['scharnier'],
+                        "type":         ['scharnier'],
+                        "nummer":       [0],
+                        "lengte":       [lengte_clip],
+                        "breedte":      [breedte_clip],
+                        "dikte":        [dikte_clip],
+                        "xloc":         [uxa],
+                        "yloc":         [uya],
+                        "zloc":         [uz],
+                        "rx":           [rx],
+                        "ry":           [ry],
+                        "rz":           [rz],
+                        "opmerking":    [nummer],
+                        })
+                    cfg.df_voorkant=df_voorkant
+                
+            except ValueError:
+                df_voorkant_append = pd.DataFrame({
+                    "naam":         ['voorkant'],
+                    "subnaam":      ['scharnier'],
+                    "type":         ['scharnier'],
+                    "nummer":       [cfg.df_voorkant.shape[0]],
+                    "lengte":       [lengte_clip],
+                    "breedte":      [breedte_clip],
+                    "dikte":        [dikte_clip],
+                    "xloc":         [uxa],
+                    "yloc":         [uya],
+                    "zloc":         [uz],
+                    "rx":           [rx],
+                    "ry":           [ry],
+                    "rz":           [rz],
+                    "opmerking":    [nummer],
+                    })
+            
+                cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant_append],ignore_index=True)
+                #cfg.df_voorkant=pd.concat([cfg.df_voorkant,df_voorkant],ignore_index=True)
         
         #maak stille deel
         plank=p.plank(lengte_plank,breedte_plank,dikte_plank)
@@ -501,9 +542,9 @@ def scharnier(ux,theta,nummer):
                         "lengte":       [lengte_voet],
                         "breedte":      [breedte_voet],
                         "dikte":        [dikte_voet],
-                        "xloc":         [ux],
-                        "yloc":         [uy],
-                        "zloc":         [uz],
+                        "xloc":         [uxs],
+                        "yloc":         [uys],
+                        "zloc":         [uzs],
                         "rx":           [rx],
                         "ry":           [ry],
                         "rz":           [rz],
@@ -520,9 +561,9 @@ def scharnier(ux,theta,nummer):
                     "lengte":       [lengte_voet],
                     "breedte":      [breedte_voet],
                     "dikte":        [dikte_voet],
-                    "xloc":         [ux],
-                    "yloc":         [uy],
-                    "zloc":         [uz],
+                    "xloc":         [uxs],
+                    "yloc":         [uys],
+                    "zloc":         [uzs],
                     "rx":           [rx],
                     "ry":           [ry],
                     "rz":           [rz],
@@ -556,8 +597,8 @@ def scharnier(ux,theta,nummer):
                         "lengte":       [breedte_clip],
                         "breedte":      [breedte_clip],
                         "dikte":        [dikte_clip],
-                        "xloc":         [ux],
-                        "yloc":         [uy],
+                        "xloc":         [uxa],
+                        "yloc":         [uya],
                         "zloc":         [uz],
                         "rx":           [rx],
                         "ry":           [ry],
@@ -575,8 +616,8 @@ def scharnier(ux,theta,nummer):
                     "lengte":       [breedte_clip],
                     "breedte":      [breedte_clip],
                     "dikte":        [dikte_clip],
-                    "xloc":         [ux],
-                    "yloc":         [uy],
+                    "xloc":         [uxa],
+                    "yloc":         [uya],
                     "zloc":         [uz],
                     "rx":           [rx],
                     "ry":           [ry],

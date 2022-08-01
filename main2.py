@@ -6,13 +6,19 @@ Created on Tue Mar 29 21:26:30 2022
 @author: windhoos
 """
 
-from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, step6_vlonders, step7_boven, step8_linksrechts, step9_achter, step10_deurpost, step11_deur, step12_compleet, arrow
-#from latex import config as cfg
+from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, step6_vlonders, step7_boven, step8_linksrechts, step9_achter, step10_deurpost, step11_deur, step12_compleet
 import time
+import os
 
 def main():
+    parent_dir = '/home/windhoos/hout-topologie/users'
+    directory = '01-08-2022-17-50-28-test'
+    path = os.path.join(parent_dir, directory)
+    
     get_excel.build()
-    runlist=[1,2,3,4,5,6,7,8,9,10,11]
+    runlist=[0]
+    if runlist == [0]:
+        runlist=[1,2,3,4,5,6,7,8,9,10,11,12]
     for i in range(len(runlist)):
         run=runlist[i]
         if run == 1:
@@ -21,7 +27,7 @@ def main():
             step1_feet_bottom.build()
             O=scene.cam_reset(1)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path,name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -32,7 +38,7 @@ def main():
             step2_rib_bottom.build()
             O=scene.cam_reset(2)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path,name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -43,7 +49,7 @@ def main():
             step3_ladder.build()
             O=scene.cam_reset(3)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path,name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -54,7 +60,7 @@ def main():
             step4_geraamte.build()
             O=scene.cam_reset(4)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path,name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -65,12 +71,12 @@ def main():
             step5_achterrib.build()
             O=scene.cam_reset(51)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path,name)
             time.sleep(1)
             name='scene 5 - achterrib b'
             O=scene.cam_reset(52)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -81,12 +87,12 @@ def main():
             step6_vlonders.build()
             O=scene.cam_reset(61)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             name='scene 6 - vlonders b'
             O=scene.cam_reset(62)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -97,7 +103,7 @@ def main():
             step7_boven.build()
             O=scene.cam_reset(7)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -108,7 +114,7 @@ def main():
             step8_linksrechts.build()
             O=scene.cam_reset(8)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -119,12 +125,12 @@ def main():
             step9_achter.build()
             O=scene.cam_reset(91)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             name='scene 9 - achterkant b'
             O=scene.cam_reset(92)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -135,11 +141,11 @@ def main():
             step10_deurpost.build()
             O=scene.cam_reset(101)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path,name)
             time.sleep(1)
             name='scene 10 - deurpost b'
             O=scene.cam_reset(102)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
@@ -150,20 +156,19 @@ def main():
             step11_deur.build()
             O=scene.cam_reset(11)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
             
         if run == 12: 
-            name='scene 12 compleet'
+            name='scene 12 - compleet'
             scene.start_scene(name)
             step12_compleet.build()
             O=scene.cam_reset(12)
             #arrow.origin(O)
-            scene.capture(name)
+            scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
-    
 main()

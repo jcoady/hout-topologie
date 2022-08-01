@@ -11,9 +11,13 @@ from time import sleep
 import pandas as pd
 import os
 import numpy as np
-#import copy
+
 
 def update():
+    parent_dir = '/home/windhoos/hout-topologie/users'
+    directory = '01-08-2022-17-50-28-test'
+    path = os.path.join(parent_dir, directory)
+    
     sleep(.5)
 
     a=[]
@@ -49,35 +53,35 @@ def update():
                 excel=pd.concat([excel,excel_combine[df]],ignore_index=True)
         excel=excel.sort_values(['naam','subnaam','type','dikte','breedte','lengte','xloc','yloc','zloc'], ascending=[False,False,False,False,False,False,False,False,False],ignore_index=True)        
         #excel.sort_values(by='naam')
-        if os.path.exists('plankenlijst.xlsx'):
+        if os.path.exists(os.path.join(path ,'plankenlijst.xlsx')):
             print('Delete excel')
-            os.remove('plankenlijst.xlsx')
+            os.remove(os.path.join(path ,'plankenlijst.xlsx'))
         print('Create excel')
-        excel.to_excel('plankenlijst.xlsx')
+        excel.to_excel(os.path.join(path ,'plankenlijst.xlsx'))
         print(cfg.buy)
-        if (os.path.exists('plankenlijst-FINAL.xlsx') and cfg.buy==True):
+        if (os.path.exists(os.path.join(path ,'plankenlijst-FINAL.xlsx')) and cfg.buy==True):
             print('Delete excel-FINAL')
-            os.remove('plankenlijst-FINAL.xlsx')
+            os.remove(os.path.join(path ,'plankenlijst-FINAL.xlsx'))
         if cfg.buy==True:
             print('Create excel-FINAL')
-            excel.to_excel('plankenlijst-FINAL.xlsx')
+            excel.to_excel(os.path.join(path ,'plankenlijst-FINAL.xlsx'))
         
         #excel=excel.sort_values(['lengte','breedte','dikte'], ascending=[False,False,False],ignore_index=True)
         
         dups_excel = excel.pivot_table(columns=['type','dikte','breedte','lengte'], aggfunc='size')
 
-        if os.path.exists('stuklijst.xlsx'):
+        if os.path.exists(os.path.join(path ,'stuklijst.xlsx')):
             print('Delete excel2')
-            os.remove('stuklijst.xlsx')
+            os.remove(os.path.join(path ,'stuklijst.xlsx'))
         print('Create excel2')
-        dups_excel.to_excel('stuklijst.xlsx')
+        dups_excel.to_excel(os.path.join(path ,'stuklijst.xlsx'))
         
-        if (os.path.exists('stuklijst-FINAL.xlsx') and cfg.buy == True):
+        if (os.path.exists(os.path.join(path ,'stuklijst-FINAL.xlsx')) and cfg.buy == True):
             print('Delete excel2-FINAL')
-            os.remove('stuklijst-FINAL.xlsx')
+            os.remove(os.path.join(path ,'stuklijst-FINAL.xlsx'))
         if cfg.buy == True:
             print('Create excel2-FINAL')
-            dups_excel.to_excel('stuklijst-FINAL.xlsx')
+            dups_excel.to_excel(os.path.join(path ,'stuklijst-FINAL.xlsx'))
             cfg.buy=False
         
         cfg.sliders = cfg.sliders_update.copy()

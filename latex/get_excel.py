@@ -12,11 +12,15 @@ import pandas as pd
 import os.path
 
 def build():
-    path=os.path.dirname(__file__) + '/../stuklijst-FINAL.xlsx'
-    cfg.stuklijst=pd.read_excel(path)
-    path=os.path.dirname(__file__) + '/../plankenlijst-FINAL.xlsx'
-    cfg.plankenlijst=pd.read_excel(path)
+    parent_dir = '/home/windhoos/hout-topologie/users'
+    directory = '01-08-2022-17-50-28-test'
+    path = os.path.join(parent_dir, directory)
     
+    path2= os.path.join(path,'stuklijst-FINAL.xlsx')
+    cfg.stuklijst=pd.read_excel(path2)
+    
+    path3= os.path.join(path,'plankenlijst-FINAL.xlsx')
+    cfg.plankenlijst=pd.read_excel(path3)
     plankenlijst = cfg.plankenlijst.copy()
     
     #voeten

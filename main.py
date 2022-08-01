@@ -9,12 +9,23 @@ Created on Tue Jan 11 22:40:57 2022
 from onderdelen import input_data, voeten, onderstel, ribben, zeiplanken, achterplank, vlonders, achterrib, voorkant, updater,reset
 from onderdelen import config as cfg
 from onderdelen import plotter
-
-#from importlib import reload
+import os
+from datetime import date, datetime
 
 import time
 
 def main():
+    user = 'test'
+    today = date.today()
+    day = today.strftime("%d-%m-%Y")
+    now = datetime.now()
+    ct = now.strftime("%H-%M-%S")
+    directory= day+'-'+ct+'-'+user
+    parent_dir = '/home/windhoos/hout-topologie/users'
+    path = os.path.join(parent_dir, directory)
+    os.makedirs(path) 
+    print(path)
+    
     plotter.build_scene()
     wait=True
     while cfg.reset_loop == True:
