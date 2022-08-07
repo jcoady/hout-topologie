@@ -16,7 +16,7 @@ def main():
     path = os.path.join(parent_dir, directory)
     
     get_excel.build()
-    runlist=[0]
+    runlist=[1]
     if runlist == [0]:
         runlist=[1,2,3,4,5,6,7,8,9,10,11,12]
     for i in range(len(runlist)):
@@ -24,7 +24,7 @@ def main():
         if run == 1:
             name='scene 1 - bottom'
             scene.start_scene(name)
-            step1_feet_bottom.build()
+            step1_feet_bottom.build(path)
             O=scene.cam_reset(1)
             #arrow.origin(O)
             scene.capture(path,name)

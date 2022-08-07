@@ -31,6 +31,12 @@ poot_hoogte=0
 plank_dikte=0
 balk_dikte=0
 
+hoek=0
+schroef=0
+schroef_kort=0
+schroef_deur_lang=0
+schroef_deur_kort=0
+
 step1_hoogte=0 #- globaal
 step1_breedte=0 #- globaal
 step1_diepte=0 #- globaal

@@ -10,6 +10,12 @@ from latex import config as cfg
 from latex import balk, arrow
 from vpython import vector
 
+def store():
+    aantal_voeten=0
+    aantal_verdiepingen=2
+    deur_planken=0
+    stut=0
+
 def get_feet():
     voeten=cfg.voeten
     rows=len(voeten.index)
@@ -23,6 +29,9 @@ def get_feet():
         xa=voeten.loc[row,'rx']
         ya=voeten.loc[row,'ry']
         za=voeten.loc[row,'rz']
+        
+        cfg.schroef=cfg.schroef+2
+        store.aantal_voeten=store.aantal_voeten+1
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_feet.append(B)
@@ -40,6 +49,8 @@ def get_bottom():
         xa=onderkant.loc[row,'rx']
         ya=onderkant.loc[row,'ry']
         za=onderkant.loc[row,'rz']
+        
+        cfg.schroef=cfg.schroef+store.aantal_voeten/2
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_bottom.append(B)
@@ -153,6 +164,9 @@ def get_rib_frame():
         ya=horiz.loc[row,'ry']
         za=horiz.loc[row,'rz']
         
+        cfg.hoek=cfg.hoek+2
+        cfg.schroef_kort=cfg.schroef_kort+8
+        
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_ribben_horiz.append(B)
 
@@ -187,6 +201,9 @@ def get_achterrib():
         ya=achterrib.loc[row,'ry']
         za=achterrib.loc[row,'rz']
         
+        cfg.hoek=cfg.hoek+2
+        cfg.schroef_kort=cfg.schroef_kort+8
+        
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_achterrib.append(B)
     #    pa=B[-2]
@@ -210,6 +227,7 @@ def get_achterrib():
 def get_vlonders():
     vlonders=cfg.vlonders
     rows=len(vlonders.index)
+    z_verdieping=[]
     for row in range(rows):
         x0=vlonders.loc[row,'xloc']
         y0=vlonders.loc[row,'yloc']
@@ -220,6 +238,12 @@ def get_vlonders():
         xa=vlonders.loc[row,'rx']
         ya=vlonders.loc[row,'ry']
         za=vlonders.loc[row,'rz']
+        
+        if z_verdieping.count(z0) == 0:
+            z_verdieping.append(z0)
+            store.aantal_verdiepingen=store.aantal_verdiepingen+1
+        
+        cfg.schroef=cfg.schroef+store.aantal_voeten/2
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_vlonders.append(B)
@@ -238,6 +262,8 @@ def get_boven():
         ya=bovenkant.loc[row,'ry']
         za=bovenkant.loc[row,'rz']
         
+        cfg.schroef=cfg.schroef+store.aantal_voeten/2
+        
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_bovenkant.append(B)
         
@@ -254,6 +280,8 @@ def get_links():
         xa=zeidelinks.loc[row,'rx']
         ya=zeidelinks.loc[row,'ry']
         za=zeidelinks.loc[row,'rz']
+        
+        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_zeidelinks.append(B)
@@ -272,6 +300,8 @@ def get_rechts():
         ya=zeiderechts.loc[row,'ry']
         za=zeiderechts.loc[row,'rz']
         
+        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
+        
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_zeiderechts.append(B)
         
@@ -288,6 +318,8 @@ def get_achter():
         xa=achterkant.loc[row,'rx']
         ya=achterkant.loc[row,'ry']
         za=achterkant.loc[row,'rz']
+        
+        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_achterkant.append(B)
@@ -306,6 +338,8 @@ def get_deurpost():
         ya=voorkant.loc[row,'ry']
         za=voorkant.loc[row,'rz']
         
+        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
+        
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_deurpost.append(B)
         
@@ -322,6 +356,8 @@ def get_deur():
         xa=unit.loc[row,'rx']
         ya=unit.loc[row,'ry']
         za=unit.loc[row,'rz']
+        
+        store.deur_planken=store.deur_planken+1
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_deur.append(B)
@@ -340,6 +376,17 @@ def get_stut():
         ya=unit.loc[row,'ry']
         za=unit.loc[row,'rz']
         
+        store.stut=store.stut+1
+        
+        if cfg.plank_dikte > cfg.balk_dikte:
+            cfg.schroef_deur_lang=cfg.schroef_deur_lang+store.deur_planken
+            
+        elif cfg.plank_dikte*2 >= cfg.balk_dikte:
+            cfg.schroef_kort=cfg.schroef_kort+store.deur_planken
+            
+        else:
+            cfg.schroef_deur_kort=cfg.schroef_deur_kort+store.deur_planken
+        
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_stut.append(B)
         
@@ -356,6 +403,15 @@ def get_scharnier():
         xa=unit.loc[row,'rx']
         ya=unit.loc[row,'ry']
         za=unit.loc[row,'rz']
+        
+        if cfg.plank_dikte > cfg.balk_dikte:
+            cfg.schroef_deur_lang=cfg.schroef_deur_lang+store.stut*15
+            
+        elif cfg.plank_dikte*2 >= cfg.balk_dikte:
+            cfg.schroef_kort=cfg.schroef_kort+store.stut*15
+            
+        else:
+            cfg.schroef_deur_kort=cfg.schroef_deur_kort+store.stut*15
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za,kleur=vector(.5,.5,.5))
         cfg.step12_scharnier.append(B)

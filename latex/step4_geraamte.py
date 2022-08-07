@@ -64,6 +64,8 @@ def get_rib():
         pb=B[-1]
         arrowlist.append([pa,pb,l,w,h])
         
+        cfg.hoek=cfg.hoek+2
+        
     arrowlist2=[]
     for i in range(len(arrowlist)):
         arrowlist2.append(arrowlist[-(i+1)])

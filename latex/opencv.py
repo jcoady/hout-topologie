@@ -53,7 +53,7 @@ def cut():
             xmax=max(xmax)
             ymin=min(ymin)
             ymax=max(ymax)
-            cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (255,255,255), 2)
+            cv2.rectangle(img, (xmin-10, ymin-10), (xmax+10, ymax+10), (255,255,255), 2)
             #cv2.rectangle(img, (xmin, ymin), (xmax, ymax), (0,0,0), 2)
             dst = img[ymin:ymax, xmin:xmax]
             print(images)
