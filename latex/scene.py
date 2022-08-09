@@ -27,7 +27,8 @@ def capture(path, name):
     #options = webdriver.ChromeOptions() 
     #options.add_argument(f"download.default_directory={path}")
     #driver = webdriver.Chrome(ChromeDriverManager().install())
-    sl.capture(os.path.join(path , name))
+    #sl.capture(os.path.join(path , name))
+    sl.capture(name)
     
 def cam_reset(step):
     if step == 1:
@@ -215,7 +216,7 @@ def cam_reset(step):
     elif step == 11:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        camz_max=max(cfg.step11_zcam, key=abs)
+        camz_max=0#max(cfg.step11_zcam, key=abs)
         camx_max=max(cfg.step11_xcam, key=abs)
         Oz_cam = dist((cfg.step11_hoogte/2,), (abs(camz_max),)) / 2
         Ox_cam = dist((cfg.step11_breedte/2,), (abs(camx_max),)) / 2

@@ -9,22 +9,28 @@ Created on Tue Mar 29 21:26:30 2022
 from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, step6_vlonders, step7_boven, step8_linksrechts, step9_achter, step10_deurpost, step11_deur, step12_compleet
 import time
 import os
+from latex import opencv as crop
+from latex import stuklijst
 
 def main():
     parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '01-08-2022-17-50-28-test'
+    directory = '08-08-2022-19-38-29-test'
     path = os.path.join(parent_dir, directory)
+    lang = 'NL'
     
-    get_excel.build()
-    runlist=[1]
-    if runlist == [0]:
+    get_excel.build(path)
+    
+    bijsnijden = False
+    
+    runlist=[12]
+    if runlist == []:
         runlist=[1,2,3,4,5,6,7,8,9,10,11,12]
     for i in range(len(runlist)):
         run=runlist[i]
         if run == 1:
             name='scene 1 - bottom'
             scene.start_scene(name)
-            step1_feet_bottom.build(path)
+            step1_feet_bottom.build(path,lang)
             O=scene.cam_reset(1)
             #arrow.origin(O)
             scene.capture(path,name)
@@ -35,7 +41,7 @@ def main():
         if run == 2:    
             name='scene 2 - bottom rib'
             scene.start_scene(name)
-            step2_rib_bottom.build()
+            step2_rib_bottom.build(path,lang)
             O=scene.cam_reset(2)
             #arrow.origin(O)
             scene.capture(path,name)
@@ -46,7 +52,7 @@ def main():
         if run == 3:
             name='scene 3 - ladder'
             scene.start_scene(name)
-            step3_ladder.build()
+            step3_ladder.build(path,lang)
             O=scene.cam_reset(3)
             #arrow.origin(O)
             scene.capture(path,name)
@@ -57,7 +63,7 @@ def main():
         if run == 4:    
             name='scene 4 - geraamte'
             scene.start_scene(name)
-            step4_geraamte.build()
+            step4_geraamte.build(path,lang)
             O=scene.cam_reset(4)
             #arrow.origin(O)
             scene.capture(path,name)
@@ -68,7 +74,7 @@ def main():
         if run == 5: 
             name='scene 5 - achterrib a'
             scene.start_scene(name)
-            step5_achterrib.build()
+            step5_achterrib.build(path,lang)
             O=scene.cam_reset(51)
             #arrow.origin(O)
             scene.capture(path,name)
@@ -84,7 +90,7 @@ def main():
         if run == 6: 
             name='scene 6 - vlonders a'
             scene.start_scene(name)
-            step6_vlonders.build()
+            step6_vlonders.build(path,lang)
             O=scene.cam_reset(61)
             #arrow.origin(O)
             scene.capture(path, name)
@@ -100,7 +106,7 @@ def main():
         if run == 7: 
             name='scene 7 - boven'
             scene.start_scene(name)
-            step7_boven.build()
+            step7_boven.build(path,lang)
             O=scene.cam_reset(7)
             #arrow.origin(O)
             scene.capture(path, name)
@@ -111,7 +117,7 @@ def main():
         if run == 8: 
             name='scene 8 - links/rechts'
             scene.start_scene(name)
-            step8_linksrechts.build()
+            step8_linksrechts.build(path,lang)
             O=scene.cam_reset(8)
             #arrow.origin(O)
             scene.capture(path, name)
@@ -122,7 +128,7 @@ def main():
         if run == 9: 
             name='scene 9 - achterkant a'
             scene.start_scene(name)
-            step9_achter.build()
+            step9_achter.build(path,lang)
             O=scene.cam_reset(91)
             #arrow.origin(O)
             scene.capture(path, name)
@@ -138,7 +144,7 @@ def main():
         if run == 10: 
             name='scene 10 - deurpost a'
             scene.start_scene(name)
-            step10_deurpost.build()
+            step10_deurpost.build(path,lang)
             O=scene.cam_reset(101)
             #arrow.origin(O)
             scene.capture(path,name)
@@ -153,7 +159,7 @@ def main():
         if run == 11: 
             name='scene 11 - deur'
             scene.start_scene(name)
-            step11_deur.build()
+            step11_deur.build(path,lang)
             O=scene.cam_reset(11)
             #arrow.origin(O)
             scene.capture(path, name)
@@ -164,11 +170,23 @@ def main():
         if run == 12: 
             name='scene 12 - compleet'
             scene.start_scene(name)
-            step12_compleet.build()
+            step12_compleet.build(path,lang)
             O=scene.cam_reset(12)
             #arrow.origin(O)
             scene.capture(path, name)
             time.sleep(1)
             scene.delete()
             time.sleep(1)
+            
+    print('Rendering finished')
+            
+    #input(f"Kopieer bestanden naar {path}")
+        
+    if bijsnijden == True:
+        crop.cut(path)
+        crop.canvas(path)
+        print('Cropping finished')
+        
+    stuklijst.build(path,lang)
+
 main()

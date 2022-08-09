@@ -9,6 +9,7 @@ Created on Mon Jul 11 09:33:40 2022
 from latex import config as cfg
 from latex import balk, arrow
 from vpython import vector
+from latex import table_builder
 
 def get_deur():
     deur=cfg.deur
@@ -108,8 +109,8 @@ def build_arrow(arrowlist, arrowlist2):
         
     thickness = xmaxlist[4]
             
-    A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,1)
-    cfg.step11_arrow.append(A)
+    #A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,1)
+    #cfg.step11_arrow.append(A)
     
     #bepaal kleinste x lijst in deur
     xmaxlist=[]
@@ -142,7 +143,7 @@ def build_arrow(arrowlist, arrowlist2):
             
         x2=arrowlist2[0][1][0] - cfg.step11_breedte*1.05 - arrowlist2[1][3]*a*1.5
         y2=arrowlist[0][1][1]
-        z2=arrowlist2[a][0][2] - arrowlist2[a][3]/2
+        z2=arrowlist2[a][0][2] #- arrowlist2[a][3]/2
             
         thickness = arrowlist[0][4]
                     
@@ -190,7 +191,8 @@ def build_pointer(arrowlist):
         
     cfg.step11_pointer=pointerlist
 
-def build():
+def build(path,lang):
     arrowlist,arrowlist2=get_deur()
     build_arrow(arrowlist,arrowlist2)
     #build_pointer(arrowlist2)
+    table_builder.latex([cfg.deur,cfg.stut],path,lang,11)

@@ -8,7 +8,7 @@ Created on Mon Jul 11 09:33:40 2022
 
 from latex import config as cfg
 from latex import balk, arrow
-
+from latex import table_builder
 
 def get_feet():
     voeten=cfg.voeten
@@ -133,9 +133,11 @@ def get_arrow2(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
     A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,case)
     return A
 
-def build():
+def build(path,lang):
     get_feet()
     get_bottom()
     arrowlist=get_rib()
     build_arrow(arrowlist)
     build_arrow2(arrowlist)
+    
+    table_builder.latex([cfg.rib_onder],path,lang,2)

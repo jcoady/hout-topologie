@@ -8,11 +8,10 @@ Created on Wed May 11 14:49:59 2022
 
 from latex import config as cfg
 from latex import balk, arrow
-import os
+from latex import table_builder
 
-def get_feet(path):
+def get_feet():
     voeten=cfg.voeten
-    latex=voeten.copy()
     rows=len(voeten.index)
     arrowlist=[]
     for row in range(rows):
@@ -32,25 +31,11 @@ def get_feet(path):
         pb=B[-1]
         if y0 > 0:
             arrowlist.append([pa,pb,l,w,h])
-            
-    #\usepackage{booktabs}
-    lcaption = 'voeten'
-    latex = latex.drop(['xloc','yloc','zloc','rx','ry','rz'],axis=1)
-    latex = latex.round(1)
-    latex = latex.groupby(latex.columns.tolist(),as_index=False).size()
-    latex = latex.rename(columns={'size': 'aantal'})
-    latex = latex.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
-    
-    path = os.path.join(path, 's1-voeten.tex' )
-    with open(path, 'w') as fout:
-        for i in range(len(latex)):
-            fout.write(latex[i])
       
     return arrowlist
 
 def get_bottom():
     onderkant=cfg.onderkant
-    
     cfg.step1_hoogte=cfg.poot_hoogte+cfg.plank_dikte
     
     xmax = onderkant.loc[onderkant['lengte'].idxmax()]
@@ -103,7 +88,8 @@ def get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness):
     A=arrow.build(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,case)
     return A
 
-def build(path):
-    arrowlist=get_feet(path)
+def build(path,lang):
+    arrowlist=get_feet()
     get_bottom()
     cfg.step1_arrow=build_arrow(arrowlist)
+    table_builder.latex([cfg.voeten,cfg.onderkant],path,lang,1)

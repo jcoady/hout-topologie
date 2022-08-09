@@ -11,10 +11,10 @@ from latex import config as cfg
 import pandas as pd
 import os.path
 
-def build():
-    parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '01-08-2022-17-50-28-test'
-    path = os.path.join(parent_dir, directory)
+def build(path):
+    #parent_dir = '/home/windhoos/hout-topologie/users'
+    #directory = '01-08-2022-17-50-28-test'
+    #path = os.path.join(parent_dir, directory)
     
     path2= os.path.join(path,'stuklijst-FINAL.xlsx')
     cfg.stuklijst=pd.read_excel(path2)

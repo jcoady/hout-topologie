@@ -13,10 +13,10 @@ import os
 import numpy as np
 
 
-def update():
-    parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '01-08-2022-17-50-28-test'
-    path = os.path.join(parent_dir, directory)
+def update(path):
+    #parent_dir = '/home/windhoos/hout-topologie/users'
+    #directory = '01-08-2022-17-50-28-test'
+    #path = os.path.join(parent_dir, directory)
     
     sleep(.5)
 
@@ -53,11 +53,11 @@ def update():
                 excel=pd.concat([excel,excel_combine[df]],ignore_index=True)
         excel=excel.sort_values(['naam','subnaam','type','dikte','breedte','lengte','xloc','yloc','zloc'], ascending=[False,False,False,False,False,False,False,False,False],ignore_index=True)        
         #excel.sort_values(by='naam')
-        if os.path.exists(os.path.join(path ,'plankenlijst.xlsx')):
-            print('Delete excel')
-            os.remove(os.path.join(path ,'plankenlijst.xlsx'))
-        print('Create excel')
-        excel.to_excel(os.path.join(path ,'plankenlijst.xlsx'))
+        #if os.path.exists(os.path.join(path ,'plankenlijst.xlsx')):
+        #    print('Delete excel')
+        #    os.remove(os.path.join(path ,'plankenlijst.xlsx'))
+        #print('Create excel')
+        #excel.to_excel(os.path.join(path ,'plankenlijst.xlsx'))
         print(cfg.buy)
         if (os.path.exists(os.path.join(path ,'plankenlijst-FINAL.xlsx')) and cfg.buy==True):
             print('Delete excel-FINAL')
@@ -70,11 +70,11 @@ def update():
         
         dups_excel = excel.pivot_table(columns=['type','dikte','breedte','lengte'], aggfunc='size')
 
-        if os.path.exists(os.path.join(path ,'stuklijst.xlsx')):
-            print('Delete excel2')
-            os.remove(os.path.join(path ,'stuklijst.xlsx'))
-        print('Create excel2')
-        dups_excel.to_excel(os.path.join(path ,'stuklijst.xlsx'))
+        #if os.path.exists(os.path.join(path ,'stuklijst.xlsx')):
+        #    print('Delete excel2')
+        #    os.remove(os.path.join(path ,'stuklijst.xlsx'))
+        #print('Create excel2')
+        #dups_excel.to_excel(os.path.join(path ,'stuklijst.xlsx'))
         
         if (os.path.exists(os.path.join(path ,'stuklijst-FINAL.xlsx')) and cfg.buy == True):
             print('Delete excel2-FINAL')

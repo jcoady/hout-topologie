@@ -9,12 +9,7 @@ Created on Mon Jul 11 09:33:40 2022
 from latex import config as cfg
 from latex import balk, arrow
 from vpython import vector
-
-def store():
-    aantal_voeten=0
-    aantal_verdiepingen=2
-    deur_planken=0
-    stut=0
+from latex import table_builder
 
 def get_feet():
     voeten=cfg.voeten
@@ -31,7 +26,7 @@ def get_feet():
         za=voeten.loc[row,'rz']
         
         cfg.schroef=cfg.schroef+2
-        store.aantal_voeten=store.aantal_voeten+1
+        cfg.aantal_voeten=cfg.aantal_voeten+1
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_feet.append(B)
@@ -49,8 +44,6 @@ def get_bottom():
         xa=onderkant.loc[row,'rx']
         ya=onderkant.loc[row,'ry']
         za=onderkant.loc[row,'rz']
-        
-        cfg.schroef=cfg.schroef+store.aantal_voeten/2
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_bottom.append(B)
@@ -72,6 +65,11 @@ def get_rib():
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_rib_onder.append(B)
+        
+        cfg.schroef=cfg.schroef+len(cfg.onderkant)
+        
+        cfg.hoek=cfg.hoek+2
+        cfg.schroef_kort=cfg.schroef_kort+8
         #pa=B[-2]
         #pb=B[-1]
         #arrowlist.append([pa,pb,l,w,h])
@@ -241,9 +239,9 @@ def get_vlonders():
         
         if z_verdieping.count(z0) == 0:
             z_verdieping.append(z0)
-            store.aantal_verdiepingen=store.aantal_verdiepingen+1
+            cfg.aantal_verdiepingen=cfg.aantal_verdiepingen+1
         
-        cfg.schroef=cfg.schroef+store.aantal_voeten/2
+        cfg.schroef=cfg.schroef+cfg.aantal_voeten/2
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_vlonders.append(B)
@@ -262,7 +260,7 @@ def get_boven():
         ya=bovenkant.loc[row,'ry']
         za=bovenkant.loc[row,'rz']
         
-        cfg.schroef=cfg.schroef+store.aantal_voeten/2
+        cfg.schroef=cfg.schroef+cfg.aantal_voeten/2
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_bovenkant.append(B)
@@ -281,7 +279,7 @@ def get_links():
         ya=zeidelinks.loc[row,'ry']
         za=zeidelinks.loc[row,'rz']
         
-        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
+        cfg.schroef=cfg.schroef+cfg.aantal_verdiepingen
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_zeidelinks.append(B)
@@ -300,7 +298,7 @@ def get_rechts():
         ya=zeiderechts.loc[row,'ry']
         za=zeiderechts.loc[row,'rz']
         
-        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
+        cfg.schroef=cfg.schroef+cfg.aantal_verdiepingen
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_zeiderechts.append(B)
@@ -319,7 +317,7 @@ def get_achter():
         ya=achterkant.loc[row,'ry']
         za=achterkant.loc[row,'rz']
         
-        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
+        cfg.schroef=cfg.schroef+cfg.aantal_verdiepingen
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_achterkant.append(B)
@@ -338,7 +336,7 @@ def get_deurpost():
         ya=voorkant.loc[row,'ry']
         za=voorkant.loc[row,'rz']
         
-        cfg.schroef=cfg.schroef+store.aantal_verdiepingen
+        cfg.schroef=cfg.schroef+cfg.aantal_verdiepingen
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_deurpost.append(B)
@@ -357,7 +355,7 @@ def get_deur():
         ya=unit.loc[row,'ry']
         za=unit.loc[row,'rz']
         
-        store.deur_planken=store.deur_planken+1
+        cfg.aantal_deur_planken=cfg.aantal_deur_planken+1
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_deur.append(B)
@@ -365,6 +363,7 @@ def get_deur():
 def get_stut():
     unit=cfg.stut_volledig
     rows=len(unit.index)
+    aantal_deuren=len(cfg.deur_volledig)/len(cfg.deur)
     for row in range(rows):
         x0=unit.loc[row,'xloc']
         y0=unit.loc[row,'yloc']
@@ -376,16 +375,9 @@ def get_stut():
         ya=unit.loc[row,'ry']
         za=unit.loc[row,'rz']
         
-        store.stut=store.stut+1
+        cfg.aantal_stut_planken=cfg.aantal_stut_planken+1
         
-        if cfg.plank_dikte > cfg.balk_dikte:
-            cfg.schroef_deur_lang=cfg.schroef_deur_lang+store.deur_planken
-            
-        elif cfg.plank_dikte*2 >= cfg.balk_dikte:
-            cfg.schroef_kort=cfg.schroef_kort+store.deur_planken
-            
-        else:
-            cfg.schroef_deur_kort=cfg.schroef_deur_kort+store.deur_planken
+        cfg.schroef_deur=cfg.schroef_deur+cfg.aantal_deur_planken/aantal_deuren
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step12_stut.append(B)
@@ -404,17 +396,14 @@ def get_scharnier():
         ya=unit.loc[row,'ry']
         za=unit.loc[row,'rz']
         
-        if cfg.plank_dikte > cfg.balk_dikte:
-            cfg.schroef_deur_lang=cfg.schroef_deur_lang+store.stut*15
-            
-        elif cfg.plank_dikte*2 >= cfg.balk_dikte:
-            cfg.schroef_kort=cfg.schroef_kort+store.stut*15
-            
-        else:
-            cfg.schroef_deur_kort=cfg.schroef_deur_kort+store.stut*15
+        cfg.schroef_deur=cfg.schroef_deur+15/2
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za,kleur=vector(.5,.5,.5))
         cfg.step12_scharnier.append(B)
+        
+        cfg.scharnier_aantal = cfg.scharnier_aantal + 1
+        
+    cfg.scharnier_aantal=cfg.scharnier_aantal/2
         
 def get_slot():
     unit=cfg.slot
@@ -432,8 +421,10 @@ def get_slot():
         
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za,kleur=vector(.5,.5,.5))
         cfg.step12_slot.append(B)
+        
+        cfg.slot_aantal = cfg.slot_aantal + 1
 
-def build():
+def build(path,lang):
     get_feet()
     get_bottom()
     get_rib()
@@ -449,3 +440,4 @@ def build():
     get_stut()
     get_scharnier()
     get_slot()
+    table_builder.latex([cfg.scharnier],path,lang,12)

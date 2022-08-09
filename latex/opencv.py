@@ -8,14 +8,10 @@ Created on Sat Jul 30 21:26:56 2022
 
 import cv2
 import numpy as np
-import os
 from PIL import Image as im
+import os
 
-def cut():
-    parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '01-08-2022-17-50-28-test'
-    path = os.path.join(parent_dir, directory)
-    
+def cut(path):
     for images in os.listdir(path):
         # check if the image ends with png
         if (images.endswith(".png")):
@@ -99,10 +95,18 @@ def resizeAndPad(img, size, padColor=0):
     
     return scaled_img
 
-def canvas():
-    parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '01-08-2022-17-50-28-test'
-    path = os.path.join(parent_dir, directory)
+def canvas(path):
+    for images in os.listdir(path):
+        # check if the image ends with png
+        if (images.endswith(".png")):
+            images2=os.path.join(path, images)
+            img = cv2.imread(images2)
+            scaled_img = resizeAndPad(img, (800,800), 255)
+            data = im.fromarray(scaled_img)
+            size = len(images)
+            images2 = images[:size - 4]
+            data.save(f"{path}/{images2}.png")
+            
     for images in os.listdir(path):
         # check if the image ends with png
         if (images.endswith(".png")):

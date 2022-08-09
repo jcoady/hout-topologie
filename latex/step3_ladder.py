@@ -8,6 +8,7 @@ Created on Mon Jul 11 09:33:40 2022
 
 from latex import config as cfg
 from latex import balk, arrow
+from latex import table_builder
         
 def get_rib():
     ribmax=cfg.ribmax
@@ -177,7 +178,9 @@ def build_pointer(arrowlist):
         
     cfg.step3_pointer=pointerlist
 
-def build():
+def build(path, lang):
     arrowlist=get_rib()
     build_arrow(arrowlist)
     build_pointer(arrowlist)
+    
+    table_builder.latex([cfg.ribmax],path,lang,3)

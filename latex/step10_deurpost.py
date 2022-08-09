@@ -9,6 +9,7 @@ Created on Mon Jul 11 09:33:40 2022
 from latex import config as cfg
 from latex import balk, arrow
 from vpython import vector
+from latex import table_builder
 
 def get_feet():
     voeten=cfg.voeten
@@ -376,7 +377,7 @@ def build_pointer(arrowlist):
         
     cfg.step10_pointer=pointerlist
 
-def build():
+def build(path,lang):
     get_feet()
     get_bottom()
     get_rib()
@@ -390,3 +391,4 @@ def build():
     arrowlist=get_deurpost()
     build_arrow(arrowlist)
     #build_pointer(arrowlist2)
+    table_builder.latex([cfg.voorkant],path,lang,10)

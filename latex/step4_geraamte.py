@@ -196,7 +196,7 @@ def build_pointer(arrowlist):
         
     cfg.step4_pointer=pointerlist
 
-def build():
+def build(path, lang):
     get_feet()
     get_bottom()
     arrowlist=get_rib()

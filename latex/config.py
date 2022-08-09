@@ -32,10 +32,16 @@ plank_dikte=0
 balk_dikte=0
 
 hoek=0
-schroef=0
-schroef_kort=0
-schroef_deur_lang=0
-schroef_deur_kort=0
+schroef=0 #plank dikte+balk dikte
+schroef_kort=0 #balk dikte
+schroef_deur=0 #twee planken
+scharnier_aantal=0
+slot_aantal=0
+
+aantal_voeten=0
+aantal_verdiepingen=2
+aantal_deur_planken=0
+aantal_stut_planken=0
 
 step1_hoogte=0 #- globaal
 step1_breedte=0 #- globaal
