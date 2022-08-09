@@ -17,8 +17,8 @@ def build(path,lang):
     schroef=[cfg.plank_dikte+cfg.balk_dikte,cfg.schroef]
     schroef_kort=[cfg.balk_dikte,cfg.schroef_kort]
     schroef_deur=[2*cfg.plank_dikte, cfg.schroef_deur]
-    slot = ['max 10', cfg.slot_aantal]
-    scharnier = ['max 4', cfg.scharnier_aantal]
+    slot = ['max 4', cfg.slot_aantal]
+    scharnier = ['max 10', cfg.scharnier_aantal]
     
     excel=cfg.plankenlijst.copy()
     excel.drop(excel.loc[excel['subnaam']=='scharnier'].index, inplace=True)
@@ -44,7 +44,7 @@ def build(path,lang):
     schroeven = language.rename(schroeven, lang, 'schroeven')
     lcaption = language.caption(lang, 'schroeven')
     #schroeven.to_excel('schroeven.xlsx')
-    schroeven = schroeven.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
+    schroeven = schroeven.to_latex(index=True, position='h!',na_rep = '', float_format="%d", decimal=',',caption=f'{lcaption}')  
     save = 's0-schroeven.tex'
     path2 = os.path.join(path, save )
     with open(path2, 'w') as fout:
@@ -56,7 +56,7 @@ def build(path,lang):
     elementen = language.rename(elementen, lang, 'elementen')
     lcaption = language.caption(lang, 'elementen')
     #elementen.to_excel('elementen.xlsx')
-    elementen = elementen.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
+    elementen = elementen.to_latex(index=True, position='h!',na_rep = '', float_format="%d", decimal=',',caption=f'{lcaption}')  
     save = 's0-elementen.tex'
     path3 = os.path.join(path, save )
     with open(path3, 'w') as fout:

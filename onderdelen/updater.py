@@ -65,10 +65,11 @@ def update(path):
         if cfg.buy==True:
             print('Create excel-FINAL')
             excel.to_excel(os.path.join(path ,'plankenlijst-FINAL.xlsx'))
+            cfg.buy=False
         
         #excel=excel.sort_values(['lengte','breedte','dikte'], ascending=[False,False,False],ignore_index=True)
         
-        dups_excel = excel.pivot_table(columns=['type','dikte','breedte','lengte'], aggfunc='size')
+        #dups_excel = excel.pivot_table(columns=['type','dikte','breedte','lengte'], aggfunc='size')
 
         #if os.path.exists(os.path.join(path ,'stuklijst.xlsx')):
         #    print('Delete excel2')
@@ -76,13 +77,13 @@ def update(path):
         #print('Create excel2')
         #dups_excel.to_excel(os.path.join(path ,'stuklijst.xlsx'))
         
-        if (os.path.exists(os.path.join(path ,'stuklijst-FINAL.xlsx')) and cfg.buy == True):
-            print('Delete excel2-FINAL')
-            os.remove(os.path.join(path ,'stuklijst-FINAL.xlsx'))
-        if cfg.buy == True:
-            print('Create excel2-FINAL')
-            dups_excel.to_excel(os.path.join(path ,'stuklijst-FINAL.xlsx'))
-            cfg.buy=False
+        #if (os.path.exists(os.path.join(path ,'stuklijst-FINAL.xlsx')) and cfg.buy == True):
+        #    print('Delete excel2-FINAL')
+        #    os.remove(os.path.join(path ,'stuklijst-FINAL.xlsx'))
+        #if cfg.buy == True:
+        #    print('Create excel2-FINAL')
+        #    dups_excel.to_excel(os.path.join(path ,'stuklijst-FINAL.xlsx'))
+        #    cfg.buy=False
         
         cfg.sliders = cfg.sliders_update.copy()
         #cfg.sliders = copy.deepcopy(cfg.sliders_update)

@@ -62,6 +62,14 @@ def direction(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,case):
         vrichting = vector(0,0,1)
         a=arrow6(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting)
         return a
+    elif case == 8: #(z0 == z1 and z0==z2 and x1 == x2 and y0 == y1 and x0 > x1):
+        vrichting = vector(0,0,1)
+        a=arrow8(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting)
+        return a
+    elif case == 9: #(z0 == z1 and z0==z2 and x1 == x2 and y0 == y1 and x0 > x1):
+        vrichting = vector(0,0,-1)
+        a=arrow9(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting)
+        return a
     elif case == 10: #(z0 == z1 and z0==z2 and x1 == x2 and y0 == y1 and x0 > x1):
         vrichting = vector(-1,0,0)
         a=arrow10(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting)
@@ -561,6 +569,130 @@ def arrow6(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     
     return arrow
 
+def arrow8(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
+    '''
+            |z   || 2   
+            |    ||
+            |    || 1
+            |____//___x
+            /   //    
+           /   //
+          / y //0
+    '''
+
+    d1=x2-x1
+    d2=y2-y1
+    d3=z2-z1
+    
+    dtot=round(sqrt(d1**2+d2**2+d3**2),1)
+    
+    vec=np.array([d1,d2,d3])
+
+    uv = vec / np.linalg.norm(vec)
+    
+    body_thickness =    thickness
+    head_thickness = 2* thickness
+    head_length    = 3* thickness
+    
+    x1e=1*head_length*uv[0]
+    y1e=1*head_length*uv[1]
+    z1e=1*head_length*uv[2]
+    
+    x2e=-1*head_length*uv[0]
+    y2e=-1*head_length*uv[1]
+    z2e=-1*head_length*uv[2]
+    
+    red,green,blue = 0.75,0.1,0.1
+    
+    #head=cone(pos=vector(x1,y1,z1-2*head_thickness), axis=vector(x1e,y1e,-z1e), radius=head_thickness,length=2*head_thickness, color=vector(red,green,blue))
+    #tail=cone(pos=vector(x2,y2,z2+2*head_thickness), axis=vector(x2e,y2e,-z2e), radius=head_thickness,length=2*head_thickness,color=vector(red,green,blue))
+    head=cone(pos=vector(x1,y1,z1-2*head_thickness), axis=vector(x1e,y1e,-z1e), radius=head_thickness,length=2*head_thickness, color=vector(red,green,blue))
+    tail=cone(pos=vector(x2,y2,z2+2*head_thickness), axis=vector(x2e,y2e,-z2e), radius=head_thickness,length=2*head_thickness,color=vector(red,green,blue))
+    body=cylinder(pos=vector(x1-x1e,y1-y1e,head.pos.z), axis=vector(x2-x1-x2e+x1e,y2-y1-y2e+y1e,z2-z1-z2e+z1e), color=vector(red,green,blue),length=z1-z2-2*head_length , radius = body_thickness )
+    #t_invisible=text(text=f'{dtot} cm', pos=body.pos+vector(-body.pos.x*2,0,-body.pos.z/2) ,axis = vrichting, up=vector(1,0,0), align='center', height=3*thickness, color=vector(1,1,1))
+    t=text(text=f'{dtot} cm', pos=body.pos+vector(thickness*2.5,0,-body.length) ,axis = vrichting, up=vector(1,0,0), align='left', height=3*thickness, color=vector(red,green,blue))
+    #t.rotate(angle=pi, axis=vector(0,1,0),origin=head.pos+0.5*head.axis+vector(0,thickness*(1+2/3),0))
+    
+    va1=vertex(pos=vector(x0-thickness,y0+thickness*2,z2), color=vector(red,green,blue))
+    va2=vertex(pos=vector(x0-thickness,y0-thickness*2,z2), color=vector(red,green,blue))
+    va3=vertex(pos=vector(x2+thickness,y2-thickness*2,z2), color=vector(red,green,blue))
+    va4=vertex(pos=vector(x2+thickness,y2+thickness*2,z2), color=vector(red,green,blue))
+    slaba=quad(vs=[va1,va2,va3,va4])   
+    
+    vb1=vertex(pos=vector(x0-thickness,y0+thickness*2,z0), color=vector(red,green,blue))
+    vb2=vertex(pos=vector(x0-thickness,y0-thickness*2,z0), color=vector(red,green,blue))
+    vb3=vertex(pos=vector(x1+thickness,y1-thickness*2,z1), color=vector(red,green,blue))
+    vb4=vertex(pos=vector(x1+thickness,y1+thickness*2,z1), color=vector(red,green,blue))
+    slabb=quad(vs=[vb1,vb2,vb3,vb4])   
+    
+    arrow = compound([head, body, tail,slaba,slabb,t])
+    
+    cfg.step8_xcam.append(body.pos.x)
+    
+    return arrow
+
+def arrow9(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
+    '''
+            |z   || 2   
+            |    ||
+            |    || 1
+            |____//___x
+            /   //    
+           /   //
+          / y //0
+    '''
+
+    d1=x2-x1
+    d2=y2-y1
+    d3=z2-z1
+    
+    dtot=round(sqrt(d1**2+d2**2+d3**2),1)
+    
+    vec=np.array([d1,d2,d3])
+
+    uv = vec / np.linalg.norm(vec)
+    
+    body_thickness =    thickness
+    head_thickness = 2* thickness
+    head_length    = 3* thickness
+    
+    x1e=1*head_length*uv[0]
+    y1e=1*head_length*uv[1]
+    z1e=1*head_length*uv[2]
+    
+    x2e=-1*head_length*uv[0]
+    y2e=-1*head_length*uv[1]
+    z2e=-1*head_length*uv[2]
+    
+    red,green,blue = 0.75,0.1,0.1
+    
+    #head=cone(pos=vector(x1,y1,z1-2*head_thickness), axis=vector(x1e,y1e,-z1e), radius=head_thickness,length=2*head_thickness, color=vector(red,green,blue))
+    #tail=cone(pos=vector(x2,y2,z2+2*head_thickness), axis=vector(x2e,y2e,-z2e), radius=head_thickness,length=2*head_thickness,color=vector(red,green,blue))
+    head=cone(pos=vector(x1,y1,z1-2*head_thickness), axis=vector(x1e,y1e,-z1e), radius=head_thickness,length=2*head_thickness, color=vector(red,green,blue))
+    tail=cone(pos=vector(x2,y2,z2+2*head_thickness), axis=vector(x2e,y2e,-z2e), radius=head_thickness,length=2*head_thickness,color=vector(red,green,blue))
+    body=cylinder(pos=vector(x1-x1e,y1-y1e,head.pos.z), axis=vector(x2-x1-x2e+x1e,y2-y1-y2e+y1e,z2-z1-z2e+z1e), color=vector(red,green,blue),length=z1-z2-2*head_length , radius = body_thickness )
+    #t_invisible=text(text=f'{dtot} cm', pos=body.pos+vector(-body.pos.x*2,0,-body.pos.z/2) ,axis = vrichting, up=vector(1,0,0), align='center', height=3*thickness, color=vector(1,1,1))
+    t=text(text=f'{dtot} cm', pos=body.pos+vector(thickness*2.5,0,-body.length) ,axis = vrichting, up=vector(1,0,0), align='right', height=3*thickness, color=vector(red,green,blue))
+    #t.rotate(angle=pi, axis=vector(0,1,0),origin=head.pos+0.5*head.axis+vector(0,thickness*(1+2/3),0))
+    
+    va1=vertex(pos=vector(x0-thickness,y0+thickness*2,z2), color=vector(red,green,blue))
+    va2=vertex(pos=vector(x0-thickness,y0-thickness*2,z2), color=vector(red,green,blue))
+    va3=vertex(pos=vector(x2+thickness,y2-thickness*2,z2), color=vector(red,green,blue))
+    va4=vertex(pos=vector(x2+thickness,y2+thickness*2,z2), color=vector(red,green,blue))
+    slaba=quad(vs=[va1,va2,va3,va4])   
+    
+    vb1=vertex(pos=vector(x0-thickness,y0+thickness*2,z0), color=vector(red,green,blue))
+    vb2=vertex(pos=vector(x0-thickness,y0-thickness*2,z0), color=vector(red,green,blue))
+    vb3=vertex(pos=vector(x1+thickness,y1-thickness*2,z1), color=vector(red,green,blue))
+    vb4=vertex(pos=vector(x1+thickness,y1+thickness*2,z1), color=vector(red,green,blue))
+    slabb=quad(vs=[vb1,vb2,vb3,vb4])   
+    
+    arrow = compound([head, body, tail,slaba,slabb,t])
+    
+    cfg.step9_xcam.append(body.pos.x)
+    
+    return arrow
+
 def arrow10(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     '''
             |z   || 2   
@@ -620,6 +752,8 @@ def arrow10(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     cfg.step10_zcam.append(body.pos.x)
     
     return arrow
+
+
 
 def arrow111(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness,vrichting):
     '''

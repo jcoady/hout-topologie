@@ -19,8 +19,8 @@ def start_scene(name):
     sl = canvas(width=3200, height=3200, center=vector(0,0,0), background=vector(1,1,1))
     #title='                                                                  <b>Closet 3D model</b>    \n\n'
     sl.autoscale = True
-    sl.userzoom = False
-    sl.userpan = False
+    #sl.userzoom = False
+    #sl.userpan = False
     #sl.append_to_title('onderschrift')
     
 def capture(path, name):
@@ -152,20 +152,21 @@ def cam_reset(step):
     elif step == 8:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        #camx_max=max(cfg.step8_xcam)
-        camx_max=0
+        camx_max=max(cfg.step8_xcam,key=abs)
+        #camx_max=0
+        print(camx_max)
         Ox_cam = dist((cfg.step8_diepte/2,), (abs(camx_max),)) / 2
         dist_max=max(cfg.step8_breedte-Ox_cam, cfg.step8_diepte, cfg.step8_hoogte, key=abs)
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step8_Ox,cfg.step8_Oy,cfg.step8_Oz)
-        sl.camera.pos = vector(dist_max,dist_max,dist_max)
+        sl.camera.pos = vector(dist_max*.4,dist_max*1.75,dist_max*0.25)
         sl.camera.axis = vector(-sl.camera.pos.x,-sl.camera.pos.y,-sl.camera.pos.z)
         sl.center = vector(cfg.step8_Ox,cfg.step8_Oy,cfg.step8_Oz)
         
     elif step == 91:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        #camx_max=max(cfg.step8_xcam)
+        #camx_max=max(cfg.step9_xcam)
         camx_max=0
         Ox_cam = dist((cfg.step9_diepte/2,), (abs(camx_max),)) / 2
         dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte, key=abs)
@@ -178,13 +179,13 @@ def cam_reset(step):
     elif step == 92:
         sl.autoscale = False
         sl.ambient= vector(1,1,1)
-        #camx_max=max(cfg.step8_xcam)
-        camx_max=0
+        camx_max=max(cfg.step9_xcam)
+        #camx_max=0
         Ox_cam = dist((cfg.step9_diepte/2,), (abs(camx_max),)) / 2
         dist_max=max(cfg.step9_breedte-Ox_cam, cfg.step9_diepte, cfg.step9_hoogte, key=abs)
         sl.up=vector(0,0,1)
         sl.center = vector(cfg.step9_Ox,cfg.step9_Oy,cfg.step9_Oz)
-        sl.camera.pos = vector(dist_max,-dist_max,dist_max)
+        sl.camera.pos = vector(dist_max*.4,-dist_max*1.75,dist_max*0.25)
         sl.camera.axis = -sl.camera.pos
         sl.center = vector(cfg.step9_Ox,cfg.step9_Oy,cfg.step9_Oz)
         

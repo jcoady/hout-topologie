@@ -11,7 +11,7 @@ def caption(lang,step):
         if lang == 'NL':
             lcaption = 'Stuklijst balken en planken'
         elif lang == 'EN':
-            lcaption = 'Partlist beams and plans'
+            lcaption = 'Partlist beams and planks'
     elif step == 'schroeven':
         if lang == 'NL':
             lcaption = 'Benodigde schroeven in constrcutie'
@@ -82,11 +82,12 @@ def caption(lang,step):
 
 def rename(df,lang,phase):
     if phase == 'steplist':
+            df = df.rename(columns={'aantal': 'ammount', 'lengte':'length', 'breedte':'width', 'dikte':'thickness'})
+            df = df.replace('balk', 'beam',regex=True)
+    elif phase == 'stuklijst':
         if lang == 'EN':
             df = df.rename(columns={'aantal': 'ammount', 'lengte':'length', 'breedte':'width', 'dikte':'thickness'})
-    elif phase == 'stuklist':
-        if lang == 'EN':
-            df = df.rename(columns={'aantal': 'ammount', 'lengte':'length', 'breedte':'width', 'dikte':'thickness'})
+            df = df.replace('balk', 'beam',regex=True)
     elif phase == 'schroeven':
         if lang == 'EN':
             df = df.rename(columns={'aantal': 'ammount','max lengte': 'max length'},index={'Schroef 1':'Screw 1', 'Schroef 2':'Screw 2', 'Schroef 3':'Screw 3'})

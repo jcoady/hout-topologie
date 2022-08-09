@@ -7,6 +7,7 @@ Created on Tue Mar 29 21:26:30 2022
 """
 
 from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, step6_vlonders, step7_boven, step8_linksrechts, step9_achter, step10_deurpost, step11_deur, step12_compleet
+from latex import arrow
 import time
 import os
 from latex import opencv as crop
@@ -14,15 +15,15 @@ from latex import stuklijst
 
 def main():
     parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '08-08-2022-19-38-29-test'
+    directory = '09-08-2022-22-35-17-test'
     path = os.path.join(parent_dir, directory)
-    lang = 'NL'
+    lang = 'EN'
     
     get_excel.build(path)
     
-    bijsnijden = False
+    bijsnijden = True
     
-    runlist=[12]
+    runlist=[]
     if runlist == []:
         runlist=[1,2,3,4,5,6,7,8,9,10,11,12]
     for i in range(len(runlist)):
@@ -126,14 +127,14 @@ def main():
             time.sleep(1)
             
         if run == 9: 
-            name='scene 9 - achterkant a'
+            name='scene 9 - achterkant'
             scene.start_scene(name)
             step9_achter.build(path,lang)
-            O=scene.cam_reset(91)
+            #O=scene.cam_reset(91)
             #arrow.origin(O)
-            scene.capture(path, name)
+            #scene.capture(path, name)
             time.sleep(1)
-            name='scene 9 - achterkant b'
+            #name='scene 9 - achterkant'
             O=scene.cam_reset(92)
             #arrow.origin(O)
             scene.capture(path, name)
@@ -180,7 +181,7 @@ def main():
             
     print('Rendering finished')
             
-    #input(f"Kopieer bestanden naar {path}")
+    input(f"Kopieer bestanden naar {path}")
         
     if bijsnijden == True:
         crop.cut(path)

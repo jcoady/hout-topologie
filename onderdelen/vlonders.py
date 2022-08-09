@@ -12,7 +12,7 @@ from math import floor
 import pandas as pd
     
 def maak():
-    lengte=cfg.breedte_kast-2*cfg.dikte_plank-1.
+    lengte=cfg.breedte_kast-2*cfg.dikte_plank#-1.
     #hoogte_kast=cfg.hoogte_kast
     #breedte_kast=cfg.breedte_kast
     #diepte_kast=cfg.diepte_kast

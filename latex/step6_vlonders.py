@@ -231,11 +231,11 @@ def build_arrow(arrowlist,arrowlist2):
     for a in range(len(arrowlist2)):
 
         x0=arrowlist[a][0][0] + arrowlist[a][3]/2
-        y0=arrowlist[a][0][1] - arrowlist[a][3]/2
+        y0=arrowlist2[a][0][1] #- arrowlist[a][3]/2
         z0=arrowlist[a][0][2] + arrowlist[a][4]/2
 
         x1=arrowlist[a][0][0] + arrowlist[a][3]/2  + arrowlist[0][3]*(a)*8 + arrowlist[0][3]*4 #+ arrowlist[0][3] + arrowlist[0][3]*a*8
-        y1=arrowlist[a][0][1] - arrowlist[a][3]/2
+        y1=arrowlist2[a][0][1] #- arrowlist[a][3]/2
         z1=arrowlist[a][0][2] + arrowlist[a][4]/2
             
         x2=arrowlist2[a][1][0] + arrowlist2[a][3]  + arrowlist[0][3]*(a)*8 + arrowlist[0][3]*4#+ arrowlist[0][3] + arrowlist[0][3]*a*8
@@ -243,13 +243,7 @@ def build_arrow(arrowlist,arrowlist2):
         z2=arrowlist2[a][1][2] + arrowlist2[a][4]/2
             
         thickness = arrowlist[0][4]
-        '''  
-        if a == 0:        
-            cfg.step6_cam22=vector(x0,y0,z0)
-        
-        if a == middleIndex:
-            cfg.step6_cam21=vector(0,0,abs(arrowlist[a][0][2]-arrowlist[a][1][2])/2.)
-        '''          
+       
         A=get_arrow(x0,y0,z0,x1,y1,z1,x2,y2,z2,thickness)
         cfg.step6_arrow.append(A)
 
