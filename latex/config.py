@@ -6,8 +6,8 @@ Created on Tue Mar 29 21:46:52 2022
 @author: windhoos
 """
 
-stuklijst= 0
-planklijst= 0
+stuklijst = 0
+planklijst = 0
 
 voeten=0
 onderkant=0
@@ -30,6 +30,9 @@ slot=0
 poot_hoogte=0
 plank_dikte=0
 balk_dikte=0
+
+plank_opt=0
+balk_opt=0
 
 hoek=0
 schroef=0 #plank dikte+balk dikte

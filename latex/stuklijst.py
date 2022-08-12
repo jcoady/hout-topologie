@@ -7,9 +7,10 @@ Created on Mon Aug  8 13:55:43 2022
 """
 
 from latex import config as cfg
-from latex import table_builder, language
+from latex import table_builder, language, bins
 import pandas as pd
 import os
+import json
 
 def build(path,lang):
     print('Build partlist')
@@ -29,15 +30,18 @@ def build(path,lang):
     excel = excel.reset_index()
     excel = excel.rename(index=str,columns={0:'aantal'})
     
-    lcaption = language.caption(lang, 'stuklijst')
-    excel = language.rename(excel, lang, 'stuklijst')
+    excel = excel[['type','breedte','dikte','lengte','aantal']]
     
-    excel = excel.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
+    excel2 = excel.copy()
+    lcaption = language.caption(lang, 'stuklijst')
+    excel2 = language.rename(excel2, lang, 'stuklijst')
+    
+    excel2 = excel2.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
     save = 's0-stuklijst_hout.tex'
     path1 = os.path.join(path, save )
     with open(path1, 'w') as fout:
-        for i in range(len(excel)):
-            fout.write(excel[i])
+        for i in range(len(excel2)):
+            fout.write(excel2[i])
     
     data_schroeven=[schroef,schroef_kort,schroef_deur]
     schroeven=pd.DataFrame(data_schroeven, columns=['max lengte','aantal'],index=['Schroef 1', 'Schroef 2', 'Schroef 3'])
@@ -62,3 +66,99 @@ def build(path,lang):
     with open(path3, 'w') as fout:
         for i in range(len(elementen)):
             fout.write(elementen[i])
+            
+    #optimaliseer zaaglijst
+    # read the content of the file opened
+    path4 = os.path.join(path, 'assignment.txt')
+    assignment = open(path4)
+    assignment = assignment.readlines()
+    assignment2 = [x[:-1] for x in assignment]
+    #username =   assignment2[1]
+    #date =       assignment2[2]
+    #time =       assignment2[3]
+    #kast_data =  json.loads(assignment2[4])
+    plank_data = json.loads(assignment2[5])
+    #status =     assignment2[6]
+    #bouw plank optimalisatie
+    c=plank_data[2]
+    w=[]
+    for index, row in excel.iterrows():
+        if row['type'] == 'plank':
+            ammount = row['aantal']
+            for i in range(int(ammount)):
+                w.append(float(row['lengte']))
+    aantal,binlist=bins.firstFitDec(w, c)
+    cfg.plank_opt=aantal
+    print('aantal planken: ',aantal, ' size: ', c)
+    #print(binlist)
+    #with open(path4, 'w') as f:
+    #    f.truncate()
+    #   f.write(str(aantal))
+    #    f.write('\n')
+    #   f.write(str(w))
+    #    f.write('\n')
+    #    f.write(str(binlist))
+        
+    planken_opt=pd.DataFrame(binlist)
+    #planken_opt.fillna('-', inplace=True)
+    planken_opt.index += 1
+    planken_opt.columns += 1
+    #elementen = language.rename(elementen, lang, 'elementen')
+    lcaption = language.caption(lang, 'planken_opt',str(aantal))
+    #elementen.to_excel('elementen.xlsx')
+    planken_opt = planken_opt.to_latex(index=True, position='h!',na_rep = '', float_format="%d", decimal=',',caption=f'{lcaption}')  
+    save = 's0-plank_opt.tex'
+    path4 = os.path.join(path, save )
+    with open(path4, 'w') as fout:
+        for i in range(len(planken_opt)):
+            fout.write(planken_opt[i])
+    
+    #bouw balk optimalisatie
+    c=plank_data[5]
+    w=[]
+    for index, row in excel.iterrows():
+        if row['type'] == 'balk':
+            ammount = row['aantal']
+            for i in range(int(ammount)):
+                w.append(float(row['lengte']))
+    aantal,binlist=bins.firstFitDec(w, c)
+    cfg.balk_opt=aantal
+    print('aantal balken: ',aantal, ' size: ', c)
+    #path4 = os.path.join(path, 'balk_opt.txt')
+    #with open(path4, 'w') as f:
+    #   f.truncate()
+    #   f.write(str(aantal))
+    #   f.write('\n')
+    #   f.write(str(w))
+    #    f.write('\n')
+    #   f.write(str(binlist))
+    
+    balken_opt=pd.DataFrame(binlist)
+    #balken_opt.fillna('-', inplace=True)
+    balken_opt.index += 1
+    balken_opt.columns += 1
+    #elementen = language.rename(elementen, lang, 'elementen')
+    lcaption = language.caption(lang, 'balken_opt',str(aantal))
+    #elementen.to_excel('elementen.xlsx')
+    balken_opt = balken_opt.to_latex(index=True, position='h!',na_rep = '', float_format="%d", decimal=',',caption=f'{lcaption}')  
+    save = 's0-balk_opt.tex'
+    path5 = os.path.join(path, save )
+    with open(path5, 'w') as fout:
+        for i in range(len(balken_opt)):
+            fout.write(balken_opt[i])
+            
+    #maak houtlijst
+    data = [['plank',round(plank_data[0],1),round(plank_data[1],1),round(plank_data[2],1),cfg.plank_opt],['balk',round(plank_data[3],1),round(plank_data[4],1),round(plank_data[5],1),cfg.balk_opt]]
+    kooplijst = pd.DataFrame(data, columns=['type', 'breedte', 'dikte','lengte', 'aantal'])
+    kooplijst = kooplijst.round({'dikte': 1, 'breedte': 1, 'lengte':1})
+    kooplijst = kooplijst[['type','breedte','dikte','lengte','aantal']]
+    
+    lcaption = language.caption(lang, 'kooplijst')
+    kooplijst2 = language.rename(kooplijst, lang, 'kooplijst')
+    
+    kooplijst2 = kooplijst2.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
+    save = 's0-kooplijst_hout.tex'
+    path6 = os.path.join(path, save )
+    with open(path6, 'w') as fout:
+        for i in range(len(kooplijst2)):
+            fout.write(kooplijst2[i])

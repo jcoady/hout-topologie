@@ -7,13 +7,14 @@ Created on Thu Feb 10 16:01:59 2022
 """
 
 from onderdelen import config as cfg
+from onderdelen import assignment_data
 from time import sleep
 import pandas as pd
 import os
 import numpy as np
 
 
-def update(path):
+def update(path,username,day,ct):
     #parent_dir = '/home/windhoos/hout-topologie/users'
     #directory = '01-08-2022-17-50-28-test'
     #path = os.path.join(parent_dir, directory)
@@ -65,6 +66,23 @@ def update(path):
         if cfg.buy==True:
             print('Create excel-FINAL')
             excel.to_excel(os.path.join(path ,'plankenlijst-FINAL.xlsx'))
+            
+            #niveaus=1
+            #plankhoogte=[]
+
+            #hoogte_voet=0
+
+            #breedte_rib=3
+            #lengte_rib=250
+            #dikte_rib=breedte_rib
+
+            #voorplank_breedte=0
+            planklijst = [round(item, 1) for item in cfg.plankhoogte]    
+            closet_data=[cfg.breedte_kast,cfg.hoogte_kast,cfg.diepte_kast,cfg.hoogte_voet,cfg.niveaus,planklijst]
+            plank_data=[cfg.breedte_plank,cfg.dikte_plank,cfg.lengte_plank,cfg.breedte_rib,cfg.dikte_rib,cfg.lengte_plank]
+            plank_data = [round(item, 1) for item in plank_data]
+            state = 'pending'
+            assignment_data.build(path,username,day,ct,closet_data,plank_data,state)
             cfg.buy=False
         
         #excel=excel.sort_values(['lengte','breedte','dikte'], ascending=[False,False,False],ignore_index=True)

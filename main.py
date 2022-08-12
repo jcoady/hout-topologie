@@ -69,7 +69,7 @@ def main():
                 
             plotter.plotniveau(Ribben,Vlonders,Achterrib)
     
-            updater.update(path)
+            updater.update(path,user,day,ct)
             
             #print(cfg.df_ribben)
             

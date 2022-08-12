@@ -7,15 +7,14 @@ Created on Tue Mar 29 21:26:30 2022
 """
 
 from latex import get_excel, scene, step1_feet_bottom, step2_rib_bottom, step3_ladder, step4_geraamte, step5_achterrib, step6_vlonders, step7_boven, step8_linksrechts, step9_achter, step10_deurpost, step11_deur, step12_compleet
-from latex import arrow
+from latex import arrow, stuklijst
 import time
 import os
 from latex import opencv as crop
-from latex import stuklijst
 
 def main():
     parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '09-08-2022-22-35-17-test'
+    directory = '10-08-2022-21-27-38-test'
     path = os.path.join(parent_dir, directory)
     lang = 'EN'
     
@@ -24,7 +23,7 @@ def main():
     bijsnijden = True
     
     runlist=[]
-    if runlist == []:
+    if runlist == ['-']:
         runlist=[1,2,3,4,5,6,7,8,9,10,11,12]
     for i in range(len(runlist)):
         run=runlist[i]
