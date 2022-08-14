@@ -16,14 +16,14 @@ def main():
     parent_dir = '/home/windhoos/hout-topologie/users'
     directory = '10-08-2022-21-27-38-test'
     path = os.path.join(parent_dir, directory)
-    lang = 'EN'
+    lang = 'NL'
     
     get_excel.build(path)
     
     bijsnijden = True
     
     runlist=[]
-    if runlist == ['-']:
+    if runlist == []:
         runlist=[1,2,3,4,5,6,7,8,9,10,11,12]
     for i in range(len(runlist)):
         run=runlist[i]

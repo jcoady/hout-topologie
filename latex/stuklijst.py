@@ -56,7 +56,7 @@ def build(path,lang):
             fout.write(schroeven[i])
     
     data_elementen=[hoek,scharnier,slot]
-    elementen=pd.DataFrame(data_elementen, columns=['gaten raamwerk','aantal'],index=['Hoek frame', 'Scharnier', 'Slot'])
+    elementen=pd.DataFrame(data_elementen, columns=['gaten raamwerk','aantal'],index=['Hoek verbinding', 'Scharnier', 'Slot'])
     elementen = language.rename(elementen, lang, 'elementen')
     lcaption = language.caption(lang, 'elementen')
     #elementen.to_excel('elementen.xlsx')
@@ -76,7 +76,7 @@ def build(path,lang):
     #username =   assignment2[1]
     #date =       assignment2[2]
     #time =       assignment2[3]
-    #kast_data =  json.loads(assignment2[4])
+    kast_data =  json.loads(assignment2[4])
     plank_data = json.loads(assignment2[5])
     #status =     assignment2[6]
     #bouw plank optimalisatie
@@ -100,13 +100,24 @@ def build(path,lang):
     #    f.write(str(binlist))
         
     planken_opt=pd.DataFrame(binlist)
-    #planken_opt.fillna('-', inplace=True)
+
     planken_opt.index += 1
     planken_opt.columns += 1
-    #elementen = language.rename(elementen, lang, 'elementen')
+
+    planken_opt = planken_opt.fillna(0)
+
+    planken_opt = planken_opt.pivot_table(columns=planken_opt.columns.values.tolist(), aggfunc='size')
+    
+    planken_opt = planken_opt.reset_index()
+    planken_opt.index += 1
+
+    planken_opt = planken_opt.rename(index=str,columns={0:'aantal'})
+    
+    
+    planken_opt = language.rename(planken_opt, lang, 'planken opt')
     lcaption = language.caption(lang, 'planken_opt',str(aantal))
     #elementen.to_excel('elementen.xlsx')
-    planken_opt = planken_opt.to_latex(index=True, position='h!',na_rep = '', float_format="%d", decimal=',',caption=f'{lcaption}')  
+    planken_opt = planken_opt.to_latex(index=True, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
     save = 's0-plank_opt.tex'
     path4 = os.path.join(path, save )
     with open(path4, 'w') as fout:
@@ -137,10 +148,20 @@ def build(path,lang):
     #balken_opt.fillna('-', inplace=True)
     balken_opt.index += 1
     balken_opt.columns += 1
-    #elementen = language.rename(elementen, lang, 'elementen')
+    
+    balken_opt = balken_opt.fillna(0)
+
+    balken_opt = balken_opt.pivot_table(columns=balken_opt.columns.values.tolist(), aggfunc='size')
+    
+    balken_opt = balken_opt.reset_index()
+    balken_opt.index += 1
+
+    balken_opt = balken_opt.rename(index=str,columns={0:'aantal'})
+    
+    balken_opt = language.rename(balken_opt, lang, 'planken opt')
     lcaption = language.caption(lang, 'balken_opt',str(aantal))
     #elementen.to_excel('elementen.xlsx')
-    balken_opt = balken_opt.to_latex(index=True, position='h!',na_rep = '', float_format="%d", decimal=',',caption=f'{lcaption}')  
+    balken_opt = balken_opt.to_latex(index=True, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
     save = 's0-balk_opt.tex'
     path5 = os.path.join(path, save )
     with open(path5, 'w') as fout:
@@ -156,9 +177,31 @@ def build(path,lang):
     lcaption = language.caption(lang, 'kooplijst')
     kooplijst2 = language.rename(kooplijst, lang, 'kooplijst')
     
-    kooplijst2 = kooplijst2.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
+    kooplijst2 = kooplijst2.to_latex(index=False, position='h!',na_rep = '', float_format="%.0f", decimal=',',caption=f'{lcaption}')  
     save = 's0-kooplijst_hout.tex'
     path6 = os.path.join(path, save )
     with open(path6, 'w') as fout:
         for i in range(len(kooplijst2)):
             fout.write(kooplijst2[i])
+            
+    data = [[kast_data[0],kast_data[1],kast_data[2]]]
+    kast_afmetingen = pd.DataFrame(data, columns=['breedte','hoogte','diepte'])
+    lcaption = language.caption(lang, 'kast afmetingen')
+    kast_afmetingen2 = language.rename(kast_afmetingen, lang, 'kast afmetingen')
+    kast_afmetingen2 = kast_afmetingen2.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
+    save = 's0-kast_afmetingen.tex'
+    path7 = os.path.join(path, save )
+    with open(path7, 'w') as fout:
+        for i in range(len(kast_afmetingen2)):
+            fout.write(kast_afmetingen2[i])
+            
+    data = [[cfg.aantal_voeten,cfg.poot_hoogte]]
+    poten = pd.DataFrame(data, columns=['aantal poten','hoogte'])
+    lcaption = language.caption(lang, 'poten')
+    poten2 = language.rename(poten, lang, 'poten')
+    poten2 = poten2.to_latex(index=False, position='h!',na_rep = '', float_format="%.1f", decimal=',',caption=f'{lcaption}')  
+    save = 's0-poten.tex'
+    path8 = os.path.join(path, save )
+    with open(path8, 'w') as fout:
+        for i in range(len(poten2)):
+            fout.write(poten2[i])

@@ -25,6 +25,8 @@ def get_feet():
         ya=voeten.loc[row,'ry']
         za=voeten.loc[row,'rz']
         
+        cfg.aantal_voeten = cfg.aantal_voeten + 1
+        
         B=balk.construct(x0,y0,z0,l,w,h,xa,ya,za)
         cfg.step1_feet.append(B)
         pa=B[-2]

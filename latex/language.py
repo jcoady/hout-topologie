@@ -12,6 +12,11 @@ def caption(lang,step,text=None):
             lcaption = 'Stuklijst balken en planken'
         elif lang == 'EN':
             lcaption = 'Partlist beams and planks'
+    elif step == 'kast afmetingen':
+        if lang == 'NL':
+            lcaption = 'Basis afmetingen kast'
+        elif lang == 'EN':
+            lcaption = 'Basic dimensions closet'
     elif step == 'balken_opt':
         if lang == 'NL':
             lcaption = 'Zaaglijst lengte per balk, Totaal: '+ text + ' balken'
@@ -22,6 +27,11 @@ def caption(lang,step,text=None):
             lcaption = 'Zaaglijst lengte per plank, Totaal '+ text + ' planken'
         elif lang == 'EN':
             lcaption = 'Sawlist length per plank, Totalling to '+ text + ' planks'
+    elif step == 'poten':
+        if lang == 'NL':
+            lcaption = 'Eigenschappen van kastpoten'
+        elif lang == 'EN':
+            lcaption = 'Propperties of closet legs'
     elif step == 'kooplijst':
         if lang == 'NL':
             lcaption = 'Benodigde planken en balken voor constructie'
@@ -39,9 +49,9 @@ def caption(lang,step,text=None):
             lcaption = 'Additional required parts for construction'
     elif step == 1:
         if lang == 'NL':
-            lcaption = 'Stap 1 Samenstelling voeten en bodem'
+            lcaption = 'Stap 1 Samenstelling poten en bodem'
         elif lang == 'EN':
-            lcaption = 'Step 1 Assembly feet and bottom'
+            lcaption = 'Step 1 Assembly legs and bottom'
     elif step == 2:
         if lang == 'NL':
             lcaption = 'Stap 2 Samenstellling stap 1 en bodem rib'
@@ -100,16 +110,21 @@ def rename(df,lang,phase):
         if lang == 'EN':
             df = df.rename(columns={'aantal': 'ammount', 'lengte':'length', 'breedte':'width', 'dikte':'thickness'})
             df = df.replace('balk', 'beam',regex=True)
-    #elif phase == 'stuklijst':
-    #   if lang == 'EN':
-    #        df = df.rename(columns={'aantal': 'ammount', 'lengte':'length', 'breedte':'width', 'dikte':'thickness'})
-    #       df = df.replace('balk', 'beam',regex=True)
+    elif phase == 'poten':
+        if lang == 'EN':
+            df = df.rename(columns={'aantal poten':'number of legs','hoogte':'height'})
+    elif phase == 'planken opt' or phase == 'balken opt':
+        if lang == 'EN':
+            df = df.rename(columns={'aantal': 'ammount'})
     elif phase == 'schroeven':
         if lang == 'EN':
             df = df.rename(columns={'aantal': 'ammount','max lengte': 'max length'},index={'Schroef 1':'Screw 1', 'Schroef 2':'Screw 2', 'Schroef 3':'Screw 3'})
     elif phase == 'elementen':
         if lang == 'EN':
-            df = df.rename(columns={'gaten raamwerk':'frame holes','aantal':'ammount'},index={'Hoek frame':'Frame corner', 'Scharnier':'Hinge', 'Slot':'Lock'})
+            df = df.rename(columns={'gaten raamwerk':'frame holes','aantal':'ammount'},index={'Hoek verbinding':'Corner connection', 'Scharnier':'Hinge', 'Slot':'Lock'})
+    elif phase == 'kast afmetingen':
+        if lang == 'EN':
+            df = df.rename(columns={'diepte':'depth', 'breedte':'width', 'hoogte':'height'})
         
     return df
     
