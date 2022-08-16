@@ -14,7 +14,7 @@ import os
 import numpy as np
 
 
-def update(path,username,day,ct):
+def update(path,user,email,lang,day,ct):
     #parent_dir = '/home/windhoos/hout-topologie/users'
     #directory = '01-08-2022-17-50-28-test'
     #path = os.path.join(parent_dir, directory)
@@ -82,7 +82,7 @@ def update(path,username,day,ct):
             plank_data=[cfg.breedte_plank,cfg.dikte_plank,cfg.lengte_plank,cfg.breedte_rib,cfg.dikte_rib,cfg.lengte_plank]
             plank_data = [round(item, 1) for item in plank_data]
             state = 'pending'
-            assignment_data.build(path,username,day,ct,closet_data,plank_data,state)
+            assignment_data.build(path,user,email,lang,day,ct,closet_data,plank_data,state)
             cfg.buy=False
         
         #excel=excel.sort_values(['lengte','breedte','dikte'], ascending=[False,False,False],ignore_index=True)

@@ -11,12 +11,27 @@ from latex import arrow, stuklijst
 import time
 import os
 from latex import opencv as crop
+import json
 
 def main():
     parent_dir = '/home/windhoos/hout-topologie/users'
-    directory = '10-08-2022-21-27-38-test'
+    directory = '16-08-2022-12-28-07-John-Doe'
     path = os.path.join(parent_dir, directory)
-    lang = 'NL'
+    path2 = os.path.join(path, 'assignment.txt')
+    #lang = 'NL'
+    
+    assignment = open(path2)
+    assignment = assignment.readlines()
+    assignment2 = [x[:-1] for x in assignment]
+    path =        assignment2[0]
+    name =        assignment2[1]
+    #email =      assignment2[2]
+    lang =        assignment2[3]
+    #date =       assignment2[4]
+    #time =       assignment2[5]
+    #kast_data =  json.loads(assignment2[6])
+    #plank_data = json.loads(assignment2[7])
+    #status =     assignment2[8]
     
     get_excel.build(path)
     

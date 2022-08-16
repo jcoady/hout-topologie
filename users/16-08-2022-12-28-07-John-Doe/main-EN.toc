@@ -1,0 +1,22 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {section}{\numberline {2}Shopping list}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Materials}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Tools}{5}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Cutting list}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Planks and beams length}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Planks and beams width}{6}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Assembly}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Step 1 - Bottom and feet}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Step 2 - Bottom and ribs}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Step 3 - Ladder frame}{9}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Step 4 - Ladder frame on bottom}{10}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Step 5 - Backside ribs}{11}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Step 6 - Decking}{13}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}Step 7 - Top cover}{15}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Step 8 - Sides}{16}{subsection.4.8}%
+\contentsline {subsection}{\numberline {4.9}Step 9 - Backside}{17}{subsection.4.9}%
+\contentsline {subsection}{\numberline {4.10}Step 10 - Door frame}{18}{subsection.4.10}%
+\contentsline {subsection}{\numberline {4.11}Step 11 - Doors}{20}{subsection.4.11}%
+\contentsline {subsection}{\numberline {4.12}Step 12 - Complete cabinet}{21}{subsection.4.12}%
+\contentsline {section}{\numberline {5}Appendix}{22}{section.5}%

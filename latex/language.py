@@ -17,12 +17,12 @@ def caption(lang,step,text=None):
             lcaption = 'Basis afmetingen kast'
         elif lang == 'EN':
             lcaption = 'Basic dimensions closet'
-    elif step == 'balken_opt':
+    elif step == 'balken opt':
         if lang == 'NL':
             lcaption = 'Zaaglijst lengte per balk, Totaal: '+ text + ' balken'
         elif lang == 'EN':
             lcaption = 'Sawlist length per beam, Totalling to '+ text + ' beams'
-    elif step == 'planken_opt':
+    elif step == 'planken opt':
         if lang == 'NL':
             lcaption = 'Zaaglijst lengte per plank, Totaal '+ text + ' planken'
         elif lang == 'EN':
@@ -127,4 +127,25 @@ def rename(df,lang,phase):
             df = df.rename(columns={'diepte':'depth', 'breedte':'width', 'hoogte':'height'})
         
     return df
+
+def header(lang, name, email):
+    if lang == 'NL':
+        lines = [
+        r'\usepackage{fancyhdr}',
+        r'\pagestyle{fancy}',
+        r'\fancyhf{}',
+        r'\rhead{Voor '+str(name)+' - '+str(email)+'}', 
+        r'\lhead{Kast model via www.website.net}',
+        r'\rfoot{Page \thepage}'
+        ]
+    elif lang == 'EN':
+        lines = [
+        r'\usepackage{fancyhdr}',
+        r'\pagestyle{fancy}',
+        r'\fancyhf{}',
+        r'\rhead{For '+str(name)+' - '+str(email)+'}', 
+        r'\lhead{Cupboard model from www.website.net}',
+        r'\rfoot{Page \thepage}'
+        ]
+    return lines
     

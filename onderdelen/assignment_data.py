@@ -8,8 +8,8 @@ Created on Wed Aug 10 13:15:40 2022
 
 import os
 
-def build(path,username,day,ct,closet_data,plank_data,state):
-    lines = [str(path), str(username), str(day), str(ct), str(closet_data), str(plank_data), str(state)]
+def build(path,user,email,lang,day,ct,closet_data,plank_data,state):
+    lines = [str(path), str(user), str(email) ,str(lang),str(day), str(ct), str(closet_data), str(plank_data), str(state)]
     path_file = os.path.join(path ,'assignment.txt')
     with open(path_file, 'w') as f:
         f.truncate()

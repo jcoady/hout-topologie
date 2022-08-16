@@ -15,7 +15,15 @@ from datetime import date, datetime
 import time
 
 def main():
-    user = 'test'
+    user = 'John Doe'
+    user = user.replace(' ', '-')
+    user = user.replace('@', '\@')
+    user = user.replace('_', '\_')
+    email = 'Jhon_Doe@gmail.com'
+    email = email.replace(' ', '-')
+    email = email.replace('@', '\@')
+    email = email.replace('_', '\_')
+    lang = 'EN'
     today = date.today()
     day = today.strftime("%d-%m-%Y")
     now = datetime.now()
@@ -69,7 +77,7 @@ def main():
                 
             plotter.plotniveau(Ribben,Vlonders,Achterrib)
     
-            updater.update(path,user,day,ct)
+            updater.update(path,user,email,lang,day,ct)
             
             #print(cfg.df_ribben)
             
