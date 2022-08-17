@@ -32,14 +32,14 @@ def main():
     parent_dir = '/home/windhoos/hout-topologie/users'
     path = os.path.join(parent_dir, directory)
     os.makedirs(path) 
-    print(path)
+    #print(path)
     
     plotter.build_scene()
     wait=True
     while cfg.reset_loop == True:
-        print('reloop')
+        #print('reloop')
         while wait == True:
-            print('wait')
+            #print('wait')
             time.sleep(1)
             if cfg.build_state == True:
                 wait = False
@@ -68,7 +68,7 @@ def main():
         
         finish = False
         while finish != True:
-            print('wait2')
+            #print('wait2')
             cfg.df_ribben=[]
             Ribben=ribben.maak()
             Achterrib=achterrib.maak()
@@ -84,13 +84,12 @@ def main():
             #cfg.update_graph = True
             
             if cfg.reset == True:
-                print('reset triggered')
+                #print('reset triggered')
                 finish = True
                 reset.reset()
                 
             if cfg.finish_drawing == True:
                 cfg.reset_loop == False
                 finish = True
-        #reload(cfg)
-        #TODO: laatste plank wordt niet op juiste manier neergezet
+        
 main()

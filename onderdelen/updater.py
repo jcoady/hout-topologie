@@ -36,7 +36,7 @@ def update(path,user,email,lang,day,ct):
     else:    
         if len(b) != 0:       
             if not (a == b).all():
-                print('a!=b')
+                #print('a!=b')
                 cfg.update_graph = True
     
     if cfg.buy == True:
@@ -59,12 +59,12 @@ def update(path,user,email,lang,day,ct):
         #    os.remove(os.path.join(path ,'plankenlijst.xlsx'))
         #print('Create excel')
         #excel.to_excel(os.path.join(path ,'plankenlijst.xlsx'))
-        print(cfg.buy)
+        #print(cfg.buy)
         if (os.path.exists(os.path.join(path ,'plankenlijst-FINAL.xlsx')) and cfg.buy==True):
-            print('Delete excel-FINAL')
+            #print('Delete excel-FINAL')
             os.remove(os.path.join(path ,'plankenlijst-FINAL.xlsx'))
         if cfg.buy==True:
-            print('Create excel-FINAL')
+            #print('Create excel-FINAL')
             excel.to_excel(os.path.join(path ,'plankenlijst-FINAL.xlsx'))
             
             #niveaus=1
