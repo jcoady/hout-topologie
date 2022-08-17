@@ -1,8 +1,8 @@
 Pillow==9.2.0
 matplotlib==3.5.2
 numpy==1.21.5
-opencv_python==4.6.0.66
-pandas==1.4.3
+opencv_python
+pandas
 scipy==1.7.3
 vpython==7.6.4
 jupyterlab-vpython==3.1.4
