@@ -11,6 +11,7 @@ from onderdelen import config as cfg
 from onderdelen import plotter
 import os
 from datetime import date, datetime
+#import pathlib
 
 import time
 
@@ -28,11 +29,11 @@ def main():
     day = today.strftime("%d-%m-%Y")
     now = datetime.now()
     ct = now.strftime("%H-%M-%S")
-    directory= day+'-'+ct+'-'+user
-    parent_dir = '/home/windhoos/hout-topologie/users'
-    path = os.path.join(parent_dir, directory)
+    directory = day+'-'+ct+'-'+user
+    directory2 = os.path.join('users', directory)
+    parent_dir = os.path.abspath('') #pathlib.Path(__file__).parent.resolve() #'~/hout-topologie/users'
+    path = os.path.join(parent_dir, directory2)
     os.makedirs(path) 
-    #print(path)
     
     plotter.build_scene()
     wait=True
